@@ -70,42 +70,47 @@ which retains the base game and shop styles. `index.html` and `PixelSnake.html` 
 identical entry points. This visual update does not change the engine, agents,
 training settings, or checkpoint format.
 
-## 策略奖励 v1：减少无效转弯与绕圈
+## Strategy reward v1: reducing unnecessary turns and loops
 
-**使用方式**：刷新本机页面。在 DQN 模型列表选择
-`strategy_v1/2300_model.pt` 可直接试玩这次经过评估的模型。
-Training 的「训练奖励」有三种选项：沿用模型、经典奖励、策略奖励 v1（实验）。
-选择旧模型 + 策略奖励可以微调；切换奖励会清空旧经验回放，保留 Q 网络、目标网络、
-Adam 状态、探索进度和累计 episode。沿用策略模型时会保留其策略奖励，不会退回经典。
-新的奖励配置和折扣率写在模型的 `metadata.env_config` 中。
+**How to use it:** Refresh the local page and select
+`strategy_v1/2300_model.pt` from the DQN model list to try the evaluated model.
+The **Training reward** selector offers three choices: inherit from model, classic
+reward, and strategy reward v1 (experimental). Selecting an older model with the
+strategy reward allows fine-tuning. Changing the reward clears the old replay
+buffer while preserving the Q network, target network, Adam state, exploration
+progress, and cumulative episode count. Inheriting from a strategy model keeps its
+strategy reward instead of reverting to classic. The new reward configuration and
+discount factor are stored in the model's `metadata.env_config`.
 
 ```powershell
 .\.venv\Scripts\python.exe -m rl.dqn.train_session --episodes 300 --checkpoint models/best_model.pt --reward-profile strategy_v1 --job-dir results/training_runs/my_strategy_run --save-every 100
 ```
 
-### 查到的策略与实际采用的部分
+### Strategies reviewed and the parts adopted
 
-- [John Tapsell 的 Hamiltonian 环与安全捷径](https://johnflux.com/2015/05/02/nokia-6110-part-3-algorithms/)：沿覆盖棋盘的环保持头尾顺序，再考虑捷径。本文借鉴保留退路的原则，没有把 DQN 替换成固定巡回路径，也不宣称任意已有蛇形能安全接入这样的环。
-- [Snake 图搜索策略](https://github.com/chynl/snake)：先查食物路径，再模拟吃完后是否还能到尾巴。这一检查已用于网页辅助；有安全食物路线时即便 DQN 的绕路动作暂时无碰撞，也优先走食物路线。
-- [Ng、Harada、Russell 的势函数奖励塑形](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/NgHaradaRussell-shaping-ICML1999.pdf)：使用折扣后的势函数差值，而非简单奖励“靠近一次食物”，避免反复移动反复赚取同一进展奖励。
+- [John Tapsell's Hamiltonian cycle and safe shortcuts](https://johnflux.com/2015/05/02/nokia-6110-part-3-algorithms/): follow a cycle covering the board to preserve head-to-tail order, then consider shortcuts. This project adopts the principle of preserving an escape route. It does not replace the DQN with a fixed traversal path or claim that every existing snake shape can safely join such a cycle.
+- [Snake graph-search strategy](https://github.com/chynl/snake): first find a path to food, then simulate whether the tail remains reachable after eating. The browser assistance uses this check. When a safe path to food exists, it takes priority even if a DQN detour is temporarily collision-free.
+- [Potential-based reward shaping by Ng, Harada, and Russell](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/NgHaradaRussell-shaping-ICML1999.pdf): use the discounted difference in potential instead of simply rewarding one move closer to food, preventing repeated movement from earning the same progress reward again and again.
 
-### 奖励明细
+### Reward details
 
-`rl/strategy_reward.py` 实现奖励；`SnakeEnv(reward_profile="classic")` 仍完全保留
-原来默认奖励和 10 维观测。`reward_profile="strategy_v1"` 使用：
+`rl/strategy_reward.py` implements the reward. `SnakeEnv(reward_profile="classic")`
+retains the original default reward and 10-dimensional observation exactly.
+`reward_profile="strategy_v1"` uses:
 
-| 项目 | 数值或公式 |
+| Component | Value or formula |
 |---|---|
-| 吃食物基础奖励 | +10 |
-| 碰撞基础奖励 | -10 |
-| 普通移动基础奖励 | -0.01 |
-| 几何势函数差值 | `gamma * Phi(s_next) - Phi(s)` |
-| 存活的转弯动作 | -0.005（必要转弯也有轻微成本） |
-| 未吃新食物时重复完整蛇身状态 | 第一次重访 -0.05，递增到每次最多 -0.20 |
-| 无食物步数耗尽 | 额外 -2，仍按 Gymnasium truncation 处理 |
+| Base reward for eating food | +10 |
+| Base collision reward | -10 |
+| Base reward for an ordinary move | -0.01 |
+| Geometric potential difference | `gamma * Phi(s_next) - Phi(s)` |
+| Surviving turn action | -0.005 (even necessary turns have a small cost) |
+| Repeated full-snake state without eating new food | -0.05 on the first revisit, increasing to at most -0.20 per revisit |
+| Exhausting the no-food step limit | An additional -2, still handled as Gymnasium truncation |
 
-令 `N` 为边长，`L` 为蛇长，`d` 为 BFS 绕开身体到食物的距离（不可达用 `N*N`），
-`A` 为头部可达格数，`T` 表示尾部可达：
+Let `N` be the board width, `L` the snake length, `d` the BFS distance to food
+while avoiding the body (`N*N` when unreachable), `A` the number of cells reachable
+from the head, and `T` indicate whether the tail is reachable:
 
 ```text
 required = max(1, min(L + 1, N*N - L + 2))
@@ -113,160 +118,215 @@ Phi(s) = -min(d, 2*N)/(2*N) + 0.25*min(1, A/required) + 0.25*T
 reward = base + gamma*Phi(next) - Phi(current) + turn + repeat + timeout
 ```
 
-BFS 把其余身体视为障碍，尾格视为即将腾出的格子，是静态、偏乐观的估计。
-这个容量分母在长蛇时也不会要求比棋盘剩余空间更大的空区域。真实终止状态势函数
-设为 0；截断保留终态势函数，与 DQN 对 truncation 继续 bootstrap 的处理一致。
-折扣率与模型 gamma 同步；吃食物后的新食物也属于 next state，不偷偷取消势函数项。
-`info.reward_components` 给出每一步的各奖励项，训练 CSV 记录转弯比例、重复惩罚
-和势函数奖励总和。
+BFS treats the rest of the body as obstacles and the tail cell as a cell that is
+about to become free, making this a static and slightly optimistic estimate. The
+capacity denominator does not require an open region larger than the remaining
+board space when the snake is long. The potential of a true terminal state is zero;
+a truncated state retains its terminal potential, matching the DQN's continued
+bootstrapping on truncation. The discount factor stays synchronized with the model's
+gamma. A newly spawned food item after eating is part of the next state, so the
+potential term is not silently cancelled. `info.reward_components` reports every
+component per step, and the training CSV records turn ratio, total repeat penalty,
+and total potential reward.
 
-势函数项满足折扣望远镜求和性质，但额外转弯/重复/超时惩罚会改变优化目标；
-这里不宣称整个奖励保持最优策略不变。网络仍只看到原来的 10 个数字，没有完整
-身体形状；奖励不能完全弥补这种部分可观测性。因此并不能保证再也不会被困住。
+The potential term has the discounted telescoping-sum property, but the additional
+turn, repeat, and timeout penalties change the optimization objective. This project
+does not claim that the entire reward preserves the optimal policy. The network sees
+only the original 10 numeric values rather than the full body shape; reward shaping
+cannot fully compensate for this partial observability and cannot guarantee that the
+snake will never become trapped.
 
-### 实测：同起点、相同训练量、相同测试种子
+### Measured results: same starting point, training budget, and test seeds
 
-从原 `best_model.pt`（2000 局）分别追加 300 局，训练种子 2042–2341；
-都用经典评估环境、相同 100 个独立种子 400000–400099、关闭探索和网页辅助。
-因此下面测量的是模型本身，不是辅助规划器的表现：
+Two models were each trained for 300 additional episodes from the original
+`best_model.pt` (2,000 episodes), using training seeds 2042–2341. Both were evaluated
+in the classic environment on the same 100 independent seeds, 400000–400099, with
+exploration and browser assistance disabled. These results therefore measure the
+models themselves rather than the assistance planner:
 
-| 模型 | 追加训练 | 平均分 | 中位数分 | 平均转弯比例 |
+| Model | Additional training | Mean score | Median score | Mean turn ratio |
 |---|---:|---:|---:|---:|
-| 原 DQN | 0 | 272.5 | 280 | 61.49% |
-| 经典奖励续训 | 300 | 269.0 | 260 | 61.90% |
-| 策略奖励续训 | 300 | 297.2 | 290 | 40.21% |
+| Original DQN | 0 | 272.5 | 280 | 61.49% |
+| Continued training with classic reward | 300 | 269.0 | 260 | 61.90% |
+| Continued training with strategy reward | 300 | 297.2 | 290 | 40.21% |
 
-转弯比例为各局「非直行动作数 / 尝试步数」的平均值，包含致死动作。
-三组都没有触发无食物上限；这不能证明已经复现或完全消除了用户当局的 trap。
-未获得那一局的状态轨迹。新奖励在这一训练种子下减少转弯、提高平均分；要确认
-稳健性还需要多个训练种子。奖励参数没有根据这批测试结果反复调优。
+The turn ratio is the per-episode average of non-straight actions divided by attempted
+steps, including fatal actions. None of the three groups reached the no-food limit;
+this does not prove that the reported trap was reproduced or completely eliminated.
+The state trajectory for that episode was unavailable. With this training seed, the
+new reward reduced turning and improved the mean score. Multiple training seeds are
+still required to establish robustness. The reward parameters were not repeatedly
+tuned against these test results.
 
-完整逐局数据及校验值：[实验报告](results/strategy_v1_experiment/comparison.md)、
-[comparison.json](results/strategy_v1_experiment/comparison.json)。
-`models/2300_model.pt` 是经典奖励对照；`models/strategy_v1/2300_model.pt` 才是
-策略奖励实验模型。网页冒烟测试后来产生的 `2301_model.pt` 未参加这组评估。
-`rl/compare_strategy.py` 保留了本次对照流程；它拒绝覆盖已存在的实验报告。
+Complete per-episode data and checksums are in the
+[experiment report](results/strategy_v1_experiment/comparison.md) and
+[comparison.json](results/strategy_v1_experiment/comparison.json).
+`models/2300_model.pt` is the classic-reward control;
+`models/strategy_v1/2300_model.pt` is the strategy-reward experimental model. The
+`2301_model.pt` generated later by a browser smoke test was not part of this
+evaluation. `rl/compare_strategy.py` preserves the comparison procedure and refuses
+to overwrite an existing experiment report.
 
-### Seed 说明与验证
+### Seed behavior and verification
 
-Seed 是伪随机序列的起点：新模型用它初始化权重、探索、经验抽样，食物种子随
-累计 episode 派生。相同 seed + 相同配置、操作和运行环境便于复现，但不代表
-难度/质量/训练次数。新格式续训恢复随机状态并继承种子；旧模型未保存随机状态，
-首次只能近似续训。切换奖励时故意重建经验回放，因此不再是原训练过程的精确延续。
+A seed is the starting point of a pseudorandom sequence. New models use it to
+initialize weights, exploration, and replay sampling; food seeds are derived from
+the cumulative episode number. The same seed, configuration, actions, and runtime
+environment support reproducibility, but the seed does not represent difficulty,
+quality, or the number of training episodes. The new checkpoint format restores
+random state and inherits the seed when training resumes. Older models did not save
+random state, so their first resumed run can only approximate a continuation.
+Changing reward profiles intentionally rebuilds the replay buffer, so that run is no
+longer an exact continuation of the original training process.
 
-增加了奖励分解、障碍距离、循环惩罚、终止边界、折扣求和、奖励切换清空回放、
-吃后陷阱等测试。57 个 Python、70 个 JavaScript 测试通过，实际浏览器验证了奖励
-切换续训和新策略模型控制。另修复 Windows 短暂读取进度文件导致原子替换失败：
-遇到文件锁时做有界重试，异常若发生在完整 episode 边界则尽量保存该边界模型。
-之前已失败且未保存的训练状态不能从日志恢复。
+Tests cover reward decomposition, obstacle-aware distance, loop penalties, terminal
+boundaries, discounted sums, replay clearing after a reward change, and post-eating
+traps. All 57 Python and 70 JavaScript tests passed. Browser testing verified resumed
+training after a reward change and control with the new strategy model. A Windows
+issue was also fixed in which brief reads of the progress file could prevent an
+atomic replacement: file locks now trigger bounded retries, and if an exception
+occurs at a complete episode boundary, the model for that boundary is saved when
+possible. Previously failed and unsaved training state cannot be recovered from logs.
 
-## 网页中的 DQN / Qwen / Training（2026-09-11）
+## DQN, Qwen, and Training in the browser (2026-09-11)
 
-完整功能需要从本机服务打开网页，而不是直接双击 HTML：
+The full feature set requires opening the page through the local service rather than
+double-clicking the HTML file:
 
 ```powershell
-# 在项目目录执行；保留这个终端运行
+# Run from the project directory and keep this terminal open
 .\start-local.ps1
-# 或：
+# Or:
 .\.venv\Scripts\python.exe -m rl.web_server
 ```
 
-打开 **http://127.0.0.1:8765**。单独打开 `index.html` 仍可玩 Human、Random、
-Heuristic，但 DQN、Qwen 和 Training 需要本机服务。服务只监听 127.0.0.1，
-不提供云端推理、不允许远程来源调用训练接口，只向同源网页提供 DQN 推理权重，不公开完整 checkpoint 或项目私有文件。
+Open **http://127.0.0.1:8765**. Opening `index.html` directly still supports Human,
+Random, and Heuristic play, but DQN, Qwen, and Training require the local service.
+The service listens only on 127.0.0.1. It provides no cloud inference, rejects
+training API calls from remote origins, and exposes only DQN inference weights to the
+same-origin page rather than full checkpoints or private project files.
 
-### Controller 和防困辅助
+### Controllers and anti-trap assistance
 
-两块棋盘的 Controller 均可选 Human、Random、Heuristic、DQN、Qwen。
-在「DQN 模型」选择 `.pt` 文件；选择变化会重置本局。Qwen 使用已有本地 Ollama：
+Both boards let you choose Human, Random, Heuristic, DQN, or Qwen as the controller.
+Select a `.pt` file under **DQN model**; changing the selection resets the current
+episode. Qwen uses the existing local Ollama installation:
 
 ```powershell
 & 'D:\isaac-lab\Qwen\start.ps1'
 ```
 
-Qwen 只收到原来的五个结构化字段，没有截图或原始像素。模型必须已经安装在本机。
-网页显示等待状态、决策耗时和回退提示；服务离线时等待并报告错误，不冒充模型行动。
-Qwen 请求串行运行，双人 Qwen 会等待共享模型。AI 速度是目标速度，实际速度受推理
-耗时影响；Qwen 当前大约每秒一步。异步推理不阻塞页面；暂停、重开、切换控制方式
-会取消待处理请求并丢弃旧结果。所有最终动作仍经 `SnakeGame.step(action)`。
+Qwen receives only the original five structured fields, with no screenshots or raw
+pixels. The model must already be installed locally. The page shows waiting state,
+decision latency, and fallback messages. If the service is offline, it waits and
+reports the error instead of pretending that the model acted. Qwen requests run
+serially, so two Qwen-controlled boards wait for the shared model. AI speed is a
+target; inference latency determines actual speed, and Qwen currently runs at about
+one step per second. Asynchronous inference does not block the page. Pausing,
+restarting, or changing controllers cancels pending requests and discards stale
+responses. Every final action still passes through `SnakeGame.step(action)`.
 
-「防困辅助」默认开启，对所有 AI 生效，人类控制不受影响。它模拟候选下一步，
-用洪水填充检查可达空间和通往尾部的路径，优先保留有退路、空间较大的候选动作。
-最新版本先查找食物最短路径，模拟走完整条路线、吃完后的尾部可达性；有退路时
-优先执行该路线，同样短的路线优先直行，并缓存计划避免逐步左右摇摆。没有安全
-食物路线时，再尝试空间/尾部/重复位置回退。界面显示调整次数。高倍速每帧最多处理 128
-步，让控制按钮仍有机会响应。
+**Anti-trap assistance** is enabled by default for every AI controller and does not
+affect human control. It simulates candidate next moves, uses flood fill to check
+reachable space and paths to the tail, and prefers candidates with an escape route
+and more room. The latest version first finds the shortest path to food, simulates
+the entire route, and checks tail reachability after eating. When the route leaves an
+escape path, it takes priority; equally short routes prefer continuing straight, and
+the plan is cached to prevent left-right oscillation between steps. If no safe food
+route exists, it falls back to space, tail, and repeated-position checks. The UI shows
+the number of adjustments. At high speeds, each frame processes at most 128 steps so
+the controls remain responsive.
 
-**这是有完整棋盘信息的辅助规划器，不是 DQN 自己学会了规划，也不是 Qwen 推理
-能力提升。** 开关关闭即可观察原始模型。它不能保证永不死亡：尾巴和身体会移动，
-单步空间估计不是完整未来搜索。原来的 Python 随机/启发式/DQN/Qwen 基准和 DQN
-训练环境的默认经典奖励保持原有行为；策略奖励为可选实验配置。
+**This is an assistance planner with access to the complete board. It does not mean
+that the DQN learned to plan or that Qwen's reasoning improved.** Disable the toggle
+to observe the raw model. The planner cannot guarantee survival: the tail and body
+move, and a one-step space estimate is not a complete search of future states. The
+existing Python Random, Heuristic, DQN, and Qwen benchmarks and the DQN training
+environment's default classic reward retain their original behavior. The strategy
+reward is an optional experimental configuration.
 
-较早版本的空间辅助基线（20 个固定种子，每局最多 3000 步）：
+Baseline from an earlier spatial-assistance version (20 fixed seeds, at most 3,000
+steps per episode):
 
-| 策略 | 防困辅助 | 平均分 | 平均步数 | 碰撞结束 | 达到步数上限 |
+| Policy | Anti-trap assistance | Mean score | Mean steps | Collision endings | Step-limit endings |
 |---|---|---:|---:|---:|---:|
-| Random | 关 | 1.5 | 83.15 | 20 | 0 |
-| Random | 开 | 119.0 | 3000 | 0 | 20 |
-| Heuristic | 关 | 282.5 | 431.3 | 20 | 0 |
-| Heuristic | 开 | 1109.5 | 3000 | 0 | 20 |
+| Random | Off | 1.5 | 83.15 | 20 | 0 |
+| Random | On | 119.0 | 3000 | 0 | 20 |
+| Heuristic | Off | 282.5 | 431.3 | 20 | 0 |
+| Heuristic | On | 1109.5 | 3000 | 0 | 20 |
 
-达到上限不代表通关。这组结果只覆盖 Random 和 Heuristic 的空间辅助对照，不能
-当作 DQN/Qwen 的统计成绩。原始记录：[browser_safety.json](results/browser_safety.json)。
-当前安全食物路径版本的同种子结果见 [browser_safe_food_path.json](results/browser_safe_food_path.json)：
-Random+辅助均分 1247，Heuristic+辅助均分 1237，均为 20/20 局达到 3000 步上限。
-当前版本复现命令：`node scripts/evaluate-safety.cjs 20 3000`。
+Reaching the limit does not mean completing the board. These results cover only the
+Random and Heuristic spatial-assistance comparison and are not DQN/Qwen performance
+statistics. The raw record is in
+[browser_safety.json](results/browser_safety.json). Results for the current safe-food
+path version on the same seeds are in
+[browser_safe_food_path.json](results/browser_safe_food_path.json): Random with
+assistance averaged 1,247, Heuristic with assistance averaged 1,237, and both reached
+the 3,000-step limit in all 20 episodes. Reproduce the current version with
+`node scripts/evaluate-safety.cjs 20 3000`.
 
-### Training：选择模型继续训练
+### Training: select a model and continue training
 
-展开 **Training · DQN**：
+Expand **Training · DQN**:
 
-1. 选择「从零开始」，或选择已有模型作为起点。
-2. 输入本次**追加** episode 数（1–10000）、保存间隔和新模型随机种子。
-3. 点击「开始训练」，查看累计 episode、分数、移动均分、epsilon 和已保存文件。
-4. 「停止并保存」会等当前 episode 完成再停止，因此不会把半局计入文件名。
-5. 完成或停止后模型列表自动刷新，可选择新模型进行游戏或继续训练。
+1. Select **Start from scratch**, or choose an existing model as the starting point.
+2. Enter the number of **additional** episodes for this run (1–10000), the save interval, and a random seed for a new model.
+3. Select **Start training** to view the cumulative episode count, score, moving average, epsilon, and saved files.
+4. **Stop and save** waits for the current episode to finish before stopping, so a partial episode is never included in the filename.
+5. After completion or stopping, the model list refreshes automatically; select the new model to play or continue training.
 
-文件命名为 `models/<累计episode>_model.pt`。例如 `2000_model.pt` 追加 500 局
-产生 `2500_model.pt`，不是重新计数为 500。保存间隔内会产生阶段模型，结束时总会
-保存最后完成的 episode。同名文件不覆盖，放到 `models/<本次运行ID>/2500_model.pt`，
-下拉框显示完整相对路径。旧的 `best_model.pt`、`latest_model.pt` 继续保留可选。
-累计训练局数**不是质量排名**，多训练不保证分数提升。
+Files are named `models/<cumulative_episode>_model.pt`. For example, adding 500
+episodes to `2000_model.pt` produces `2500_model.pt`; it does not restart numbering
+at 500. Intermediate checkpoints are created at the save interval, and the last
+completed episode is always saved when the run ends. A file with an existing name is
+not overwritten; it is placed at `models/<run_id>/2500_model.pt`, and the selector
+shows the full relative path. The older `best_model.pt` and `latest_model.pt` remain
+available. The cumulative episode count **is not a quality ranking**; more training
+does not guarantee a higher score.
 
-新模型保存 Q 网络、目标网络、Adam 状态、经验回放、探索进度、随机状态和累计
-episode，支持在 episode 边界继续训练。旧格式没有回放和随机状态，首次续训会
-明确提示「旧模型：重新积累经验回放」；新保存的文件之后可完整续训。续训继承
-原模型的种子和训练参数，不使用新模型种子输入框覆盖它们。
+New checkpoints save the Q network, target network, Adam state, replay buffer,
+exploration progress, random state, and cumulative episode count, allowing training
+to resume at an episode boundary. Older checkpoint formats lack the replay buffer and
+random state, so the first resumed run explicitly reports that the old model must
+rebuild its replay buffer. Checkpoints saved afterward support complete resumption.
+Resumed training inherits the original model's seed and training parameters instead
+of replacing them with the new-model seed field.
 
-训练在独立 Python 子进程中进行，可同时使用页面，最多一个训练任务。状态和 CSV
-保存在 `results/training_runs/<运行ID>/`，含 `request.json`、`status.json`、
-`training.csv` 和 `worker.log`。本次网页功能验证留下了 `2_model.pt`（从零训练）、
-`2001_model.pt`、`2002_model.pt`、`2003_model.pt`（续训链）和 `2036_model.pt`
-（从 2003 继续后测试停止保存）。这些是功能验证产物，未经新的 100 局质量评估，
-不要据文件编号认定它们优于原 `best_model.pt`。Training 只训练 DQN，不微调 Qwen。
+Training runs in a separate Python subprocess, so the page remains usable. Only one
+training job can run at a time. State and CSV files are stored in
+`results/training_runs/<run_id>/`, including `request.json`, `status.json`,
+`training.csv`, and `worker.log`. Browser feature testing produced `2_model.pt` from
+scratch, the resumed-training chain `2001_model.pt`, `2002_model.pt`, and
+`2003_model.pt`, and `2036_model.pt`, which tested stop-and-save after continuing
+from episode 2003. These are feature-validation artifacts and did not undergo a new
+100-episode quality evaluation. Their numbers do not imply that they outperform the
+original `best_model.pt`. Training applies only to DQN and does not fine-tune Qwen.
 
-命令行也可使用新流程（job-dir 每次选不同目录）：
+The same workflow is available from the command line; use a different job directory
+for each run:
 
 ```powershell
 .\.venv\Scripts\python.exe -m rl.dqn.train_session --episodes 500 --checkpoint models/2003_model.pt --job-dir results/training_runs/my_run --save-every 100
 ```
 
-### 新增模块和验证
+### Added modules and validation
 
-| 文件 | 职责 |
+| File | Responsibility |
 |---|---|
-| `start-local.ps1` | 启动本机服务 |
-| `rl/web_server.py` | 页面资源、校验后的推理接口、模型目录、训练进程管理 |
-| `rl/dqn/train_session.py` | 追加训练、累计编号保存、停止与状态日志 |
-| `js/local-ai.js` | 异步模型代理、请求等待与过期响应丢弃 |
-| `js/safety.js` | 可选可达空间/尾部路径/重复位置辅助 |
-| `rl/test_web_training.py` | 续训等价性、回放恢复、本机接口与文件路径测试 |
-| `tests/local-ai.test.cjs` | 异步动作、防困、暂停重置相关契约测试 |
+| `start-local.ps1` | Starts the local service |
+| `rl/web_server.py` | Serves page resources, validated inference endpoints, the model catalog, and training-process management |
+| `rl/dqn/train_session.py` | Handles additional training, cumulative checkpoint numbering, stopping, and status logs |
+| `js/local-ai.js` | Provides asynchronous model proxies, request waiting, and stale-response rejection |
+| `js/safety.js` | Provides optional reachable-space, tail-path, and repeated-position assistance |
+| `rl/test_web_training.py` | Tests resume equivalence, replay restoration, local endpoints, and file paths |
+| `tests/local-ai.test.cjs` | Tests contracts for asynchronous actions, anti-trap logic, pause, and reset |
 
-验证通过 49 个 Python 测试和 68 个 JavaScript 测试。实际 Edge 无头浏览器验证了
-DQN 控制、新模型加载、Qwen 本机真实动作、从零训练、两次续训、停止保存、暂停和
-控制切换；390px 宽度没有横向溢出。原始页面主体外观基线一致；外观测试规范化
-Windows 换行，CSS 基线按规范化文本记录。新增控件继续沿用原有页面样式。
+All 49 Python and 68 JavaScript tests passed. Testing in a real headless Edge browser
+covered DQN control, new-model loading, real local Qwen actions, training from scratch,
+two resumed runs, stop-and-save, pause, and controller switching. The layout had no
+horizontal overflow at 390px. The original page body's visual baseline remained
+unchanged; the appearance test normalizes Windows line endings, and the CSS baseline
+records normalized text. New controls continue to use the existing page styles.
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest rl.test_env rl.dqn.test_dqn rl.test_llm_agent rl.test_web_training -v
@@ -900,7 +960,8 @@ There is no bundler or package dependency.
 
 ## Inspection of the original project
 
-Before changes, the entire application lived in `像素风贪吃蛇.html` (1,225 lines),
+Before changes, the entire application lived in a single HTML file whose name
+translates to `Pixel-Style-Snake.html` (1,225 lines),
 with inline CSS and one script at lines 550–1223. The only other project
 file was `tests/snake.test.cjs`, containing 39 passing regression tests. There was
 no README, package manifest, or build configuration.
