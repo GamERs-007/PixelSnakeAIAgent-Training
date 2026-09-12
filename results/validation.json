@@ -1,0 +1,222 @@
+[
+  {
+    "episode": 100,
+    "episodes": 20,
+    "mean_score": 10,
+    "median_score": 10.0,
+    "maximum_score": 30,
+    "mean_survival_steps": 538.85,
+    "mean_reward": 4.621499999999934,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 200,
+    "episodes": 20,
+    "mean_score": 6,
+    "median_score": 0.0,
+    "maximum_score": 30,
+    "mean_survival_steps": 497.45,
+    "mean_reward": 1.0314999999999892,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 300,
+    "episodes": 20,
+    "mean_score": 3.5,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 423.3,
+    "mean_reward": -0.7294999999999879,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 400,
+    "episodes": 20,
+    "mean_score": 5,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 451.65,
+    "mean_reward": 0.4884999999999952,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 500,
+    "episodes": 20,
+    "mean_score": 4,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 424.4,
+    "mean_reward": -0.23999999999998978,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 600,
+    "episodes": 20,
+    "mean_score": 4.5,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 463.8,
+    "mean_reward": -0.1334999999999605,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 700,
+    "episodes": 20,
+    "mean_score": 4,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 459.45,
+    "mean_reward": -0.5904999999999709,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 800,
+    "episodes": 20,
+    "mean_score": 3,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 428.7,
+    "mean_reward": -1.283999999999965,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 900,
+    "episodes": 20,
+    "mean_score": 4,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 419.2,
+    "mean_reward": -0.18800000000002176,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 1000,
+    "episodes": 20,
+    "mean_score": 3.5,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 434.95,
+    "mean_reward": -0.8459999999999772,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 1100,
+    "episodes": 20,
+    "mean_score": 11,
+    "median_score": 10.0,
+    "maximum_score": 30,
+    "mean_survival_steps": 458.35,
+    "mean_reward": 6.427499999999842,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 1200,
+    "episodes": 20,
+    "mean_score": 0.5,
+    "median_score": 0.0,
+    "maximum_score": 10,
+    "mean_survival_steps": 400.2,
+    "mean_reward": -3.5014999999999565,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 1300,
+    "episodes": 20,
+    "mean_score": 4,
+    "median_score": 0.0,
+    "maximum_score": 20,
+    "mean_survival_steps": 411.95,
+    "mean_reward": -1.1154999999999662,
+    "terminated": 2,
+    "truncated": 18
+  },
+  {
+    "episode": 1400,
+    "episodes": 20,
+    "mean_score": 17,
+    "median_score": 10.0,
+    "maximum_score": 70,
+    "mean_survival_steps": 570.2,
+    "mean_reward": 9.814999999999952,
+    "terminated": 3,
+    "truncated": 17
+  },
+  {
+    "episode": 1500,
+    "episodes": 20,
+    "mean_score": 32.5,
+    "median_score": 25.0,
+    "maximum_score": 100,
+    "mean_survival_steps": 465.1,
+    "mean_reward": 26.8814999999997,
+    "terminated": 2,
+    "truncated": 18
+  },
+  {
+    "episode": 1600,
+    "episodes": 20,
+    "mean_score": 73,
+    "median_score": 70.0,
+    "maximum_score": 140,
+    "mean_survival_steps": 486.05,
+    "mean_reward": 63.71249999999961,
+    "terminated": 9,
+    "truncated": 11
+  },
+  {
+    "episode": 1700,
+    "episodes": 20,
+    "mean_score": 33.5,
+    "median_score": 30.0,
+    "maximum_score": 80,
+    "mean_survival_steps": 546.15,
+    "mean_reward": 28.07199999999979,
+    "terminated": 0,
+    "truncated": 20
+  },
+  {
+    "episode": 1800,
+    "episodes": 20,
+    "mean_score": 182.5,
+    "median_score": 140.0,
+    "maximum_score": 370,
+    "mean_survival_steps": 495.55,
+    "mean_reward": 168.2270000000006,
+    "terminated": 19,
+    "truncated": 1
+  },
+  {
+    "episode": 1900,
+    "episodes": 20,
+    "mean_score": 189.5,
+    "median_score": 155.0,
+    "maximum_score": 480,
+    "mean_survival_steps": 417.45,
+    "mean_reward": 177.01500000000047,
+    "terminated": 17,
+    "truncated": 3
+  },
+  {
+    "episode": 2000,
+    "episodes": 20,
+    "mean_score": 287.5,
+    "median_score": 280.0,
+    "maximum_score": 510,
+    "mean_survival_steps": 473.95,
+    "mean_reward": 273.0480000000017,
+    "terminated": 20,
+    "truncated": 0
+  }
+]

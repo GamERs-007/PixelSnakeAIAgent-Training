@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "target": "600",
+      "actual": "实际 599 steps/s · 目标 600.0",
+      "steps": "1439"
+    },
+    {
+      "target": "6000",
+      "actual": "实际 6000 steps/s · 目标 6000.0",
+      "steps": "15924"
+    }
+  ],
+  "weightsRequestsBeforeSwitch": 1,
+  "errors": []
+}

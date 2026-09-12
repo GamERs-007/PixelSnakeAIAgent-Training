@@ -1,0 +1,6 @@
+{
+  "model": "best_model.pt",
+  "episodes": 2,
+  "save_every": 1,
+  "seed": 42
+}

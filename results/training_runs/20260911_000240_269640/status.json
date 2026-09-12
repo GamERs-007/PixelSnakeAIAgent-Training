@@ -1,0 +1,20 @@
+{
+  "state": "completed",
+  "start_episode": 2000,
+  "episode": 2002,
+  "target_episode": 2002,
+  "requested_episodes": 2,
+  "source_model": "D:\\isaac-lab\\PixelSnake\\models\\best_model.pt",
+  "exact_resume": false,
+  "saved_model": "2002_model.pt",
+  "job": "20260911_000240_269640",
+  "episode_reward": 9.409999999999982,
+  "score": 20,
+  "epsilon": 0.050000000000000044,
+  "training_loss": 0.40284914473692573,
+  "moving_average_score": 85,
+  "steps": 62,
+  "elapsed_seconds": 0.06360899999998537,
+  "environment_steps": 171010,
+  "optimizer_updates": 42487
+}

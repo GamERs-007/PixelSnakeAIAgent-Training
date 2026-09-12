@@ -1,0 +1,3 @@
+episode,episode_reward,score,epsilon,training_loss,moving_average_score,steps
+1,-10.3,0,0.9997055,,0,31
+2,-10.64,0,0.999088,,0,65

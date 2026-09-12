@@ -1,0 +1,766 @@
+{
+  "episodes": 20,
+  "max_steps": 3000,
+  "results": [
+    {
+      "policy": "RandomAgent",
+      "assisted": false,
+      "mean_score": 1.5,
+      "mean_steps": 83.15,
+      "collisions": 20,
+      "step_limits": 0,
+      "episodes": [
+        {
+          "episode": 1,
+          "seed": "safety-0",
+          "score": 0,
+          "steps": 47,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 2,
+          "seed": "safety-1",
+          "score": 10,
+          "steps": 131,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 3,
+          "seed": "safety-2",
+          "score": 0,
+          "steps": 103,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 4,
+          "seed": "safety-3",
+          "score": 0,
+          "steps": 57,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 5,
+          "seed": "safety-4",
+          "score": 0,
+          "steps": 27,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 6,
+          "seed": "safety-5",
+          "score": 0,
+          "steps": 134,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 7,
+          "seed": "safety-6",
+          "score": 0,
+          "steps": 30,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 8,
+          "seed": "safety-7",
+          "score": 0,
+          "steps": 139,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 9,
+          "seed": "safety-8",
+          "score": 0,
+          "steps": 203,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 10,
+          "seed": "safety-9",
+          "score": 0,
+          "steps": 72,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 11,
+          "seed": "safety-10",
+          "score": 0,
+          "steps": 48,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 12,
+          "seed": "safety-11",
+          "score": 0,
+          "steps": 85,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 13,
+          "seed": "safety-12",
+          "score": 0,
+          "steps": 22,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 14,
+          "seed": "safety-13",
+          "score": 10,
+          "steps": 37,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 15,
+          "seed": "safety-14",
+          "score": 0,
+          "steps": 141,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 16,
+          "seed": "safety-15",
+          "score": 0,
+          "steps": 50,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 17,
+          "seed": "safety-16",
+          "score": 0,
+          "steps": 73,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 18,
+          "seed": "safety-17",
+          "score": 0,
+          "steps": 83,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 19,
+          "seed": "safety-18",
+          "score": 10,
+          "steps": 84,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 20,
+          "seed": "safety-19",
+          "score": 0,
+          "steps": 97,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        }
+      ]
+    },
+    {
+      "policy": "RandomAgent",
+      "assisted": true,
+      "mean_score": 119,
+      "mean_steps": 3000,
+      "collisions": 0,
+      "step_limits": 20,
+      "episodes": [
+        {
+          "episode": 1,
+          "seed": "safety-0",
+          "score": 100,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 471
+        },
+        {
+          "episode": 2,
+          "seed": "safety-1",
+          "score": 120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 427
+        },
+        {
+          "episode": 3,
+          "seed": "safety-2",
+          "score": 140,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 395
+        },
+        {
+          "episode": 4,
+          "seed": "safety-3",
+          "score": 170,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 469
+        },
+        {
+          "episode": 5,
+          "seed": "safety-4",
+          "score": 100,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 412
+        },
+        {
+          "episode": 6,
+          "seed": "safety-5",
+          "score": 150,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 456
+        },
+        {
+          "episode": 7,
+          "seed": "safety-6",
+          "score": 120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 427
+        },
+        {
+          "episode": 8,
+          "seed": "safety-7",
+          "score": 210,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 420
+        },
+        {
+          "episode": 9,
+          "seed": "safety-8",
+          "score": 110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 398
+        },
+        {
+          "episode": 10,
+          "seed": "safety-9",
+          "score": 80,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 409
+        },
+        {
+          "episode": 11,
+          "seed": "safety-10",
+          "score": 50,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 342
+        },
+        {
+          "episode": 12,
+          "seed": "safety-11",
+          "score": 100,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 450
+        },
+        {
+          "episode": 13,
+          "seed": "safety-12",
+          "score": 80,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 411
+        },
+        {
+          "episode": 14,
+          "seed": "safety-13",
+          "score": 160,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 536
+        },
+        {
+          "episode": 15,
+          "seed": "safety-14",
+          "score": 110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 449
+        },
+        {
+          "episode": 16,
+          "seed": "safety-15",
+          "score": 120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 468
+        },
+        {
+          "episode": 17,
+          "seed": "safety-16",
+          "score": 90,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 447
+        },
+        {
+          "episode": 18,
+          "seed": "safety-17",
+          "score": 110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 410
+        },
+        {
+          "episode": 19,
+          "seed": "safety-18",
+          "score": 140,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 406
+        },
+        {
+          "episode": 20,
+          "seed": "safety-19",
+          "score": 120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 414
+        }
+      ]
+    },
+    {
+      "policy": "HeuristicAgent",
+      "assisted": false,
+      "mean_score": 282.5,
+      "mean_steps": 431.3,
+      "collisions": 20,
+      "step_limits": 0,
+      "episodes": [
+        {
+          "episode": 1,
+          "seed": "safety-0",
+          "score": 150,
+          "steps": 225,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 2,
+          "seed": "safety-1",
+          "score": 330,
+          "steps": 522,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 3,
+          "seed": "safety-2",
+          "score": 410,
+          "steps": 593,
+          "cause": "wall",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 4,
+          "seed": "safety-3",
+          "score": 400,
+          "steps": 571,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 5,
+          "seed": "safety-4",
+          "score": 320,
+          "steps": 422,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 6,
+          "seed": "safety-5",
+          "score": 130,
+          "steps": 178,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 7,
+          "seed": "safety-6",
+          "score": 100,
+          "steps": 118,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 8,
+          "seed": "safety-7",
+          "score": 420,
+          "steps": 568,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 9,
+          "seed": "safety-8",
+          "score": 320,
+          "steps": 450,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 10,
+          "seed": "safety-9",
+          "score": 300,
+          "steps": 577,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 11,
+          "seed": "safety-10",
+          "score": 340,
+          "steps": 514,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 12,
+          "seed": "safety-11",
+          "score": 300,
+          "steps": 494,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 13,
+          "seed": "safety-12",
+          "score": 200,
+          "steps": 320,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 14,
+          "seed": "safety-13",
+          "score": 230,
+          "steps": 358,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 15,
+          "seed": "safety-14",
+          "score": 320,
+          "steps": 486,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 16,
+          "seed": "safety-15",
+          "score": 190,
+          "steps": 283,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 17,
+          "seed": "safety-16",
+          "score": 480,
+          "steps": 887,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 18,
+          "seed": "safety-17",
+          "score": 200,
+          "steps": 289,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 19,
+          "seed": "safety-18",
+          "score": 160,
+          "steps": 244,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        },
+        {
+          "episode": 20,
+          "seed": "safety-19",
+          "score": 350,
+          "steps": 527,
+          "cause": "self",
+          "step_limit": false,
+          "overrides": 0
+        }
+      ]
+    },
+    {
+      "policy": "HeuristicAgent",
+      "assisted": true,
+      "mean_score": 1109.5,
+      "mean_steps": 3000,
+      "collisions": 0,
+      "step_limits": 20,
+      "episodes": [
+        {
+          "episode": 1,
+          "seed": "safety-0",
+          "score": 1110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 37
+        },
+        {
+          "episode": 2,
+          "seed": "safety-1",
+          "score": 1160,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 27
+        },
+        {
+          "episode": 3,
+          "seed": "safety-2",
+          "score": 1020,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 37
+        },
+        {
+          "episode": 4,
+          "seed": "safety-3",
+          "score": 1080,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 35
+        },
+        {
+          "episode": 5,
+          "seed": "safety-4",
+          "score": 1150,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 41
+        },
+        {
+          "episode": 6,
+          "seed": "safety-5",
+          "score": 1110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 33
+        },
+        {
+          "episode": 7,
+          "seed": "safety-6",
+          "score": 1230,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 34
+        },
+        {
+          "episode": 8,
+          "seed": "safety-7",
+          "score": 1090,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 35
+        },
+        {
+          "episode": 9,
+          "seed": "safety-8",
+          "score": 1120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 38
+        },
+        {
+          "episode": 10,
+          "seed": "safety-9",
+          "score": 990,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 29
+        },
+        {
+          "episode": 11,
+          "seed": "safety-10",
+          "score": 1120,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 36
+        },
+        {
+          "episode": 12,
+          "seed": "safety-11",
+          "score": 1100,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 45
+        },
+        {
+          "episode": 13,
+          "seed": "safety-12",
+          "score": 1110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 39
+        },
+        {
+          "episode": 14,
+          "seed": "safety-13",
+          "score": 1190,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 30
+        },
+        {
+          "episode": 15,
+          "seed": "safety-14",
+          "score": 1150,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 43
+        },
+        {
+          "episode": 16,
+          "seed": "safety-15",
+          "score": 1110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 32
+        },
+        {
+          "episode": 17,
+          "seed": "safety-16",
+          "score": 1090,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 33
+        },
+        {
+          "episode": 18,
+          "seed": "safety-17",
+          "score": 1050,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 33
+        },
+        {
+          "episode": 19,
+          "seed": "safety-18",
+          "score": 1110,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 40
+        },
+        {
+          "episode": 20,
+          "seed": "safety-19",
+          "score": 1100,
+          "steps": 3000,
+          "cause": null,
+          "step_limit": true,
+          "overrides": 30
+        }
+      ]
+    }
+  ]
+}

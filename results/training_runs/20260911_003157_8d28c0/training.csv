@@ -1,0 +1,2 @@
+episode,episode_reward,score,epsilon,training_loss,moving_average_score,steps,turn_rate,repeat_penalty,potential_reward
+2301,135.93925,150,0.050000000000000044,0.24727361912236495,147.1,266,0.462406015037594,0.0,-0.9507500000000013

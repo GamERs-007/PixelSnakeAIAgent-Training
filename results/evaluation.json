@@ -1,0 +1,43 @@
+{
+  "checkpoint": "D:\\isaac-lab\\PixelSnake\\models\\best_model.pt",
+  "checkpoint_sha256": "14defd74f5b5907cfd6317989754526f735a743211d3944082f6df6eba69a95b",
+  "checkpoint_episode": 2000,
+  "seed": 200000,
+  "exploration_epsilon": 0.0,
+  "env_config": {
+    "board_size": 20,
+    "max_steps_without_food": 400
+  },
+  "policies": {
+    "DQN": {
+      "episodes": 100,
+      "mean_score": 306.3,
+      "median_score": 300.0,
+      "maximum_score": 640,
+      "mean_survival_steps": 519.65,
+      "mean_reward": 291.4098000000022,
+      "terminated": 100,
+      "truncated": 0
+    },
+    "RandomAgent": {
+      "episodes": 100,
+      "mean_score": 1.4,
+      "median_score": 0.0,
+      "maximum_score": 10,
+      "mean_survival_steps": 65.67,
+      "mean_reward": -9.2553,
+      "terminated": 100,
+      "truncated": 0
+    },
+    "HeuristicAgent": {
+      "episodes": 100,
+      "mean_score": 279,
+      "median_score": 285.0,
+      "maximum_score": 580,
+      "mean_survival_steps": 417.98,
+      "mean_reward": 265.09920000000176,
+      "terminated": 100,
+      "truncated": 0
+    }
+  }
+}

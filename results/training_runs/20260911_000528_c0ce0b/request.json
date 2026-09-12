@@ -1,0 +1,6 @@
+{
+  "model": "2002_model.pt",
+  "episodes": 1,
+  "save_every": 100,
+  "seed": 42
+}

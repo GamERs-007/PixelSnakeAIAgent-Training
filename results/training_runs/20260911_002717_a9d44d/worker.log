@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\isaac-lab\PixelSnake\rl\dqn\train_session.py", line 137, in <module>
+    main()
+  File "D:\isaac-lab\PixelSnake\rl\dqn\train_session.py", line 133, in main
+    train_session(args.episodes, args.job_dir, args.models_dir, args.checkpoint, args.seed, args.save_every, reward_profile=args.reward_profile)
+  File "D:\isaac-lab\PixelSnake\rl\dqn\train_session.py", line 107, in train_session
+    write_json(job_dir / "status.json", status)
+  File "D:\isaac-lab\PixelSnake\rl\dqn\train_session.py", line 18, in write_json
+    temporary.replace(path)
+  File "C:\Users\15165\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1376, in replace
+    os.replace(self, target)
+PermissionError: [WinError 5] ¾Ü¾ø·ÃÎÊ¡£: 'D:\\isaac-lab\\PixelSnake\\results\\training_runs\\20260911_002717_a9d44d\\status.tmp' -> 'D:\\isaac-lab\\PixelSnake\\results\\training_runs\\20260911_002717_a9d44d\\status.json'

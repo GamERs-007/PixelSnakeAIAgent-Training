@@ -1,0 +1,35 @@
+{
+  "dqn": {
+    "observation_size": 10,
+    "action_size": 3,
+    "hidden_size": 128,
+    "learning_rate": 0.0003,
+    "gamma": 0.99,
+    "batch_size": 64,
+    "replay_capacity": 50000,
+    "learning_starts": 1000,
+    "train_every": 4,
+    "target_update_every": 500,
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.05,
+    "epsilon_decay_steps": 100000,
+    "seed": 42
+  },
+  "env": {
+    "board_size": 20,
+    "max_steps_without_food": 400
+  },
+  "episodes": 2000,
+  "training_seed_start": 42,
+  "validation_seed_start": 100000,
+  "validation_every": 100,
+  "validation_episodes": 20,
+  "moving_average_window": 100,
+  "max_episode_steps": 10000,
+  "device": "cpu",
+  "threads": 1,
+  "python": "3.12.14",
+  "torch": "2.14.0+cpu",
+  "numpy": "2.5.3",
+  "gymnasium": "1.3.0"
+}

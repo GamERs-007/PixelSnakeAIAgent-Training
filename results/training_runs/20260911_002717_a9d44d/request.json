@@ -1,0 +1,7 @@
+{
+  "model": "",
+  "reward_profile": "inherit",
+  "episodes": 1000,
+  "save_every": 100,
+  "seed": 42
+}

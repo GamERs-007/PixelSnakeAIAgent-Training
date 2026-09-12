@@ -1,0 +1,7 @@
+{
+  "completed_episodes": 2000,
+  "requested_episodes": 2000,
+  "environment_steps": 170682,
+  "optimizer_updates": 42421,
+  "elapsed_seconds": 39.86303980000048
+}

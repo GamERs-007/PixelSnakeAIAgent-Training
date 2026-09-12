@@ -1,0 +1,184 @@
+{
+  "config": {
+    "requested_episodes": 50,
+    "seed": 300000,
+    "env_config": {
+      "board_size": 20,
+      "max_steps_without_food": 400
+    },
+    "max_episode_steps": 10000,
+    "llm_budget_seconds": 600.0,
+    "request_timeout_seconds": 120,
+    "ollama": {
+      "tag": {
+        "name": "qwen3.8:27b-q4_K_M",
+        "model": "qwen3.8:27b-q4_K_M",
+        "modified_at": "2026-09-08T20:09:49.2594113-04:00",
+        "size": 17741872132,
+        "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "27.3B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 262144,
+          "embedding_length": 5120
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "thinking",
+          "vision"
+        ]
+      },
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "27.3B",
+        "quantization_level": "Q4_K_M"
+      },
+      "version": {
+        "version": "0.33.3"
+      }
+    },
+    "base_url": "http://127.0.0.1:11434",
+    "prompt": "Control Snake for one move. Return ONLY a JSON object with exactly one key:\n{\"action\":\"STRAIGHT\"}, {\"action\":\"LEFT\"}, or {\"action\":\"RIGHT\"}.\nActions are RELATIVE to current_direction: STRAIGHT keeps heading, LEFT turns\n90 degrees counterclockwise, RIGHT turns 90 degrees clockwise. Never reverse.\nDanger flags describe collisions on the next move. Choose a non-dangerous action\nwhen possible, then move toward food. Food direction is absolute on the screen:\nupper means up, lower means down. Prefer STRAIGHT when equally good.\nDo not explain. Do not include markdown or other fields.",
+    "model_options": {
+      "temperature": 0,
+      "seed": 300000,
+      "num_ctx": 2048,
+      "num_predict": 32,
+      "think": false
+    },
+    "checkpoint": "D:\\isaac-lab\\PixelSnake\\models\\best_model.pt",
+    "checkpoint_episode": 2000,
+    "checkpoint_sha256": "14defd74f5b5907cfd6317989754526f735a743211d3944082f6df6eba69a95b",
+    "dqn_exploration": 0,
+    "state_cache": false
+  },
+  "elapsed_seconds": 601.2998989999996,
+  "policies": {
+    "Random": {
+      "completed_episodes": 50,
+      "partial_episodes": 0,
+      "mean_score": 2,
+      "median_score": 0.0,
+      "maximum_score": 20,
+      "mean_survival_steps": 77.7,
+      "decisions": 3935,
+      "mean_latency_ms": 0.001624752226171144,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.012706480304955527
+    },
+    "Heuristic": {
+      "completed_episodes": 50,
+      "partial_episodes": 0,
+      "mean_score": 264.8,
+      "median_score": 285.0,
+      "maximum_score": 530,
+      "mean_survival_steps": 385.94,
+      "decisions": 19347,
+      "mean_latency_ms": 0.005160267730338065,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.002584380007236264
+    },
+    "DQN": {
+      "completed_episodes": 50,
+      "partial_episodes": 0,
+      "mean_score": 283.4,
+      "median_score": 265.0,
+      "maximum_score": 560,
+      "mean_survival_steps": 488.6,
+      "decisions": 24480,
+      "mean_latency_ms": 0.024091932186226045,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.002042483660130719
+    },
+    "Qwen": {
+      "completed_episodes": 1,
+      "partial_episodes": 1,
+      "mean_score": 10,
+      "median_score": 10,
+      "maximum_score": 10,
+      "mean_survival_steps": 412,
+      "decisions": 459,
+      "mean_latency_ms": 1307.1176651415847,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.002178649237472767,
+      "fallback_rate": 0.002178649237472767,
+      "dangerous_action_rate": 0.0
+    }
+  },
+  "matched_policies": {
+    "Random": {
+      "completed_episodes": 1,
+      "partial_episodes": 0,
+      "mean_score": 0,
+      "median_score": 0,
+      "maximum_score": 0,
+      "mean_survival_steps": 242,
+      "decisions": 243,
+      "mean_latency_ms": 0.0014530864131369595,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.00411522633744856
+    },
+    "Heuristic": {
+      "completed_episodes": 1,
+      "partial_episodes": 0,
+      "mean_score": 70,
+      "median_score": 70,
+      "maximum_score": 70,
+      "mean_survival_steps": 79,
+      "decisions": 80,
+      "mean_latency_ms": 0.007420000019919826,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.0125
+    },
+    "DQN": {
+      "completed_episodes": 1,
+      "partial_episodes": 0,
+      "mean_score": 230,
+      "median_score": 230,
+      "maximum_score": 230,
+      "mean_survival_steps": 366,
+      "decisions": 367,
+      "mean_latency_ms": 0.023778474124074578,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.0027247956403269754
+    },
+    "Qwen": {
+      "completed_episodes": 1,
+      "partial_episodes": 0,
+      "mean_score": 10,
+      "median_score": 10,
+      "maximum_score": 10,
+      "mean_survival_steps": 412,
+      "decisions": 412,
+      "mean_latency_ms": 1307.1058533980286,
+      "invalid_action_rate": 0.0,
+      "request_error_rate": 0.0,
+      "fallback_rate": 0.0,
+      "dangerous_action_rate": 0.0
+    }
+  }
+}

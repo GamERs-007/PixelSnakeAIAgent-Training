@@ -1,0 +1,1163 @@
+# Pixel Snake
+
+A browser-based Snake demo plus a Python Gymnasium environment for reinforcement
+learning experiments. Human single-player and two-player modes remain available
+alongside Random AI and Heuristic AI. The Python component adds relative actions,
+numeric observations, rewards, and an explicit PyTorch DQN with replay, target
+network, training, evaluation, and saved experiment results. A separate local Ollama
+experiment compares Qwen with the existing Python policies. The browser remains
+the human/AI demo and now connects to a loopback Python service for DQN/Qwen control and resumable DQN training.
+
+## DQN browser speed and actual throughput
+
+DQN now loads the selected checkpoint's inference weights once through the local
+`POST /api/dqn/model` endpoint. `js/dqn-agent.js` evaluates the same three Linear
+layers and two ReLUs in JavaScript, without exploration. The 10 float32 observations,
+relative action order, and no-food normalization match the existing Python browser
+bridge. It still uses `agent.chooseAction(state)` -> `Game.step(action)` and the same
+optional safety assistance. Python remains responsible for training and checkpoints;
+Qwen continues using the local Ollama request path.
+
+Previously each DQN action required an HTTP round trip and a later animation frame.
+Both 600 and 6,000 targets could therefore hit the same bottleneck. The selector now
+says **target** speed, and each AI board displays **actual** completed steps/second,
+sampled over approximately one second of active wall time, including inference waits.
+Pausing displays zero. Multiple episodes can contribute to one measurement window.
+
+Local timing check: Edge in Playwright headless mode, rendering disabled, `best_model.pt`,
+JS seed 42, automatic restarts, a 0.5-second warmup followed by a 3-second sample:
+
+| Inference | Safety assistance | Target 600: actual steps/s | Target 6,000: actual steps/s |
+|---|---|---:|---:|
+| Previous HTTP path | off | 261 | 299 |
+| Previous HTTP path | on | 300 | 300 |
+| Browser network | off | 597 | 5,777 |
+| Browser network | on | 600 | 6,003 |
+
+These short timing samples are not policy-quality evaluations or guaranteed speeds.
+Small overshoots are possible at frame/sample boundaries. Rendering, longer snakes,
+safety searches, two boards, browser throttling, and hardware can reduce throughput.
+Work is limited to 128 ticks per board and a shared approximately 12 ms simulation
+budget per frame (an individual step is not interrupted); the next frame continues.
+No frame reuses a stale action to fake additional steps.
+
+Model switches reject stale downloads. Round resets reuse loaded weights; **Connect /
+refresh models** invalidates them so an overwritten checkpoint can be reloaded. Only
+inference weights are exported, never the optimizer or replay buffer. JavaScript and
+PyTorch may differ by floating-point rounding, particularly for almost tied Q values.
+The cross-language regression compares all observations, Q values within tolerance,
+and greedy actions over 1,000 states; the same check also passed for the trained
+`best_model.pt` checkpoint. Speed samples are saved in
+`results/dqn-speed/benchmark.json`.
+
+Validation:
+
+```powershell
+node --test tests/game.test.cjs tests/agents.test.cjs tests/snake.test.cjs tests/local-ai.test.cjs tests/dqn-agent.test.cjs
+.\.venv\Scripts\python.exe -m unittest rl.test_browser_dqn rl.test_web_training
+```
+
+## Page layout
+
+The desktop demo places the board on the left and the game controls and collapsible
+AI settings on the right. Episode statistics sit below each board. Training has its
+own full-width, collapsible panel below the play area; rules are collapsed by default.
+On narrow screens, the board comes first and the controls stack beneath it.
+
+`css/layout.css` contains the responsive layout and the subdued dark background,
+static grid, and soft accent lighting. It loads after the original `css/style.css`,
+which retains the base game and shop styles. `index.html` and `PixelSnake.html` remain
+identical entry points. This visual update does not change the engine, agents,
+training settings, or checkpoint format.
+
+## 策略奖励 v1：减少无效转弯与绕圈
+
+**使用方式**：刷新本机页面。在 DQN 模型列表选择
+`strategy_v1/2300_model.pt` 可直接试玩这次经过评估的模型。
+Training 的「训练奖励」有三种选项：沿用模型、经典奖励、策略奖励 v1（实验）。
+选择旧模型 + 策略奖励可以微调；切换奖励会清空旧经验回放，保留 Q 网络、目标网络、
+Adam 状态、探索进度和累计 episode。沿用策略模型时会保留其策略奖励，不会退回经典。
+新的奖励配置和折扣率写在模型的 `metadata.env_config` 中。
+
+```powershell
+.\.venv\Scripts\python.exe -m rl.dqn.train_session --episodes 300 --checkpoint models/best_model.pt --reward-profile strategy_v1 --job-dir results/training_runs/my_strategy_run --save-every 100
+```
+
+### 查到的策略与实际采用的部分
+
+- [John Tapsell 的 Hamiltonian 环与安全捷径](https://johnflux.com/2015/05/02/nokia-6110-part-3-algorithms/)：沿覆盖棋盘的环保持头尾顺序，再考虑捷径。本文借鉴保留退路的原则，没有把 DQN 替换成固定巡回路径，也不宣称任意已有蛇形能安全接入这样的环。
+- [Snake 图搜索策略](https://github.com/chynl/snake)：先查食物路径，再模拟吃完后是否还能到尾巴。这一检查已用于网页辅助；有安全食物路线时即便 DQN 的绕路动作暂时无碰撞，也优先走食物路线。
+- [Ng、Harada、Russell 的势函数奖励塑形](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/NgHaradaRussell-shaping-ICML1999.pdf)：使用折扣后的势函数差值，而非简单奖励“靠近一次食物”，避免反复移动反复赚取同一进展奖励。
+
+### 奖励明细
+
+`rl/strategy_reward.py` 实现奖励；`SnakeEnv(reward_profile="classic")` 仍完全保留
+原来默认奖励和 10 维观测。`reward_profile="strategy_v1"` 使用：
+
+| 项目 | 数值或公式 |
+|---|---|
+| 吃食物基础奖励 | +10 |
+| 碰撞基础奖励 | -10 |
+| 普通移动基础奖励 | -0.01 |
+| 几何势函数差值 | `gamma * Phi(s_next) - Phi(s)` |
+| 存活的转弯动作 | -0.005（必要转弯也有轻微成本） |
+| 未吃新食物时重复完整蛇身状态 | 第一次重访 -0.05，递增到每次最多 -0.20 |
+| 无食物步数耗尽 | 额外 -2，仍按 Gymnasium truncation 处理 |
+
+令 `N` 为边长，`L` 为蛇长，`d` 为 BFS 绕开身体到食物的距离（不可达用 `N*N`），
+`A` 为头部可达格数，`T` 表示尾部可达：
+
+```text
+required = max(1, min(L + 1, N*N - L + 2))
+Phi(s) = -min(d, 2*N)/(2*N) + 0.25*min(1, A/required) + 0.25*T
+reward = base + gamma*Phi(next) - Phi(current) + turn + repeat + timeout
+```
+
+BFS 把其余身体视为障碍，尾格视为即将腾出的格子，是静态、偏乐观的估计。
+这个容量分母在长蛇时也不会要求比棋盘剩余空间更大的空区域。真实终止状态势函数
+设为 0；截断保留终态势函数，与 DQN 对 truncation 继续 bootstrap 的处理一致。
+折扣率与模型 gamma 同步；吃食物后的新食物也属于 next state，不偷偷取消势函数项。
+`info.reward_components` 给出每一步的各奖励项，训练 CSV 记录转弯比例、重复惩罚
+和势函数奖励总和。
+
+势函数项满足折扣望远镜求和性质，但额外转弯/重复/超时惩罚会改变优化目标；
+这里不宣称整个奖励保持最优策略不变。网络仍只看到原来的 10 个数字，没有完整
+身体形状；奖励不能完全弥补这种部分可观测性。因此并不能保证再也不会被困住。
+
+### 实测：同起点、相同训练量、相同测试种子
+
+从原 `best_model.pt`（2000 局）分别追加 300 局，训练种子 2042–2341；
+都用经典评估环境、相同 100 个独立种子 400000–400099、关闭探索和网页辅助。
+因此下面测量的是模型本身，不是辅助规划器的表现：
+
+| 模型 | 追加训练 | 平均分 | 中位数分 | 平均转弯比例 |
+|---|---:|---:|---:|---:|
+| 原 DQN | 0 | 272.5 | 280 | 61.49% |
+| 经典奖励续训 | 300 | 269.0 | 260 | 61.90% |
+| 策略奖励续训 | 300 | 297.2 | 290 | 40.21% |
+
+转弯比例为各局「非直行动作数 / 尝试步数」的平均值，包含致死动作。
+三组都没有触发无食物上限；这不能证明已经复现或完全消除了用户当局的 trap。
+未获得那一局的状态轨迹。新奖励在这一训练种子下减少转弯、提高平均分；要确认
+稳健性还需要多个训练种子。奖励参数没有根据这批测试结果反复调优。
+
+完整逐局数据及校验值：[实验报告](results/strategy_v1_experiment/comparison.md)、
+[comparison.json](results/strategy_v1_experiment/comparison.json)。
+`models/2300_model.pt` 是经典奖励对照；`models/strategy_v1/2300_model.pt` 才是
+策略奖励实验模型。网页冒烟测试后来产生的 `2301_model.pt` 未参加这组评估。
+`rl/compare_strategy.py` 保留了本次对照流程；它拒绝覆盖已存在的实验报告。
+
+### Seed 说明与验证
+
+Seed 是伪随机序列的起点：新模型用它初始化权重、探索、经验抽样，食物种子随
+累计 episode 派生。相同 seed + 相同配置、操作和运行环境便于复现，但不代表
+难度/质量/训练次数。新格式续训恢复随机状态并继承种子；旧模型未保存随机状态，
+首次只能近似续训。切换奖励时故意重建经验回放，因此不再是原训练过程的精确延续。
+
+增加了奖励分解、障碍距离、循环惩罚、终止边界、折扣求和、奖励切换清空回放、
+吃后陷阱等测试。57 个 Python、70 个 JavaScript 测试通过，实际浏览器验证了奖励
+切换续训和新策略模型控制。另修复 Windows 短暂读取进度文件导致原子替换失败：
+遇到文件锁时做有界重试，异常若发生在完整 episode 边界则尽量保存该边界模型。
+之前已失败且未保存的训练状态不能从日志恢复。
+
+## 网页中的 DQN / Qwen / Training（2026-09-11）
+
+完整功能需要从本机服务打开网页，而不是直接双击 HTML：
+
+```powershell
+# 在项目目录执行；保留这个终端运行
+.\start-local.ps1
+# 或：
+.\.venv\Scripts\python.exe -m rl.web_server
+```
+
+打开 **http://127.0.0.1:8765**。单独打开 `index.html` 仍可玩 Human、Random、
+Heuristic，但 DQN、Qwen 和 Training 需要本机服务。服务只监听 127.0.0.1，
+不提供云端推理、不允许远程来源调用训练接口，只向同源网页提供 DQN 推理权重，不公开完整 checkpoint 或项目私有文件。
+
+### Controller 和防困辅助
+
+两块棋盘的 Controller 均可选 Human、Random、Heuristic、DQN、Qwen。
+在「DQN 模型」选择 `.pt` 文件；选择变化会重置本局。Qwen 使用已有本地 Ollama：
+
+```powershell
+& 'D:\isaac-lab\Qwen\start.ps1'
+```
+
+Qwen 只收到原来的五个结构化字段，没有截图或原始像素。模型必须已经安装在本机。
+网页显示等待状态、决策耗时和回退提示；服务离线时等待并报告错误，不冒充模型行动。
+Qwen 请求串行运行，双人 Qwen 会等待共享模型。AI 速度是目标速度，实际速度受推理
+耗时影响；Qwen 当前大约每秒一步。异步推理不阻塞页面；暂停、重开、切换控制方式
+会取消待处理请求并丢弃旧结果。所有最终动作仍经 `SnakeGame.step(action)`。
+
+「防困辅助」默认开启，对所有 AI 生效，人类控制不受影响。它模拟候选下一步，
+用洪水填充检查可达空间和通往尾部的路径，优先保留有退路、空间较大的候选动作。
+最新版本先查找食物最短路径，模拟走完整条路线、吃完后的尾部可达性；有退路时
+优先执行该路线，同样短的路线优先直行，并缓存计划避免逐步左右摇摆。没有安全
+食物路线时，再尝试空间/尾部/重复位置回退。界面显示调整次数。高倍速每帧最多处理 128
+步，让控制按钮仍有机会响应。
+
+**这是有完整棋盘信息的辅助规划器，不是 DQN 自己学会了规划，也不是 Qwen 推理
+能力提升。** 开关关闭即可观察原始模型。它不能保证永不死亡：尾巴和身体会移动，
+单步空间估计不是完整未来搜索。原来的 Python 随机/启发式/DQN/Qwen 基准和 DQN
+训练环境的默认经典奖励保持原有行为；策略奖励为可选实验配置。
+
+较早版本的空间辅助基线（20 个固定种子，每局最多 3000 步）：
+
+| 策略 | 防困辅助 | 平均分 | 平均步数 | 碰撞结束 | 达到步数上限 |
+|---|---|---:|---:|---:|---:|
+| Random | 关 | 1.5 | 83.15 | 20 | 0 |
+| Random | 开 | 119.0 | 3000 | 0 | 20 |
+| Heuristic | 关 | 282.5 | 431.3 | 20 | 0 |
+| Heuristic | 开 | 1109.5 | 3000 | 0 | 20 |
+
+达到上限不代表通关。这组结果只覆盖 Random 和 Heuristic 的空间辅助对照，不能
+当作 DQN/Qwen 的统计成绩。原始记录：[browser_safety.json](results/browser_safety.json)。
+当前安全食物路径版本的同种子结果见 [browser_safe_food_path.json](results/browser_safe_food_path.json)：
+Random+辅助均分 1247，Heuristic+辅助均分 1237，均为 20/20 局达到 3000 步上限。
+当前版本复现命令：`node scripts/evaluate-safety.cjs 20 3000`。
+
+### Training：选择模型继续训练
+
+展开 **Training · DQN**：
+
+1. 选择「从零开始」，或选择已有模型作为起点。
+2. 输入本次**追加** episode 数（1–10000）、保存间隔和新模型随机种子。
+3. 点击「开始训练」，查看累计 episode、分数、移动均分、epsilon 和已保存文件。
+4. 「停止并保存」会等当前 episode 完成再停止，因此不会把半局计入文件名。
+5. 完成或停止后模型列表自动刷新，可选择新模型进行游戏或继续训练。
+
+文件命名为 `models/<累计episode>_model.pt`。例如 `2000_model.pt` 追加 500 局
+产生 `2500_model.pt`，不是重新计数为 500。保存间隔内会产生阶段模型，结束时总会
+保存最后完成的 episode。同名文件不覆盖，放到 `models/<本次运行ID>/2500_model.pt`，
+下拉框显示完整相对路径。旧的 `best_model.pt`、`latest_model.pt` 继续保留可选。
+累计训练局数**不是质量排名**，多训练不保证分数提升。
+
+新模型保存 Q 网络、目标网络、Adam 状态、经验回放、探索进度、随机状态和累计
+episode，支持在 episode 边界继续训练。旧格式没有回放和随机状态，首次续训会
+明确提示「旧模型：重新积累经验回放」；新保存的文件之后可完整续训。续训继承
+原模型的种子和训练参数，不使用新模型种子输入框覆盖它们。
+
+训练在独立 Python 子进程中进行，可同时使用页面，最多一个训练任务。状态和 CSV
+保存在 `results/training_runs/<运行ID>/`，含 `request.json`、`status.json`、
+`training.csv` 和 `worker.log`。本次网页功能验证留下了 `2_model.pt`（从零训练）、
+`2001_model.pt`、`2002_model.pt`、`2003_model.pt`（续训链）和 `2036_model.pt`
+（从 2003 继续后测试停止保存）。这些是功能验证产物，未经新的 100 局质量评估，
+不要据文件编号认定它们优于原 `best_model.pt`。Training 只训练 DQN，不微调 Qwen。
+
+命令行也可使用新流程（job-dir 每次选不同目录）：
+
+```powershell
+.\.venv\Scripts\python.exe -m rl.dqn.train_session --episodes 500 --checkpoint models/2003_model.pt --job-dir results/training_runs/my_run --save-every 100
+```
+
+### 新增模块和验证
+
+| 文件 | 职责 |
+|---|---|
+| `start-local.ps1` | 启动本机服务 |
+| `rl/web_server.py` | 页面资源、校验后的推理接口、模型目录、训练进程管理 |
+| `rl/dqn/train_session.py` | 追加训练、累计编号保存、停止与状态日志 |
+| `js/local-ai.js` | 异步模型代理、请求等待与过期响应丢弃 |
+| `js/safety.js` | 可选可达空间/尾部路径/重复位置辅助 |
+| `rl/test_web_training.py` | 续训等价性、回放恢复、本机接口与文件路径测试 |
+| `tests/local-ai.test.cjs` | 异步动作、防困、暂停重置相关契约测试 |
+
+验证通过 49 个 Python 测试和 68 个 JavaScript 测试。实际 Edge 无头浏览器验证了
+DQN 控制、新模型加载、Qwen 本机真实动作、从零训练、两次续训、停止保存、暂停和
+控制切换；390px 宽度没有横向溢出。原始页面主体外观基线一致；外观测试规范化
+Windows 换行，CSS 基线按规范化文本记录。新增控件继续沿用原有页面样式。
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest rl.test_env rl.dqn.test_dqn rl.test_llm_agent rl.test_web_training -v
+node --test tests/game.test.cjs tests/agents.test.cjs tests/snake.test.cjs tests/local-ai.test.cjs
+```
+
+## Run the browser demo
+
+Open `index.html` in a modern browser. No installation, build, server, or external
+dependencies are required. Keep the `css/` and `js/` directories beside the HTML.
+
+The renamed `PixelSnake.html` file is also a working entry point. It contains
+the same markup and loads the same shared files, preserving the original file URL
+for users with browser-local saves. Keep its markup in sync with `index.html`;
+the test suite checks that they match. Saved data still uses the existing
+`pixel-snake-best`, `pixel-snake-language`, and `pixel-snake-shop` keys. Browser
+storage depends on the URL/origin, so a different entry URL may have separate saves.
+
+## Python RL quick start
+
+From the project root, with Python 3.12 or newer:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r rl/requirements.txt
+.\.venv\Scripts\python.exe -m unittest rl.test_env -v
+.\.venv\Scripts\python.exe -m rl.random_agent --episodes 100 --seed 42
+```
+
+On macOS/Linux use `.venv/bin/python` instead of `.\.venv\Scripts\python.exe`.
+An isolated `.venv` was created for validation on this Windows workspace. Python
+was not on PATH here; the initial venv was created using the available bundled
+Python runtime. The commands using `.venv` work without activating it. Dependencies
+are pinned to Gymnasium 1.3.0, NumPy 2.5.3, PyTorch 2.14.0, and matplotlib 3.11.1; tests use Python's
+standard-library `unittest` and require no test framework installation.
+
+```python
+from rl.snake_env import SnakeEnv
+
+env = SnakeEnv(max_steps_without_food=400, render_mode="ansi")
+observation, info = env.reset(seed=42)
+observation, reward, terminated, truncated, info = env.step(0)
+print(env.render())
+env.close()
+```
+
+Importing `rl` also registers `PixelSnake-v0`, so
+`gymnasium.make("PixelSnake-v0")` works after `import rl`. Use the compact observation
+as the policy input; `info` contains score, survival/food counters, and end reasons
+for diagnostics. `get_state()` provides a detached, JSON-serializable board snapshot
+with JavaScript-style field names for future demo integration.
+
+## PyTorch DQN: training and evaluation
+
+The DQN is implemented directly in PyTorch, without Stable Baselines, TorchRL, or
+another high-level RL trainer. The existing SnakeEnv rules, observations, rewards,
+and browser gameplay are unchanged. Run from the project root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r rl/requirements.txt
+# The supplied run already occupies models/ and results/. Preserve it with a new root:
+.\.venv\Scripts\python.exe -m rl.dqn.train --episodes 2000 --seed 42 --output-root runs/reproduction
+.\.venv\Scripts\python.exe -m rl.dqn.evaluate --checkpoint models/best_model.pt --episodes 100 --seed 200000
+.\.venv\Scripts\python.exe -m unittest rl.test_env rl.dqn.test_dqn -v
+```
+
+`python -m rl.dqn.evaluation` is an alias for `python -m rl.dqn.evaluate`, supporting
+both requested filenames. These entry points are package modules; use `-m` from
+the project root. On a fresh project, omitting `--output-root` saves directly to
+`models/` and `results/`. Training refuses to overwrite existing checkpoints or
+training CSVs. Evaluation writes the named output directory (default `results/`);
+use `--output-dir results/recheck` to retain separate evaluation reports.
+
+### Interview walkthrough: how one DQN update works
+
+1. **Approximate Q values.** `model.py` defines a fully connected network with
+   dimensions `10 -> 128 -> 128 -> 3` and ReLU hidden activations (18,307 trainable
+   parameters). Each output estimates the discounted future return of one relative
+   action. The output is linear, without softmax: Q values are not probabilities.
+2. **Explore.** `agent.py` chooses a uniformly random action with probability epsilon;
+   otherwise it selects the largest online-network Q value. Epsilon decays linearly
+   from 1.0 to 0.05 across the first 100,000 environment ticks and then stays at 0.05.
+   There is no safety mask or heuristic intervention in DQN decisions.
+3. **Store experience.** `replay_buffer.py` copies `(state, action, reward,
+   next_state, terminated, truncated)` into a 50,000-transition ring buffer. Uniform
+   random mini-batches of 64 break the strong correlation between consecutive moves
+   and reuse earlier experience. A full buffer overwrites the oldest transition.
+4. **Construct the Bellman target.** The target network is a frozen copy of the
+   online network. For each sampled transition:
+
+   `y = reward + gamma * (1 - terminated) * max_a Q_target(next_state, a)`
+
+   `gamma = 0.99`. True terminal states (wall/body death or full-board win) contribute
+   only their immediate reward. Truncations stop the rollout but still bootstrap
+   from the final observation before reset. This follows SnakeEnv's treatment of
+   no-food exhaustion as an external cutoff. Storing separate flags avoids silently
+   treating every cutoff as death. The observation's capped no-food fraction can
+   still make bootstrapping near that cutoff an approximation worth investigating.
+5. **Fit the selected action value.** `gather()` extracts `Q_online(state, action)`
+   for actions actually taken. Mean Smooth L1 (Huber) loss compares those predictions
+   with targets computed under `torch.no_grad()`. Backpropagation updates only the
+   online network through Adam, learning rate 0.0003. Gradient norm is clipped at 10.
+6. **Stabilize the target.** Every 500 optimizer updates, online weights are copied
+   into the target network. This reduces the speed at which the regression target
+   changes. Learning starts after 1,000 ticks and runs every fourth environment tick.
+
+This is vanilla DQN: the target network both selects and evaluates the maximum
+next-action value. It is not Double DQN, prioritized replay, or a dueling network.
+The code exposes each operation instead of wrapping them in an RL library. For
+background, see the official [PyTorch DQN tutorial](https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html).
+
+### Files and experiment artifacts
+
+| File | Responsibility |
+| --- | --- |
+| `rl/dqn/model.py` | Neural-network Q function. |
+| `rl/dqn/replay_buffer.py` | Bounded replay storage and seeded uniform sampling. |
+| `rl/dqn/agent.py` | Epsilon-greedy actions, Bellman targets, mini-batch optimization, target synchronization, checkpoint I/O. |
+| `rl/dqn/train.py` | Episode loop, logging, validation selection, checkpoints, matplotlib plots. |
+| `rl/dqn/evaluate.py` | Greedy held-out evaluation and RandomAgent/HeuristicAgent comparison. |
+| `rl/dqn/evaluation.py` | Alias entry point for evaluation. |
+| `rl/dqn/test_dqn.py` | DQN unit tests and a small training/artifact smoke test. |
+| `models/best_model.pt` | Highest validation mean-score checkpoint; ties retain the earlier checkpoint. |
+| `models/latest_model.pt` | Most recent saved weights; saved at validation intervals and when training exits. |
+| `results/training.csv` | Every training episode, including poor episodes and warm-up. |
+| `results/run_config.json` | Hyperparameters, environment settings, seed protocol, software versions. |
+| `results/training_status.json` | Completed episodes, environment ticks, optimizer updates, elapsed time. |
+| `results/validation.json` | All periodic validation metrics, not just the best result. |
+| `results/evaluation.json` | Held-out aggregate comparison, checkpoint identity/hash, and settings. |
+| `results/evaluation_episodes.csv` | All 300 individual comparison episodes. |
+
+Training logs episode, episode reward, score, epsilon at episode end, mean training
+loss across that episode's updates, and trailing 100-episode mean score. Before
+100 episodes the average uses all available episodes. Loss is blank in CSV when no
+update occurred (warm-up), rather than pretending an update achieved zero loss.
+It also logs attempted/survived steps, food, end reason, end flags, and update counts.
+Console summaries appear at validation intervals; CSV rows are flushed every episode.
+A 10,000-tick total cap additionally bounds each training/evaluation episode.
+
+### Checkpoints and reproducibility
+
+Checkpoints store online and target `state_dict`s, optimizer state, architecture and
+hyperparameters, environment-step/update counters, and experiment metadata. Writes
+use a temporary file followed by replacement. Loading explicitly uses CPU mapping
+and `weights_only=True`; it does not deserialize a saved model class. Example:
+
+```python
+from rl.dqn.agent import DQNAgent
+from rl.snake_env import SnakeEnv
+
+agent, metadata = DQNAgent.load("models/best_model.pt")
+agent.online.eval()
+env = SnakeEnv(**metadata["env_config"])
+observation, info = env.reset(seed=200000)
+action = agent.choose_action(observation, explore=False)
+observation, reward, terminated, truncated, info = env.step(action)
+env.close()
+```
+
+The original format-1 checkpoints support inference and restore optimizer/counter state.
+They do not contain replay or RNG states. The new Training panel accepts these legacy
+files with an empty replay buffer, and writes format-2 numbered checkpoints with full
+episode-boundary resume state. The original `train.py` experiment still has no resume
+CLI claiming otherwise. Evaluation always calls `explore=False` regardless of the
+checkpoint's training epsilon and never updates the model or replay buffer.
+See [PyTorch serialization guidance](https://docs.pytorch.org/docs/stable/generated/torch.load.html).
+
+Python, NumPy, PyTorch, epsilon exploration, and replay sampling are seeded.
+The supplied run uses CPU, one PyTorch thread, and deterministic algorithms.
+Matching software/hardware and seeds are needed for reproducibility; results are
+not promised bit-identical across PyTorch releases or devices.
+
+Training used seeds **42–2041**. Every 100 episodes, the current greedy network was
+validated on the same 20 separate seeds **100000–100019**; that mean score selected
+`best_model.pt`. The final test used **200000–200099**, never used for model selection.
+The best checkpoint was episode 2000, also the final checkpoint in this run.
+
+For fair comparison all three policies run in the same Python SnakeEnv with the
+same 100 reset seeds, relative action space, 400-tick no-food limit, and 10,000-tick
+absolute cap. Each sees the same 10-feature vector. RandomAgent samples all three
+actions uniformly. HeuristicAgent ports the browser's nearest-food/immediate-danger
+rule using observation features only (including its direction tie order), not
+privileged snake-body state. Action RNG streams are independent of food RNGs.
+Different trajectories can still produce different later food positions from the
+same reset seed because the set of occupied cells differs.
+
+### Measured DQN results
+
+One 2,000-episode run at seed 42 completed **170,682 environment ticks** and
+**42,421 optimizer updates** in about **39.9 seconds** of measured training time on
+this machine (excluding dependency installation). Final trailing training mean
+score was **108.3** with exploration epsilon **0.05**. The final validation mean
+score was **287.5**. Greedy test scores are not directly interchangeable with
+exploratory training scores.
+
+Held-out evaluation: **100 episodes per policy**, exploration disabled for DQN:
+
+| Policy | Mean score | Median score | Maximum score | Mean survival steps |
+| --- | ---: | ---: | ---: | ---: |
+| DQN | 306.3 | 300.0 | 640 | 519.65 |
+| RandomAgent | 1.4 | 0.0 | 10 | 65.67 |
+| HeuristicAgent | 279.0 | 285.0 | 580 | 417.98 |
+
+Survival counts successful moves, excluding the fatal attempt. Scores are points,
+so a DQN mean score of 306.3 represents an average of 30.63 fruits. All 300 test
+rollouts terminated in collisions; none won or reached a time limit. DQN's deaths
+were **91 self-collisions and 9 wall collisions**. HeuristicAgent had 98 self and
+2 wall collisions; RandomAgent had 100 wall collisions.
+
+The DQN substantially exceeded random play in this run and had a higher mean than
+the heuristic on this test set. This is **one training seed and one test set**,
+not evidence of consistent superiority across seeds, convergence, or solving Snake.
+No post-test hyperparameter tuning or replacement of the original run was performed.
+Reloading the saved checkpoint reproduced the reported DQN aggregate metrics exactly.
+
+The early policy performed poorly: most episodes scored zero through much of the
+run. Validation was unstable (for example, 73.0 at episode 1600 fell to 33.5 at
+1700). Improvement came late as exploration decreased and useful food transitions
+became more common. Training losses grew as the data distribution and value targets
+changed, so a lower TD loss alone should not be interpreted as better play.
+Likely remaining limitations and experiments to try next:
+
+- The compact observation hides most of the body layout. This helps explain the
+  dominant self-collision failure mode; test local occupancy features or memory.
+- Sparse food rewards and high early exploration produce few useful successes.
+  Evaluate longer runs and multiple exploration schedules without adding reward
+  shaping first.
+- Vanilla max-based targets can overestimate values. Compare Double DQN and target
+  update schedules as separate, logged experiments.
+- Run several independent training seeds and report uncertainty on a larger held-out
+  set before making a robust DQN-versus-heuristic claim.
+- Preserve this run and use new output roots for future changes; do not select models
+  by repeatedly inspecting the held-out test set.
+
+### Training plots
+
+The plots contain the actual logged episodes, including failed episodes, without
+filtering or replacing low scores. They are generated with matplotlib's headless
+Agg backend; only the third plot applies the explicitly labeled moving average.
+
+![Training reward vs episode](results/training_reward.png)
+![Training score vs episode](results/training_score.png)
+![Trailing 100-episode mean score](results/moving_average_score.png)
+
+The DQN tests cover Bellman terminal masking, seeded replay and overwrite behavior,
+exploration-free greedy actions, online/target updates, checkpoint round trips,
+seeded optimization, baselines, rollout limits, and training artifact creation.
+All **7 DQN tests**, **24 environment tests** (including Gymnasium checker), and
+**62 browser/JavaScript tests** passed. A stale test reference to the old Chinese
+HTML filename was corrected to `PixelSnake.html` after the existing project rename.
+
+## Experimental local Qwen agent
+
+This experiment uses the installed `qwen3.8:27b-q4_K_M` (27.3B, Q4_K_M) through
+Ollama at `http://127.0.0.1:11434`. It runs headlessly against `SnakeEnv`; the original benchmark does not change DQN training. The newer local service also exposes Qwen as a browser controller. No screenshots, pixels,
+full board, conversation history, or cloud API are used. No new dependencies are
+needed beyond the existing requirements and your running local Ollama deployment.
+
+```powershell
+# Start the existing local deployment if needed.
+& 'D:\isaac-lab\Qwen\start.ps1'
+.\.venv\Scripts\python.exe -m unittest rl.test_llm_agent -v
+.\.venv\Scripts\python.exe -m rl.evaluate_llm --episodes 50 --budget-seconds 600
+```
+
+The default output is `results/llm_experiment/`. The runner refuses to overwrite a
+nonempty output directory; use `--output-dir results/llm_another_run` for a new run.
+To allow a much longer attempt at 50 episodes, set a larger `--budget-seconds`.
+The budget applies to Qwen rollouts, including inference, after model metadata
+verification. The three baselines still run the requested number of episodes.
+Each request also has a `--timeout` (120 seconds by default), limited by the
+remaining run budget. There are no automatic retries, model downloads, or cloud
+fallbacks. An unavailable/missing model fails verification before evaluation.
+
+### LLM interface and action validation
+
+`rl/llm_agent.py` exposes `LLMAgent.choose_action(observation) -> int`, using the
+same relative action mapping as DQN: `STRAIGHT=0`, `LEFT=1`, `RIGHT=2`.
+
+```python
+from rl.llm_agent import LLMAgent
+from rl.snake_env import SnakeEnv
+
+agent = LLMAgent(seed=42)
+agent.verify()  # Require installed local GGUF weights before inference.
+env = SnakeEnv()
+observation, info = env.reset(seed=42)
+action = agent.choose_action(observation)
+observation, reward, terminated, truncated, info = env.step(action)
+print(agent.last_decision)  # State, raw reply, action, latency, errors/fallback.
+env.close()
+```
+
+Only five fields are sent, derived from the existing numeric observation:
+
+```json
+{"danger_straight":true,"danger_left":false,"danger_right":false,"food_direction":"upper_left","current_direction":"right"}
+```
+
+Danger uses the environment's existing next-step collision queries. Food direction
+uses the signs of food offsets: upper/lower, left/right, or their combination.
+Current direction is absolute; LEFT and RIGHT actions are relative to it. Distance
+to food and the no-food timer are omitted, so Qwen receives less detail than DQN's
+10-number observation. The heuristic also uses only immediate danger, heading,
+and food-offset signs. All policies have no access to the full body through their
+observation interface.
+
+Ollama receives a JSON schema requiring exactly `{"action":"LEFT"}` (or one of
+the other allowed enums), `think:false`, `temperature:0`, a fixed seed, a 2,048-token
+context, and a 32-token output limit. Each move is a fresh two-message request.
+There is no state/action cache or multi-move batching. Strict parsing rejects
+extra keys, duplicate keys, markdown, trailing prose, wrong types/case, unknown
+actions, and incomplete/token-limited responses. Output is never executed as code.
+
+Invalid responses and request failures choose the first immediately safe move in
+STRAIGHT, LEFT, RIGHT order. When all three moves are dangerous, straight is a valid
+fallback but cannot prevent death. **A schema-valid dangerous action is executed
+unchanged.** This avoids silently giving Qwen the heuristic's collision avoidance.
+Fallbacks, API failures, malformed responses, and dangerous actions are recorded
+separately. A failed call therefore cannot masquerade as a successful Qwen move.
+
+The client permits only HTTP literal loopback hosts (`127.0.0.1` or `[::1]`),
+disables system proxies and HTTP redirects, checks the installed model tag and
+local GGUF metadata, and rejects cloud/remote models. Your deployment's existing
+`OLLAMA_NO_CLOUD=1` setting provides an additional server-side restriction.
+
+### Benchmark accounting and artifacts
+
+`rl/evaluate_llm.py` loads the existing best DQN with exploration disabled and
+reuses the RandomAgent/HeuristicAgent implementations from DQN evaluation. Default
+seeds are 300000 onward, separate from training/validation/prior DQN test seeds.
+It preserves the checkpoint's board/no-food configuration and uses a common
+10,000-step evaluation cap. Environment steps wait for each policy decision;
+latency is measured, not converted into artificial in-game deaths.
+
+- `config.json`: model tag/digest, Ollama version, full prompt/options, seeds,
+  environment settings, time limits, and DQN checkpoint hash.
+- `Qwen_decisions.jsonl` and baseline decision logs: each attempted action and
+  latency; Qwen also includes the structured input, raw reply, and validation result.
+- Per-policy episode JSON and `episodes.csv`: scores, successful survival steps,
+  food, end reasons, termination/truncation, and budget-interrupted partial episodes.
+- `comparison.json` and `comparison.md`: full results plus a comparison restricted
+  to the episode seeds Qwen completed.
+
+Mean/median/max score and mean survival use completed episodes only. Score is
+10 points per food. No-food and evaluation-step truncations count as finished
+evaluations; wall-time-interrupted episodes do not. Latency is per attempted
+`choose_action` call and includes HTTP, inference, parsing, failed calls, and any
+cold loading. Invalid-action rate is invalid/incomplete action responses divided
+by received responses; transport/API errors are a separate rate over all calls.
+Fallback rate includes both categories. Logs mark whether a timed-out decision was
+actually executed; no move is executed after the wall-time budget has expired.
+
+Seeds and temperature zero make runs more reproducible but do not guarantee
+bit-identical LLM outputs across Ollama versions, quantization, hardware, or kernels.
+Baselines and Qwen may finish different numbers of episodes: use the shared-seed
+table for direct comparisons, and avoid strong rankings from a tiny sample.
+
+Offline verification covers strict parsing, all food/heading mappings, local-only
+routing, invalid/failing requests, unsafe valid actions, incomplete output, and
+partial-episode/deadline accounting. All 12 LLM tests, 24 environment tests, seven
+DQN tests, and 62 browser regression tests passed after this addition.
+
+### Measured local-Qwen results (2026-09-10)
+
+Run: `--episodes 50 --seed 300000 --budget-seconds 600`, default 20x20 board,
+400-step no-food cutoff, and 10,000-step evaluation cap. Ollama 0.33.3 served the
+local Q4_K_M model; DQN used the existing episode-2000 best checkpoint unchanged.
+The preliminary three-request pilot warmed the model before this benchmark.
+Its first request took 11.76 seconds; the next two took about 1.33 seconds each.
+The table below measures the benchmark, not those pilot calls.
+
+| Agent | Completed episodes | Mean score | Median | Max | Mean survival steps | Decision ms | Invalid response % |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Random | 50 | 2.000 | 0.000 | 20.000 | 77.700 | 0.002 | 0.000 |
+| Heuristic | 50 | 264.800 | 285.000 | 530.000 | 385.940 | 0.005 | 0.000 |
+| DQN | 50 | 283.400 | 265.000 | 560.000 | 488.600 | 0.024 | 0.000 |
+| Qwen | 1 | 10.000 | 10.000 | 10.000 | 412.000 | 1307.118 | 0.000 |
+
+**Qwen did not complete 50 episodes within the runtime budget.** It completed one
+episode (seed 300000), collecting one food and then making repeated RIGHT turns in
+a four-move loop. It ended with score 10 and 412 successful moves because 400 moves
+had elapsed without another food. This was a no-food truncation, not a collision.
+The second episode stopped at the wall-time budget with score 10 and 46 successful
+moves; it is saved but excluded from episode averages. At roughly nine minutes per
+episode like the first, 50 episodes would take about 7.5 hours.
+
+There were 459 attempted Qwen decisions: 458 complete responses, all valid, and
+one request timeout caused by the remaining wall-time budget. The request-error
+and fallback-selection rates are therefore 1/459 = 0.218%; that final fallback was
+**not executed**. No executed move used a fallback. Invalid-action rate was 0/458.
+The measured mean latency (including the final shortened timeout) was 1307.118 ms.
+At this latency Qwen makes about 0.77 decisions/second, versus about 0.024 ms per
+DQN decision on this machine. Survival alone would conceal Qwen's lack of progress.
+
+The full table has unequal sample counts. For the one seed completed by all agents:
+
+| Agent | Completed episodes | Mean score | Median | Max | Mean survival steps | Decision ms | Invalid response % |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Random | 1 | 0.000 | 0.000 | 0.000 | 242.000 | 0.001 | 0.000 |
+| Heuristic | 1 | 70.000 | 70.000 | 70.000 | 79.000 | 0.007 | 0.000 |
+| DQN | 1 | 230.000 | 230.000 | 230.000 | 366.000 | 0.024 | 0.000 |
+| Qwen | 1 | 10.000 | 10.000 | 10.000 | 412.000 | 1307.106 | 0.000 |
+
+One shared episode is insufficient for a reliable performance ranking. These
+results demonstrate a concrete loop failure and substantial inference latency;
+they do not establish that all prompts or LLMs will behave the same way. The current
+prompt is preserved in `results/llm_experiment/config.json`. No prompt tuning,
+state caching, or DQN retraining was performed during the evaluation.
+
+See [the complete comparison](results/llm_experiment/comparison.md),
+[metric JSON](results/llm_experiment/comparison.json), and
+[episode CSV](results/llm_experiment/episodes.csv). Raw Qwen states/replies are in
+`results/llm_experiment/Qwen_decisions.jsonl`.
+
+### Suitability for real-time control
+
+An LLM can interpret rules and produce structured actions without Snake-specific
+training. However, a 27B language model requires far more computation per move than
+a small DQN or a few heuristic rules. Valid JSON does not establish spatial
+reasoning, collision avoidance, or loop avoidance. The compact observation hides
+body geometry and, for Qwen, distance/time information; a deterministic stateless
+policy can repeatedly choose the same action in an indistinguishable situation.
+
+This experiment keeps the game paused while waiting for inference. Real-time
+play would also need a latency budget and an asynchronous controller with a policy
+for stale decisions. A smaller model or cached decisions could reduce cost, but
+those should be measured as separate variants. LLMs may be more useful for episode
+analysis, explanations, or high-level planning while a fast policy controls moves.
+
+## Python environment design
+
+`rl/snake_env.py` implements `SnakeEnv(gymnasium.Env)` using the modern
+`reset() -> (observation, info)` and
+`step() -> (observation, reward, terminated, truncated, info)` interfaces.
+`render()` returns a text board when `render_mode="ansi"` and returns `None` with
+the default headless mode. `close()` is idempotent; there are no windows or external
+processes to clean up. Call `reset()` before stepping and after either end flag;
+otherwise `step()` raises `ResetNeeded`. These conventions follow the
+[Gymnasium environment API](https://gymnasium.farama.org/api/env/).
+
+The default 20 × 20 board starts with the same three-segment snake as the JavaScript
+engine: head `(9, 10)`, body `(8, 10), (7, 10)`, facing right. Food is uniformly chosen
+from unoccupied cells. Eating grows the snake by one and adds 10 score points.
+Walls and body collisions end the game; entering the departing tail cell is legal
+when not eating. Filling the board is a win. `board_size` can be configured to an
+integer of at least 6 for smaller experiments. One step is one grid move, without
+browser timing, boosting, particles, sound, skins, or shop state.
+
+### Relative action space
+
+The action space is `Discrete(3)`:
+
+| Value | Action | Example when facing right |
+| --- | --- | --- |
+| `0` | Continue straight | Right |
+| `1` | Turn left, then move | Up |
+| `2` | Turn right, then move | Down |
+
+Every action advances one tick. No action can reverse direction instantaneously.
+Out-of-range values, absolute direction strings, floats, and booleans raise
+`ValueError` before changing game state. NumPy integer actions are accepted.
+
+### Numeric observation space
+
+Observations are fresh NumPy `float32` arrays of shape `(10,)`, declared with a
+bounded Gymnasium `Box`. The feature order is also available as
+`SnakeEnv.OBSERVATION_NAMES`:
+
+| Indices | Features | Range and interpretation |
+| --- | --- | --- |
+| `0–2` | Danger straight, left, right | `0` or `1`, using the same wall/body/tail rules as `step()`. |
+| `3–6` | Current direction: up, right, down, left | Four one-hot values, each `0` or `1`. |
+| `7` | Food x offset | `(food_x - head_x) / (board_size - 1)`, from `-1` to `1`. Positive means food to the right. |
+| `8` | Food y offset | `(food_y - head_y) / (board_size - 1)`, from `-1` to `1`. Positive means food below. |
+| `9` | No-food budget used | `steps_since_food / max_steps_without_food`, bounded to `[0, 1]`; reset to `0` by eating. |
+
+This vector gives a small policy immediate hazards, orientation, food location,
+and progress toward the loop cutoff without learning from raw pixels. Direction
+uses one-hot values to avoid imposing a false numeric distance between headings.
+Food offsets provide both direction and normalized distance. At a full-board win,
+food offsets are zero because no food remains.
+
+The observation is deliberately **partially observed**: it omits the full body
+layout and absolute head position. Different boards can produce identical vectors,
+so these features do not guarantee enough information for a perfect memoryless
+policy. A later stage can add occupancy features or agent memory if needed.
+
+### Reward and episode endings
+
+Rewards are mutually exclusive, rather than combined with a step penalty:
+
+| Transition | Reward |
+| --- | --- |
+| Eats food, including the final food of a full-board win | `+10.0` |
+| Hits a wall or its own body | `-10.0` |
+| Any other successful move, including a no-food cutoff | `-0.01` |
+
+The small movement cost discourages long loops while food/death remain the dominant
+signals. There is no distance-to-food bonus, additional win bonus, or other reward
+shaping. Score is always 10 points per food and is distinct from cumulative reward.
+
+`max_steps_without_food` defaults to `board_size ** 2` (400 on the default board).
+It counts attempted ticks since the last fruit and resets immediately on eating.
+Reaching that limit on a non-eating move ends the episode with `truncated=True`
+and `info["end_reason"] == "no_food_limit"`. This is a finite no-progress cutoff,
+not proof that a repeated path was detected. It prevents endless runs without
+marking the snake as dead. Collision or a full-board win returns `terminated=True`;
+collision/win takes precedence over the cutoff on the same tick. The distinction
+matches Gymnasium's termination/truncation semantics in its
+[API reference](https://gymnasium.farama.org/api/env/).
+
+`info` includes `score`, `steps` (including a fatal attempt), `steps_survived`
+(successful moves), `food_collected`, `snake_length`, `steps_since_food`,
+`cause_of_death` (`wall`, `self`, or `None`), `end_reason`, and `won`.
+Episode numbering is kept by the evaluator, outside the environment's deterministic
+state. No-food truncation has no death cause; a win uses `end_reason="board_full"`.
+
+### Seeding and relationship to the browser
+
+`reset(seed=n)` calls `super().reset(seed=n)` and food spawning uses only
+`self.np_random`. Repeating a seed and action sequence reproduces Python states,
+observations, rewards, and end flags. `reset(seed=None)` continues the existing
+random stream rather than rewinding it. To reproduce random policies, also seed
+`env.action_space`; it has an independent RNG. The evaluation script seeds both
+streams with `base_seed + episode_index`.
+
+The browser files remain unchanged and continue to serve as the interactive
+visualization/demo. Python implements matching grid rules independently, so RL
+rollouts do not require Node.js or a browser. The test suite compares transitions
+between Python and the actual JavaScript engine for movement, food, growth, walls,
+body collisions, and departing-tail cases. NumPy and JavaScript's Mulberry32 use
+different random streams: equal seeds do **not** imply identical food sequences
+across languages. The new local service bridges browser snapshots to Python policy inference; the original offline environment does not require browser playback
+integration in this step; `get_state()` is a compatible data boundary for that work.
+
+### Python validation and random baseline
+
+`rl/test_env.py` calls Gymnasium's `check_env()` without skipping render checks.
+It provides an environment spec so the checker can recreate the supported render
+mode. Its 24 tests cover the checker, observations, invalid/reverse actions,
+collisions, eating/growth, resets, multi-food seed replay, loop cutoff boundaries,
+full-board wins, rendering, and a repeated 100-episode baseline. The JS parity test
+runs when Node.js is available; the environment and other tests do not depend on it.
+See the official [environment checker documentation](https://gymnasium.farama.org/api/utils/#gymnasium.utils.env_checker.check_env).
+
+Run the random baseline with `python -m rl.random_agent --episodes 100 --seed 42`.
+Add `--details` to include every episode record in its JSON output. No action
+masking or learning is applied: it samples uniformly from the three relative actions.
+Episodes stop on either end flag. The reported survival length is the number of
+successful moves, not the snake's body length; total attempted ticks are reported
+separately as `mean_episode_steps`.
+
+Verified using Python 3.12.14, Gymnasium 1.3.0, and NumPy 2.5.3:
+
+| Metric | 100 episodes, base seed 42 |
+| --- | ---: |
+| Mean score | 1.3 |
+| Median score | 0.0 |
+| Mean survival length (successful moves) | 64.15 |
+| Mean attempted steps per episode | 65.15 |
+| Terminated / truncated episodes | 100 / 0 |
+
+All 24 Python tests and the 62 existing JavaScript tests pass. These results are a
+reproducible random-policy baseline, not training results or a claim of good play.
+
+## Controls and preserved behavior
+
+- Single player: WASD or arrow keys.
+- Two players: player 1 uses WASD; player 2 uses arrow keys on a separate board.
+- Space pauses/resumes or starts a round. Buttons also start, pause, and restart.
+- Touch: swipe a board or press its direction buttons.
+- Hold the current direction for 0.5 seconds to boost to 10 cells/second.
+  Release or turn to return to the earned speed.
+- The board is 20 × 20. The snake starts with 3 segments, facing right.
+- Fruit adds one segment, 10 points, and 5 shared shop coins.
+- Base speed starts at 4 cells/second, increases by 0.1 per fruit, and caps at 10.
+- Walls and the snake's body end that board. Moving into the departing tail cell
+  is legal when not eating. Filling the board wins.
+- Players have independent movement clocks and scores. One can continue after
+  the other finishes. The round ends when all active players finish.
+- Neon styling, interpolation, particles, sound, skins, records, three languages,
+  reduced-motion behavior, and pause-on-focus-loss behavior are retained.
+
+## Structure
+
+```text
+index.html                 Page markup and ordered script loading
+PixelSnake.html            Compatibility entry with identical markup
+css/
+  style.css                Original styles plus agent/statistics controls
+js/
+  game.js                  SnakeGame, abstract actions, shared collision queries
+  agents.js                HumanAgent, RandomAgent, HeuristicAgent
+  episode.js               EpisodeRunner and headless batch evaluation
+  safety.js                Optional browser space/loop avoidance assistance
+  local-ai.js              Asynchronous local Qwen bridge / HTTP reference agent
+  dqn-agent.js             Browser DQN network and observation adapter
+  renderer.js              Canvas drawing, interpolation, particles, and sound
+  input.js                 Keyboard, pointer, swipe, and held-input handling
+  main.js                  Human-play controller, timing, HUD, shop, and saves
+scripts/
+  headless.cjs              Command-line episode evaluation with JSON output
+rl/
+  __init__.py               SnakeEnv export and optional PixelSnake-v0 registration
+  snake_env.py              Python Gymnasium environment with numeric observations
+  web_server.py             Loopback frontend, inference and training service
+  test_web_training.py      API and exact resume regression tests
+  test_env.py               Environment checker and Python unit/parity tests
+  random_agent.py           Reproducible random-policy evaluation and reporting
+  llm_agent.py               Text-only local Ollama policy, strict validation and fallback
+  evaluate_llm.py            Independent timed Qwen/DQN/baseline comparison
+  test_llm_agent.py          Offline action, local routing, and accounting tests
+  requirements.txt          Pinned Gymnasium, NumPy, PyTorch, and matplotlib dependencies
+  dqn/                      Explicit PyTorch model, replay, agent, training, evaluation, tests
+models/                     Best and latest saved PyTorch checkpoints
+results/                    Training/evaluation CSV and JSON, matplotlib plots
+tests/
+  agents.test.cjs          Agent contracts, decisions, and headless statistics
+  game.test.cjs            Public engine API, reproducibility, and appearance checks
+  snake.test.cjs           Existing browser regression scenarios and integration checks
+  appearance-baseline.json SHA-256 hashes of original CSS and page body
+README.md
+```
+
+The scripts use small scoped factories and browser globals (`SnakeEngine`,
+`SnakeAgents`, `SnakeEpisodes`, `createSnakeRenderer`, `createSnakeInput`) rather than ES-module imports so opening
+the HTML directly still works. `game.js`, `agents.js`, and `episode.js` also export
+CommonJS APIs for Node.js. Load those three in that order before `main.js`.
+There is no bundler or package dependency.
+
+## Inspection of the original project
+
+Before changes, the entire application lived in `像素风贪吃蛇.html` (1,225 lines),
+with inline CSS and one script at lines 550–1223. The only other project
+file was `tests/snake.test.cjs`, containing 39 passing regression tests. There was
+no README, package manifest, or build configuration.
+
+These references describe the original file, before extraction:
+
+| Responsibility | Original location and behavior | Current location |
+| --- | --- | --- |
+| Snake state | `players` at line 726 mixed snake, direction, food, turns, score, alive/win flags with canvas, touch, boost, and animation data. `resetPlayers()` at line 859 initialized them. | Private state in each `SnakeGame`; `main.js` keeps a copied `player.model` and separate human-play/presentation fields. |
+| Movement | `step(player)` at line 1101 advanced one grid cell. `frame()` at line 1131 scheduled ticks with independent clocks. | Grid movement in `SnakeGame.step(action)`; clocks remain in `main.js`. |
+| Food | `spawnFood()` at line 851 enumerated empty cells and chose one with `Math.random()`. | Private `SnakeGame.#spawnFood()`, with the same empty-cell selection and an optional seeded stream. |
+| Collisions | `step()` checked walls and body; it excluded the departing tail when not eating. | `SnakeGame.step()`, retaining those rules. |
+| Score and game over | `step()` added 10 points, updated best score/storage, awarded coins, and detected a filled board. `finish()` at line 1085 ended a board and updated round status; `renderStatus()` at line 1010 displayed results. | Engine owns points, alive/win flags, and terminal detection. Controller reacts to score/state changes to award coins, save records, and display results. |
+| Keyboard input | Handlers at lines 1176–1201 mapped WASD/arrows to `turn()`, prevented reversal and duplicate turns, and buffered at most two turns. Key repeat only maintained held-input highlighting/boost. Space controlled start/pause. | `input.js` translates hardware events to `Actions`; `HumanAgent` buffers human turns; the engine independently rejects reversals. |
+
+## Architecture and state ownership
+
+`game.js` has no DOM, Canvas, audio, local storage, timer, or keyboard dependency.
+Each engine owns only the grid state and its random stream. Engine methods are
+synchronous, so callers decide when to advance. The same engine runs in a browser
+or in Node.js without rendering anything.
+
+`input.js` converts keys, virtual buttons, and swipes into `UP`, `DOWN`, `LEFT`, or
+`RIGHT` actions and calls the controller. It also tracks held input for highlighting
+and boosting. It never modifies snake state or calls the engine directly.
+
+`main.js` owns two engines, their agents and episode runners, and the
+ready/running/paused/over round status. `HumanAgent` queues at most two human turns
+per player. The controller schedules ticks and replaces `player.model` with the
+snapshot returned by the runner. Every runner step calls
+`game.step(agent.chooseAction(game.getState()))`. It retains the existing boost and speed
+timing, including interpolation retiming on boost release. Boost changes how often
+the controller calls `step`; it does not change what one engine step means.
+
+The controller also retains the existing HUD, translations, shop, and persistence
+code. An increase in engine score triggers the existing coin award, record save,
+score animation, and fruit feedback. Engine terminal state triggers result overlays.
+There is no second copy of collision, growth, or food-selection rules in the UI.
+
+`renderer.js` consumes snapshots plus presentation data. It retains the original
+drawing/interpolation algorithms, skin rendering, particles, and sound. Particle
+randomness is cosmetic and cannot advance a seeded engine's random stream.
+
+## Engine API
+
+In Node.js, from the project directory:
+
+```js
+const {SnakeGame, Actions} = require('./js/game.js');
+
+const game = new SnakeGame({seed:42});
+const initial = game.getState();
+const next = game.step(Actions.UP);
+console.log(next.snake[0], next.score, game.isGameOver());
+
+game.reset();       // Replays seed 42 from the beginning.
+game.reset('run');  // Selects and remembers a new seed.
+```
+
+In the browser, use `const {SnakeGame, Actions} = window.SnakeEngine` after loading
+`js/game.js`. The normal human-play controller creates unseeded engines.
+
+| Method | Contract |
+| --- | --- |
+| `new SnakeGame({seed} = {})` | Creates and resets a 20 × 20 game. Optional seed is a finite number or string, including `0` or an empty string. |
+| `reset()` | Restores initial snake, direction, score, and alive/win flags. Rewinds the configured seed and returns a snapshot. |
+| `reset(seed)` | Configures a new seed and resets. Explicit `reset(undefined)` returns to unseeded randomness. |
+| `step(action)` | Advances exactly one grid tick and returns a snapshot. Accepts the four exported `Actions` values. |
+| `step()` | Continues in the current direction for one grid tick. |
+| `getState()` | Returns a detached snapshot; changing it cannot mutate the engine. |
+| `isGameOver()` | Returns true after a collision or a full-board win. |
+
+A snapshot contains `size`, `snake` (head first, `{x, y}` cells), `direction`
+(`{x, y}` unit vector), `food` (`{x, y}` or `null`), `score`, `alive`, `won`,
+`steps`, `stepsSurvived`, `foodCollected`, and `causeOfDeath`.
+Coordinates start at `(0, 0)` in the upper-left; x increases right and y down.
+
+Opposite-direction actions are ignored and movement continues forward. Unknown
+actions throw `TypeError`; keyboard names such as `KeyW` are not engine actions.
+After game over, valid `step()` calls return the unchanged terminal state.
+`getState()` is an observation, not a serialization of RNG state for mid-run restore.
+
+For reproduction, use the same seed and action sequence with the same engine
+version. Seeds are hashed with FNV-1a and feed a per-instance Mulberry32 stream.
+Food is chosen from empty cells in row-major order. `reset()` rewinds this stream;
+other players, render frames, and cosmetic random calls cannot consume it. The
+guarantee applies to grid states, food, scores, and terminal outcomes, rather than
+the real-time schedule of human keystrokes or cosmetic particle positions.
+
+## Agents and browser controls
+
+Each board has a **Human / Random AI / Heuristic AI** selector. In two-player mode,
+you can mix controllers independently. Changing a controller resets both boards to
+Ready; press Start to begin. Changing speed or rendering does not start a new episode.
+The selected controller is session-only and defaults to Human on reload.
+
+- **Human:** the original WASD/arrows, swipe, virtual buttons, two-turn buffer, and
+  hold-to-boost controls. Hardware events only enqueue abstract actions.
+- **Random AI:** uniformly samples the three non-reversing actions. “Valid” means a
+  recognized, non-reversing direction; it may choose a wall/body collision. Its
+  optional seed is independent of the engine's food seed.
+- **Heuristic AI:** filters out immediate collisions using the engine's shared
+  collision query, then minimizes Manhattan distance to food. Ties prefer going
+  straight, then the stable UP/DOWN/LEFT/RIGHT order. It takes a safe detour when
+  possible. If trapped, it continues forward. This greedy policy can trap itself
+  later or circle indefinitely; it does not plan a guaranteed winning route.
+
+**AI speed** offers Normal, 60, 600, and 6,000 steps/second. Normal follows the
+existing 4–10 cell/second growth speed and animations. Faster options batch multiple
+engine steps in each animation frame and draw the latest board once per frame;
+interpolation, fruit particles, and eating sounds are skipped for those AI boards.
+Human boards keep their original speed. Catch-up time is capped at 250 ms, with
+at most 128 steps per board and an approximately 12 ms shared simulation budget per
+frame. Actual throughput is measured separately from the target and depends on the
+browser, policy, assistance, snake length, and machine.
+
+**Disable board rendering (headless)** turns off Canvas drawing, interpolation,
+particles, and game sound for both boards. The page keeps its controls, overlays,
+and statistics live. It can run even when Canvas is unavailable. Select an AI and
+higher AI speed for fast browser simulation. Unchecking restores the latest board.
+This browser option still uses animation frames; use the Node runner below to remove
+browser/frame scheduling entirely.
+
+**Auto-restart AI episodes** starts a new round after all active boards finish,
+only when every active controller is AI. It never automatically restarts mixed
+human/AI rounds. Space/pause, opening the shop, and backgrounding still pause play.
+The UI shows the current/latest episode; use batch results for a record of every
+completed episode. AI points and coins use the existing shared browser records/shop.
+Node headless evaluation has no storage or shop side effects.
+
+### Agent interface
+
+The required method is synchronous:
+
+```js
+const action = agent.chooseAction(state);
+```
+
+It receives a detached engine snapshot and returns `Actions.UP`, `Actions.DOWN`,
+`Actions.LEFT`, or `Actions.RIGHT`. Built-in agents return `undefined` on terminal
+states, which the runner does not advance. For a custom live agent, `undefined`
+means continue straight, as in the engine API. Agents must not return keyboard
+events, modify the engine, render, or wait on a timer. An optional `reset()` method
+clears agent memory at an episode boundary.
+
+`HumanAgent.queueAction(action, state)` accepts keyboard/touch actions without
+advancing the game. `chooseAction(state)` consumes one queued action or returns the
+current direction. `reset()` clears the queue. `RandomAgent({seed})` owns a seeded
+random stream and `reset()` rewinds it. `HeuristicAgent` is stateless and deterministic.
+All three remain independent of DOM and keyboard event objects.
+
+The engine exports `getLegalActions(state)` (non-reversing directions),
+`getCollisionCause(state, action)` (`null`, `wall`, or `self`), and
+`randomGenerator(seed)`. Agents use these shared rules instead of maintaining a
+second implementation of collision detection. A departing tail is safe unless the
+step eats food.
+
+### Episode runner and statistics
+
+`EpisodeRunner({game, agent})` connects any agent to the engine with no rendering.
+It initially represents a Ready board (episode number 0). Call `reset()` to start
+an episode, then `step()` to ask the agent and advance exactly one tick.
+
+| API | Behavior |
+| --- | --- |
+| `reset({seed?, countEpisode?} = {})` | Resets game and optional agent memory, increments the episode number, and returns a snapshot. Omitted seed reuses the engine seed. The browser uses `countEpisode:false` for Ready previews. |
+| `step()` | Calls the chosen agent and the same `game.step(action)` API; terminal games stay unchanged. |
+| `setAgent(agent)` | Validates and replaces the agent; caller chooses when to reset. |
+| `getStatistics()` | Returns a detached plain object containing the fields below. |
+| `run(maxSteps = 10000)` | Runs synchronously until game over or the episode's total attempted-step limit; returns statistics plus `truncated`. Call `reset()` first. |
+
+| Statistic | Meaning |
+| --- | --- |
+| `episodeNumber` | Runner-owned counter, starting at 1 on the first real reset/start; not part of deterministic engine state. Browser counters are per board and exclude inactive-board previews. |
+| `score` | Engine points: 10 per fruit. Shown in the existing score panel. |
+| `steps` | All executed live ticks, including a fatal collision attempt. |
+| `stepsSurvived` | Successful grid moves, excluding the fatal tick. Shown in the new statistics panel. |
+| `foodCollected` | Number of fruits eaten this episode. |
+| `causeOfDeath` | `wall`, `self`, or `null`. Live games and full-board wins have no death cause. |
+| `terminated` / `won` | Whether the engine has ended, and whether it filled the board. |
+| `truncated` | Returned by bounded runs when the step limit stops a still-live episode. It is not recorded as a death. |
+
+Movement/food/death counters live in the engine, so direct `game.step(action)`
+callers get identical statistics. Pausing, rendering, invalid actions, and attempts
+to step an already-terminal game do not increment them. A full-board win counts its
+last successful movement and fruit.
+
+## Headless evaluation
+
+Run from the project directory with Node.js, without opening a browser:
+
+```sh
+node scripts/headless.cjs heuristic 1000 10000 42
+node scripts/headless.cjs random 1000 10000 42
+```
+
+Arguments are **agent**, **episodes**, **maximum attempted steps per episode**, and
+**base seed**. Defaults are `heuristic 100 10000 42`. The command emits JSON with
+all episode records, elapsed time, total steps, and measured throughput. CLI seeds
+are strings. Invalid modes/counts fail with a nonzero exit code. The step cap bounds
+heuristic loops; those outcomes have `truncated:true` and `causeOfDeath:null`.
+
+Programmatic use:
+
+```js
+const {SnakeGame} = require('./js/game.js');
+const {HumanAgent, RandomAgent, HeuristicAgent} = require('./js/agents.js');
+const {EpisodeRunner, runEpisodes} = require('./js/episode.js');
+
+const runner = new EpisodeRunner({
+  game: new SnakeGame({seed:42}),
+  agent: new HeuristicAgent()
+});
+runner.reset();
+const state = runner.step();
+console.log(runner.getStatistics());
+
+const records = runEpisodes({
+  episodes:1000,
+  maxSteps:10000,
+  seed:42,
+  agentFactory: ({seed}) => new RandomAgent({seed})
+});
+```
+
+`runEpisodes` requires `agentFactory({episodeNumber, seed})`, creates fresh agent
+memory per episode, and returns an array of results. Defaults are 100 episodes,
+10,000 steps, and base seed 0. It derives distinct food and agent seeds from the
+base seed's type/value and episode number. The same options/factory reproduce the
+same episode records; wall-clock performance fields are naturally variable.
+For a single replay, reset the same game and seeded agent together via the runner.
+
+These JavaScript modules provide synchronous demo/evaluation APIs. The new Python
+component is described above and adds its own Gymnasium observation/reward contract.
+The local service exports DQN inference weights for browser execution and provides Qwen control through local Ollama; Python training and evaluation remain separately runnable.
+
+## Verification
+
+Run with Node.js (verified with v24.19.0):
+
+```sh
+node --test tests/game.test.cjs tests/agents.test.cjs tests/snake.test.cjs
+```
+
+All 62 tests pass, including the original 39 gameplay regressions, engine/appearance
+checks, and new agent, episode, UI switching, fast-clock, headless, and auto-restart
+tests. The original CSS and markup are checked against their saved hashes after
+excluding the explicitly added controls/styles.
+
+The original scenarios use an in-memory fixture adapter to arrange board states
+with a stub DOM, Canvas, and manual clock. The adapter is not shipped with the game.
+New engine/agent tests import the unmodified modules, and production-controller
+tests exercise the UI without state-fixture hooks. Canvas checks inspect drawing
+commands, not browser screenshots. A local-file browser preview was blocked by the
+browser tool's URL policy, so live visual inspection was unavailable.
+
+A headless smoke run of 1,000 episodes per agent (base seed string `42`, limit
+10,000) completed 428,037 heuristic steps and 69,447 random steps. On this machine,
+the measured simulation times were approximately 622 ms and 32 ms respectively;
+these are observations, not performance guarantees.

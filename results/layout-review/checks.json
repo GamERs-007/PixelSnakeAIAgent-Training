@@ -1,0 +1,137 @@
+{
+  "checks": [
+    {
+      "mode": "single",
+      "width": 1440,
+      "scroll": 1440,
+      "boardWidth": 560,
+      "trainingWidth": 1200,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 1440,
+      "scroll": 1440,
+      "boardWidth": 393,
+      "trainingWidth": 1200,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 1024,
+      "scroll": 1024,
+      "boardWidth": 558,
+      "trainingWidth": 968,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 1024,
+      "scroll": 1024,
+      "boardWidth": 277,
+      "trainingWidth": 968,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 820,
+      "scroll": 820,
+      "boardWidth": 436,
+      "trainingWidth": 780,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 820,
+      "scroll": 820,
+      "boardWidth": 359,
+      "trainingWidth": 780,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 768,
+      "scroll": 768,
+      "boardWidth": 384,
+      "trainingWidth": 728,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 768,
+      "scroll": 768,
+      "boardWidth": 333,
+      "trainingWidth": 728,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 760,
+      "scroll": 760,
+      "boardWidth": 500,
+      "trainingWidth": 728,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 760,
+      "scroll": 760,
+      "boardWidth": 560,
+      "trainingWidth": 728,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 620,
+      "scroll": 620,
+      "boardWidth": 500,
+      "trainingWidth": 588,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 620,
+      "scroll": 620,
+      "boardWidth": 546,
+      "trainingWidth": 588,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 390,
+      "scroll": 390,
+      "boardWidth": 344,
+      "trainingWidth": 370,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 390,
+      "scroll": 390,
+      "boardWidth": 328,
+      "trainingWidth": 370,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "single",
+      "width": 320,
+      "scroll": 320,
+      "boardWidth": 274,
+      "trainingWidth": 300,
+      "trainingParent": "cabinet"
+    },
+    {
+      "mode": "dual",
+      "width": 320,
+      "scroll": 320,
+      "boardWidth": 258,
+      "trainingWidth": 300,
+      "trainingParent": "cabinet"
+    }
+  ],
+  "errors": [],
+  "humanPlay": true,
+  "pause": true,
+  "shop": true,
+  "languages": true
+}

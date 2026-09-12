@@ -1,0 +1,65 @@
+{
+  "requested_episodes": 50,
+  "seed": 300000,
+  "env_config": {
+    "board_size": 20,
+    "max_steps_without_food": 400
+  },
+  "max_episode_steps": 10000,
+  "llm_budget_seconds": 600.0,
+  "request_timeout_seconds": 120,
+  "ollama": {
+    "tag": {
+      "name": "qwen3.8:27b-q4_K_M",
+      "model": "qwen3.8:27b-q4_K_M",
+      "modified_at": "2026-09-08T20:09:49.2594113-04:00",
+      "size": 17741872132,
+      "digest": "25b843619e944cd0ae6069f94ff4e5e26a16e109ccbc0a66a0f05979ed70098e",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "27.3B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 5120
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking",
+        "vision"
+      ]
+    },
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "27.3B",
+      "quantization_level": "Q4_K_M"
+    },
+    "version": {
+      "version": "0.33.3"
+    }
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "prompt": "Control Snake for one move. Return ONLY a JSON object with exactly one key:\n{\"action\":\"STRAIGHT\"}, {\"action\":\"LEFT\"}, or {\"action\":\"RIGHT\"}.\nActions are RELATIVE to current_direction: STRAIGHT keeps heading, LEFT turns\n90 degrees counterclockwise, RIGHT turns 90 degrees clockwise. Never reverse.\nDanger flags describe collisions on the next move. Choose a non-dangerous action\nwhen possible, then move toward food. Food direction is absolute on the screen:\nupper means up, lower means down. Prefer STRAIGHT when equally good.\nDo not explain. Do not include markdown or other fields.",
+  "model_options": {
+    "temperature": 0,
+    "seed": 300000,
+    "num_ctx": 2048,
+    "num_predict": 32,
+    "think": false
+  },
+  "checkpoint": "D:\\isaac-lab\\PixelSnake\\models\\best_model.pt",
+  "checkpoint_episode": 2000,
+  "checkpoint_sha256": "14defd74f5b5907cfd6317989754526f735a743211d3944082f6df6eba69a95b",
+  "dqn_exploration": 0,
+  "state_cache": false
+}

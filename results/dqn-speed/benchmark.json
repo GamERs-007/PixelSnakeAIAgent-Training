@@ -1,0 +1,89 @@
+{
+  "model": "best_model.pt",
+  "seed": 42,
+  "headless": true,
+  "browser": "Edge (Playwright headless)",
+  "results": [
+    {
+      "execution": "http",
+      "assistance": false,
+      "target": 600,
+      "steps": 783,
+      "seconds": 3.001399999999907,
+      "actual": 260.8782568134951,
+      "ui": "实际 298 steps/s · 目标 600.0",
+      "status": "决策 0 ms · 防困调整 0 次"
+    },
+    {
+      "execution": "http",
+      "assistance": false,
+      "target": 6000,
+      "steps": 899,
+      "seconds": 3.0026999999999533,
+      "actual": 299.3972091784107,
+      "ui": "实际 300 steps/s · 目标 6000.0",
+      "status": "正在等待 dqn 决策…"
+    },
+    {
+      "execution": "http",
+      "assistance": true,
+      "target": 600,
+      "steps": 899,
+      "seconds": 3.0003000000000464,
+      "actual": 299.6367029963624,
+      "ui": "实际 299 steps/s · 目标 600.0",
+      "status": "正在等待 dqn 决策…"
+    },
+    {
+      "execution": "http",
+      "assistance": true,
+      "target": 6000,
+      "steps": 900,
+      "seconds": 3.001,
+      "actual": 299.9000333222259,
+      "ui": "实际 300 steps/s · 目标 6000.0",
+      "status": "决策 0 ms · 防困调整 439 次"
+    },
+    {
+      "execution": "browser",
+      "assistance": false,
+      "target": 600,
+      "steps": 1797,
+      "seconds": 3.009,
+      "actual": 597.2083748753739,
+      "ui": "实际 598 steps/s · 目标 600.0",
+      "status": "DQN 浏览器推理 · 防困调整 0 次"
+    },
+    {
+      "execution": "browser",
+      "assistance": false,
+      "target": 6000,
+      "steps": 17367,
+      "seconds": 3.0063000000000466,
+      "actual": 5776.868575990331,
+      "ui": "实际 5987 steps/s · 目标 6000.0",
+      "status": "DQN 浏览器推理 · 防困调整 0 次"
+    },
+    {
+      "execution": "browser",
+      "assistance": true,
+      "target": 600,
+      "steps": 1804,
+      "seconds": 3.0085999999998605,
+      "actual": 599.6144386093478,
+      "ui": "实际 600 steps/s · 目标 600.0",
+      "status": "DQN 浏览器推理 · 防困调整 758 次"
+    },
+    {
+      "execution": "browser",
+      "assistance": true,
+      "target": 6000,
+      "steps": 18100,
+      "seconds": 3.0153000000000465,
+      "actual": 6002.719464066501,
+      "ui": "实际 6001 steps/s · 目标 6000.0",
+      "status": "DQN 浏览器推理 · 防困调整 2489 次"
+    }
+  ],
+  "errors": []
+}
