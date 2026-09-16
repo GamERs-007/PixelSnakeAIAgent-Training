@@ -346,8 +346,8 @@
   },
   {
     "path": "results/full_recheck_2026_09_15/logs/final-audit.log",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "bytes": 1107,
+    "sha256": "06a66dc78e54e186baca9090be1a02d2919934079c9b9a8e4264ea9b2ca3a827"
   },
   {
     "path": "results/full_recheck_2026_09_15/logs/fixture-probe-final.log",
