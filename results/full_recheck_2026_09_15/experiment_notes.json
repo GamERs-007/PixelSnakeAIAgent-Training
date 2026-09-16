@@ -1,0 +1,30 @@
+{
+  "definitive_data": {
+    "raw": "raw_episodes.csv",
+    "safety": "safety_final.json",
+    "ultimate_before": "ultimate_before_verified.json",
+    "ultimate_after": "ultimate_final.json"
+  },
+  "protocol_amendments": [
+    "Trained-network parity uses rtol=1e-5, atol=1e-5, with exact observation and greedy-action equality. The original random-network test remains at atol=1e-6. Its trained-weight pilot failed only a near-zero Q-value tolerance (violation up to 1.80e-6); full logs are retained.",
+    "Fixed evaluator repeated-state counting: capture prior membership before updating the map. The initial ultimate_before pilot did not correctly count repeated_ordered_states; before_verified reruns the old controller with corrected accounting.",
+    "The 400-move locked-mode food bound starts at max(last food, first lock), not at food collected during recovery. ultimate_current and before_checked had premature ordered_no_progress_bug endings; these are instrumentation pilots, not definitive results.",
+    "Legacy fixture food bound increased from 400 to 800 for joining plus traversal. The observed first food was step 477 for fixture 7. Exhaustive aligned tests still enforce <=400, and production episodes distinguish recovery from lock.",
+    "Candidate4 was interrupted while seed10 was expensive after ten completed seeds. Its incomplete file and log remain. Final controller immediately replans after real food growth."
+  ],
+  "candidates": {
+    "candidate1": "Complete-state recovery visit memory only; failures retained.",
+    "candidate2": "Stop prioritizing food in recovery; failures retained.",
+    "candidate3": "Width32 moving-body beam search; seed10 still failed.",
+    "verified": "Corrected instrumentation rerun of candidate3; not final.",
+    "candidate4": "Width128 and hypothetical post-food lookahead, but delayed growth replanning; incomplete.",
+    "final": "Width128 lookahead, execute only to known food, immediately replan after real growth."
+  },
+  "limitations": [
+    "Twenty Ultimate seeds were used during development, so final outcomes are regression evidence, not an untouched holdout estimate.",
+    "Nine of eleven already near-full legacy loop fixtures did not eat within the 1,600-move diagnostic. All eleven remained collision-free; only two ate.",
+    "Synchronous bounded search can pause browser responsiveness; measured worst decision in final20 is recorded.",
+    "Three evaluation blocks do not replace multiple independent training seeds.",
+    "Qwen is historical only; no fresh local model evaluation was run."
+  ]
+}

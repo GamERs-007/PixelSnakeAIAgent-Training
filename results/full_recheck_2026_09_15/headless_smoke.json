@@ -1,0 +1,230 @@
+{
+  "agent": "heuristic",
+  "seed": "recheck-smoke",
+  "episodes": 20,
+  "steps": 7649,
+  "elapsedMs": 23,
+  "stepsPerSecond": 336504,
+  "results": [
+    {
+      "episodeNumber": 1,
+      "score": 170,
+      "steps": 212,
+      "stepsSurvived": 211,
+      "foodCollected": 17,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 2,
+      "score": 280,
+      "steps": 399,
+      "stepsSurvived": 398,
+      "foodCollected": 28,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 3,
+      "score": 410,
+      "steps": 529,
+      "stepsSurvived": 528,
+      "foodCollected": 41,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 4,
+      "score": 300,
+      "steps": 436,
+      "stepsSurvived": 435,
+      "foodCollected": 30,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 5,
+      "score": 160,
+      "steps": 246,
+      "stepsSurvived": 245,
+      "foodCollected": 16,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 6,
+      "score": 300,
+      "steps": 395,
+      "stepsSurvived": 394,
+      "foodCollected": 30,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 7,
+      "score": 240,
+      "steps": 329,
+      "stepsSurvived": 328,
+      "foodCollected": 24,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 8,
+      "score": 300,
+      "steps": 486,
+      "stepsSurvived": 485,
+      "foodCollected": 30,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 9,
+      "score": 150,
+      "steps": 194,
+      "stepsSurvived": 193,
+      "foodCollected": 15,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 10,
+      "score": 210,
+      "steps": 276,
+      "stepsSurvived": 275,
+      "foodCollected": 21,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 11,
+      "score": 390,
+      "steps": 573,
+      "stepsSurvived": 572,
+      "foodCollected": 39,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 12,
+      "score": 350,
+      "steps": 502,
+      "stepsSurvived": 501,
+      "foodCollected": 35,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 13,
+      "score": 400,
+      "steps": 600,
+      "stepsSurvived": 599,
+      "foodCollected": 40,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 14,
+      "score": 130,
+      "steps": 189,
+      "stepsSurvived": 188,
+      "foodCollected": 13,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 15,
+      "score": 380,
+      "steps": 602,
+      "stepsSurvived": 601,
+      "foodCollected": 38,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 16,
+      "score": 260,
+      "steps": 372,
+      "stepsSurvived": 371,
+      "foodCollected": 26,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 17,
+      "score": 230,
+      "steps": 371,
+      "stepsSurvived": 370,
+      "foodCollected": 23,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 18,
+      "score": 160,
+      "steps": 266,
+      "stepsSurvived": 265,
+      "foodCollected": 16,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 19,
+      "score": 240,
+      "steps": 357,
+      "stepsSurvived": 356,
+      "foodCollected": 24,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    },
+    {
+      "episodeNumber": 20,
+      "score": 240,
+      "steps": 315,
+      "stepsSurvived": 314,
+      "foodCollected": 24,
+      "causeOfDeath": "self",
+      "terminated": true,
+      "won": false,
+      "truncated": false
+    }
+  ]
+}

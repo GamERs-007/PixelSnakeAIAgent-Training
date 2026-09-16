@@ -1,0 +1,78 @@
+{
+  "complete": true,
+  "episodes": 1200,
+  "timings": [
+    {
+      "block": 500000,
+      "policy": "Random",
+      "episodes": 100,
+      "seconds": 0.030658699999548844
+    },
+    {
+      "block": 500000,
+      "policy": "Heuristic",
+      "episodes": 100,
+      "seconds": 0.39193449999947916
+    },
+    {
+      "block": 500000,
+      "policy": "Classic",
+      "episodes": 100,
+      "seconds": 1.373351799999
+    },
+    {
+      "block": 500000,
+      "policy": "Strategy",
+      "episodes": 100,
+      "seconds": 1.336726199999248
+    },
+    {
+      "block": 501000,
+      "policy": "Random",
+      "episodes": 100,
+      "seconds": 0.03644940000049246
+    },
+    {
+      "block": 501000,
+      "policy": "Heuristic",
+      "episodes": 100,
+      "seconds": 0.4177036000000953
+    },
+    {
+      "block": 501000,
+      "policy": "Classic",
+      "episodes": 100,
+      "seconds": 1.4276279999994586
+    },
+    {
+      "block": 501000,
+      "policy": "Strategy",
+      "episodes": 100,
+      "seconds": 1.335484200000792
+    },
+    {
+      "block": 502000,
+      "policy": "Random",
+      "episodes": 100,
+      "seconds": 0.03281489999972109
+    },
+    {
+      "block": 502000,
+      "policy": "Heuristic",
+      "episodes": 100,
+      "seconds": 0.3817717999991146
+    },
+    {
+      "block": 502000,
+      "policy": "Classic",
+      "episodes": 100,
+      "seconds": 1.252185700001064
+    },
+    {
+      "block": 502000,
+      "policy": "Strategy",
+      "episodes": 100,
+      "seconds": 1.26548240000011
+    }
+  ]
+}

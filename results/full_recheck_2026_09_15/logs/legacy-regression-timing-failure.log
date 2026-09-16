@@ -1,0 +1,39 @@
+✔ sweep matches the drawing and visits every cell exactly once before closing (1.5779ms)
+✔ below 50%, nearby food uses the shortest safe path instead of a cycle detour (1.07ms)
+✔ exactly 50% still follows a safe food plan without enforcing cyclic order (0.4338ms)
+✔ strictly more than 50% triggers the sweep, regardless of score stagnation (1.032ms)
+✔ an aligned dense snake follows the cycle through growth to a full board (4.8554ms)
+✔ joining never forces reversal or an immediate collision into the existing body (270.2255ms)
+✔ disabled assistance and pending inference keep their existing contracts (0.2143ms)
+✖ recorded dense-board stalls unwind and reach their previously inaccessible food (219.4279ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 558.1748
+
+✖ failing tests:
+
+test at tests\fill-rule.test.cjs:98:1
+✖ recorded dense-board stalls unwind and reach their previously inaccessible food (219.4279ms)
+  AssertionError [ERR_ASSERTION]: seed 7 must escape its recorded loop
+  
+  false !== true
+  
+      at TestContext.<anonymous> (D:\isaac-lab\PixelSnake\tests\fill-rule.test.cjs:114:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

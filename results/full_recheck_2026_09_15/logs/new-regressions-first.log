@@ -1,0 +1,41 @@
+✔ ordered invariants at length 201: every free food cell and five head positions (2091.6248ms)
+✔ ordered invariants at length 250: every free food cell and five head positions (1433.3945ms)
+✔ ordered invariants at length 300: every free food cell and five head positions (772.4355ms)
+✔ ordered invariants at length 350: every free food cell and five head positions (225.0212ms)
+✔ ordered invariants at length 399: every free food cell and five head positions (0.5858ms)
+✔ twenty-five aligned dense starts complete with changing distant food, including wraparound (3105.3332ms)
+✔ departing tail is legal on a non-growing full cycle; growth into occupied tail is rejected (0.2078ms)
+✖ recorded seed 10 transition joins before the old recovery loop can form (53.3935ms)
+✔ legacy near-full failures remain collision-free recovery, never a false lock (133.4272ms)
+✔ reset and pending inference do not carry stale ordered or recovery telemetry (0.2459ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7881.3961
+
+✖ failing tests:
+
+test at tests\ultimate-regression.test.cjs:47:1
+✖ recorded seed 10 transition joins before the old recovery loop can form (53.3935ms)
+  AssertionError [ERR_ASSERTION]: must join the intended ordering within one board lap
+  
+  false !== true
+  
+      at TestContext.<anonymous> (D:\isaac-lab\PixelSnake\tests\ultimate-regression.test.cjs:57:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,80 @@
+[
+  {
+    "file": "figures/01_training_score.png",
+    "vector": "figures/01_training_score.pdf",
+    "source": "results/training.csv",
+    "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+  },
+  {
+    "file": "figures/02_training_moving_average.png",
+    "vector": "figures/02_training_moving_average.pdf",
+    "source": "results/training.csv",
+    "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+  },
+  {
+    "file": "figures/03_training_reward.png",
+    "vector": "figures/03_training_reward.pdf",
+    "source": "results/training.csv",
+    "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+  },
+  {
+    "file": "figures/04_raw_scores.png",
+    "vector": "figures/04_raw_scores.pdf",
+    "source": "raw_episodes.csv",
+    "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+  },
+  {
+    "file": "figures/05_raw_survival.png",
+    "vector": "figures/05_raw_survival.pdf",
+    "source": "raw_episodes.csv",
+    "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+  },
+  {
+    "file": "figures/06_raw_turn_rate.png",
+    "vector": "figures/06_raw_turn_rate.pdf",
+    "source": "raw_episodes.csv",
+    "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+  },
+  {
+    "file": "figures/07_safety_scores.png",
+    "vector": "figures/07_safety_scores.pdf",
+    "source": "safety_episodes.csv",
+    "caption": "CURRENT FRESH RE-EVALUATION. 20 matched browser seeds per condition; 3,000 attempted-step cap. These are separate from the Gymnasium raw-policy protocol. Surviving to the cap is not a win."
+  },
+  {
+    "file": "figures/08_safety_survival.png",
+    "vector": "figures/08_safety_survival.pdf",
+    "source": "safety_episodes.csv",
+    "caption": "CURRENT FRESH RE-EVALUATION. 20 matched browser seeds per condition; 3,000 attempted-step cap. These are separate from the Gymnasium raw-policy protocol. Surviving to the cap is not a win."
+  },
+  {
+    "file": "figures/09_ultimate_occupancy.png",
+    "vector": "figures/09_ultimate_occupancy.pdf",
+    "source": "ultimate_before_episodes.csv; ultimate_after_episodes.csv",
+    "caption": "Maximum occupancy for each of 20 matched seeds, with deterministic horizontal jitter for overlapping points."
+  },
+  {
+    "file": "figures/10_ultimate_outcomes.png",
+    "vector": "figures/10_ultimate_outcomes.pdf",
+    "source": "ultimate_before_episodes.csv; ultimate_after_episodes.csv",
+    "caption": "All episodes reached >50%. Each ending is classified from the actual engine/evaluator result; step-limit survival is never a win."
+  },
+  {
+    "file": "figures/11_ultimate_progression.png",
+    "vector": "figures/11_ultimate_progression.pdf",
+    "source": "ultimate_before_verified.json; ultimate_final.json",
+    "caption": "Seed 10 was selected as the first investigated failing seed, not as a representative success. Traces are sampled every 100 moves and at food/mode transitions."
+  },
+  {
+    "file": "figures/12_raw_end_reasons.png",
+    "vector": "figures/12_raw_end_reasons.pdf",
+    "source": "raw_episodes.csv",
+    "caption": "Raw policy termination categories, 300 episodes per policy; successful survival and attempted steps differ by one on collisions."
+  },
+  {
+    "file": "figures/13_raw_confidence_intervals.png",
+    "vector": "figures/13_raw_confidence_intervals.pdf",
+    "source": "raw_episodes.csv",
+    "caption": "Percentile bootstrap confidence intervals: 2,000 resamples, seed 9152026. Intervals describe held-out episode sampling for the fixed models, not training-seed variation."
+  }
+]

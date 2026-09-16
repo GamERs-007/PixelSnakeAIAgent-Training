@@ -1,0 +1,18 @@
+✔ ordered invariants at length 201: every free food cell and five head positions (2049.6749ms)
+✔ ordered invariants at length 250: every free food cell and five head positions (1395.272ms)
+✔ ordered invariants at length 300: every free food cell and five head positions (743.3511ms)
+✔ ordered invariants at length 350: every free food cell and five head positions (220.9432ms)
+✔ ordered invariants at length 399: every free food cell and five head positions (0.4408ms)
+✔ twenty-five aligned dense starts complete with changing distant food, including wraparound (3075.0579ms)
+✔ departing tail is legal on a non-growing full cycle; growth into occupied tail is rejected (0.1861ms)
+✔ recorded seed 10 completes instead of repeating an unordered recovery cycle (4058.1617ms)
+✔ legacy near-full failures remain collision-free recovery, never a false lock (1388.0876ms)
+✔ reset and pending inference do not carry stale ordered or recovery telemetry (0.2642ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13021.0665

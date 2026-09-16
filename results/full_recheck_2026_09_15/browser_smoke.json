@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8765",
+  "browser": "Codex in-app browser",
+  "controller": "DQN",
+  "checkpoint": "ultimate/2026-09-12_01-30-56-963414_ep2300.pt",
+  "assistance": true,
+  "headless": true,
+  "target_steps_per_second": 6000,
+  "observed_model_count": 3,
+  "observed_win": true,
+  "visible_result": "YOU WIN, 100%",
+  "score": 3970,
+  "length": 400,
+  "food_collected": 397,
+  "steps_survived": 17175,
+  "console_errors_warnings": [],
+  "rendering_restored": true,
+  "seed": "unseeded UI smoke; not included in fixed-seed statistics"
+}

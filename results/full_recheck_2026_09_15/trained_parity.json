@@ -1,0 +1,26 @@
+{
+  "Classic": {
+    "states": 1000,
+    "identical_observations": true,
+    "identical_greedy_actions": true,
+    "max_absolute_q_error": 1.9073486328125e-06,
+    "rtol": 1e-05,
+    "atol": 1e-05
+  },
+  "Strategy": {
+    "states": 1000,
+    "identical_observations": true,
+    "identical_greedy_actions": true,
+    "max_absolute_q_error": 5.7220458984375e-06,
+    "rtol": 1e-05,
+    "atol": 1e-05
+  },
+  "Ultimate": {
+    "states": 1000,
+    "identical_observations": true,
+    "identical_greedy_actions": true,
+    "max_absolute_q_error": 5.7220458984375e-06,
+    "rtol": 1e-05,
+    "atol": 1e-05
+  }
+}

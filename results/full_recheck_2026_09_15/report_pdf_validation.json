@@ -1,0 +1,8 @@
+{
+  "pages": 26,
+  "embedded_figures": 13,
+  "all_pages_have_text": true,
+  "raw_means_and_model_hashes_match_summary": true,
+  "sha256": "46fed693ca49dd0ad4c2ed15809f190ad687e5ac0c17eafd6964577bd0b1f2fb",
+  "method": "pypdf text/structure checks; visual inspection of Poppler-rendered pages is recorded separately."
+}

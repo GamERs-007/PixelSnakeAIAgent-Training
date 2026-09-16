@@ -1,0 +1,10 @@
+episode=1 reward=-10.30 score=0 epsilon=1.000 loss=0.0000 moving_score=0.00 validation_score=0.00
+episode=2 reward=-10.64 score=0 epsilon=0.999 loss=0.0000 moving_score=0.00 validation_score=0.00
+late: episode 1, score 0, steps 0, wall_time_budget
+test: episode 1, score 0, steps 2, evaluation_step_limit
+test: episode 2, score 0, steps 2, evaluation_step_limit
+................................................................
+----------------------------------------------------------------------
+Ran 64 tests in 5.406s
+
+OK

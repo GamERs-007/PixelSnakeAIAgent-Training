@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "D:\isaac-lab\PixelSnake\scripts\recheck_raw.py", line 90, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "D:\isaac-lab\PixelSnake\scripts\recheck_raw.py", line 61, in main
+    parity(out,models)
+  File "D:\isaac-lab\PixelSnake\scripts\recheck_raw.py", line 43, in parity
+    np.testing.assert_allclose(jq,q,rtol=1e-5,atol=1e-6)
+  File "D:\isaac-lab\PixelSnake\.venv\Lib\site-packages\numpy\testing\_private\utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "D:\isaac-lab\PixelSnake\.venv\Lib\site-packages\numpy\testing\_private\utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-05, atol=1e-06
+
+Mismatched elements: 1 / 3000 (0.0333%)
+Mismatch at index:
+ [959, 0]: 0.07759158313274384 (ACTUAL), 0.0775933787226677 (DESIRED)
+Max absolute difference among violations: 1.79558992e-06
+Max relative difference among violations: 2.31410199e-05
+ ACTUAL: array([[19.330849, 17.806511, 18.54689 ],
+       [17.193701, 16.660877, 18.556681],
+       [19.28351 , 17.82345 , 18.963219],...
+ DESIRED: array([[19.330849, 17.80651 , 18.546892],
+       [17.1937  , 16.660877, 18.556683],
+       [19.28351 , 17.82345 , 18.96322 ],...

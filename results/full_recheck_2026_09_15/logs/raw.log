@@ -1,0 +1,13 @@
+Trained parity: {'Classic': {'states': 1000, 'identical_observations': True, 'identical_greedy_actions': True, 'max_absolute_q_error': 1.9073486328125e-06, 'rtol': 1e-05, 'atol': 1e-05}, 'Strategy': {'states': 1000, 'identical_observations': True, 'identical_greedy_actions': True, 'max_absolute_q_error': 5.7220458984375e-06, 'rtol': 1e-05, 'atol': 1e-05}, 'Ultimate': {'states': 1000, 'identical_observations': True, 'identical_greedy_actions': True, 'max_absolute_q_error': 5.7220458984375e-06, 'rtol': 1e-05, 'atol': 1e-05}}
+500000 Random mean score 1.1 seconds 0.030658699999548844
+500000 Heuristic mean score 276.5 seconds 0.39193449999947916
+500000 Classic mean score 286.7 seconds 1.373351799999
+500000 Strategy mean score 295.6 seconds 1.336726199999248
+501000 Random mean score 1.9 seconds 0.03644940000049246
+501000 Heuristic mean score 291.4 seconds 0.4177036000000953
+501000 Classic mean score 282.5 seconds 1.4276279999994586
+501000 Strategy mean score 294.0 seconds 1.335484200000792
+502000 Random mean score 0.7 seconds 0.03281489999972109
+502000 Heuristic mean score 272.0 seconds 0.3817717999991146
+502000 Classic mean score 259.0 seconds 1.252185700001064
+502000 Strategy mean score 286.1 seconds 1.26548240000011

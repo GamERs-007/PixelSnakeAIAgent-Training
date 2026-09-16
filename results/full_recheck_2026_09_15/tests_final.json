@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "runs": [
+    {
+      "suite": "python",
+      "iteration": 1,
+      "exit_code": 0,
+      "tests": 64,
+      "seconds": 7.323203199999625,
+      "command": [
+        "D:\\isaac-lab\\PixelSnake\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "rl",
+        "-p",
+        "test_*.py"
+      ],
+      "log": "results/full_recheck_2026_09_15/logs/tests-final-1-python.log"
+    },
+    {
+      "suite": "javascript",
+      "iteration": 1,
+      "exit_code": 0,
+      "tests": 97,
+      "seconds": 13.994411300000138,
+      "command": [
+        "node",
+        "--test",
+        "tests\\agents.test.cjs",
+        "tests\\dqn-agent.test.cjs",
+        "tests\\fill-rule.test.cjs",
+        "tests\\game.test.cjs",
+        "tests\\local-ai.test.cjs",
+        "tests\\snake.test.cjs",
+        "tests\\ultimate-regression.test.cjs"
+      ],
+      "log": "results/full_recheck_2026_09_15/logs/tests-final-1-javascript.log"
+    }
+  ]
+}

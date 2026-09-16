@@ -1,0 +1,1345 @@
+{
+  "label": "CURRENT FRESH RE-EVALUATION",
+  "metadata": {
+    "label": "CURRENT FRESH RE-EVALUATION",
+    "started_at": "2026-09-15T23:47:36.294195+00:00",
+    "git_before": "5c956389ba349739b861e8d7970809a28cf6571f",
+    "git_before_error": "Initial project directory had no .git. Existing upload clone located in prior task; its unchanged Git metadata was copied into the canonical project root. No git init was used.",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+    "python": "3.12.14",
+    "node": "v24.19.0",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.5.3",
+    "gymnasium": "1.3.0",
+    "matplotlib": "3.11.1",
+    "device": "cpu",
+    "torch_threads": 1,
+    "source_before": {
+      "js\\agents.js": "68bdafdc1c05d6938cb90efe14f00a26aca0b0fc589d96980a911dbb0d3a3bd4",
+      "js\\dqn-agent.js": "09127c1a318bb4eab1e452696b3b9dc643b95245d052933a2792b98745238d8c",
+      "js\\episode.js": "fe1be875c1b248b32cf2a5b221f02ddd20f61d36e724bf61f3da14e290a1ec4a",
+      "js\\game.js": "1b1549ced45c1318935677117f01cba23192a39f232c403e9214472edf46ab02",
+      "js\\input.js": "4f101fd248ee3a66235838ea57e4b0a69f3c8ef9fb5fca59c5ad59242f97eae3",
+      "js\\local-ai.js": "27ac044b89e3378e2956ba75edbbc36e1973bc7630df18b6b5e87f80babede61",
+      "js\\main.js": "2218d3f2593e036eb995c190e9de1a3ddbb4fcf55d6f176c2a7178ed71626319",
+      "js\\renderer.js": "51091dbfd374aeebcc515b23a8c229ba27f2dc569924f1a657d55175220d13a3",
+      "js\\safety.js": "9f2fc44efb8b3adb7efe0b55a0dd3cccf3995a8d57a13bb27a7f0e329362c4ba",
+      "rl\\compare_strategy.py": "dcd4ced5d638336d1e82f2c83b90715faf454af3be2ee0b5e6562be4227c31da",
+      "rl\\evaluate_llm.py": "c797c10456d20fc09aef8358b2fe92ec30d14ceea697ab666584a3fff3f3410c",
+      "rl\\llm_agent.py": "92de87875c3bbf671ba3274158b5d0ad637657d22fcece5bc8ebca437854b0ee",
+      "rl\\model_profiles.py": "003b67b5fee110daaf6597da1d021a5cf50dbc9576bccbb24783fdc133a1608f",
+      "rl\\random_agent.py": "22b8fe0cd9df1f659580543e05ef162cbfbf9db884eb45e7d3c5f56df328540f",
+      "rl\\requirements.txt": "86747d958a93d8c3037a49f2183fd1c104d9c35e7aa889ef11a2e0834a54f103",
+      "rl\\snake_env.py": "70963096588583a9a5b6d8d126b243434c9220223a0549f5b8cab7dd90463177",
+      "rl\\strategy_reward.py": "70a6f29f719084afa05a28e36a9f432ece35d88118d6a9a1cbe11415110d7dfc",
+      "rl\\test_browser_dqn.py": "81ef084267ac99be8e6ea503cedfc355a8df91e5c1b2464fac3f67641e5257e5",
+      "rl\\test_env.py": "9961bac9a18f9fa49e07ecaaf9b4e5acb468db39cc1f9200a4ee3146bd9a2c5b",
+      "rl\\test_llm_agent.py": "476dd04bfa1cb2147548aa0512712aaec9454f2be8f4cafb9cbf5939f4845e1c",
+      "rl\\test_model_profiles.py": "793a76a4abda7503d1a22dbbb62939dd6b00d42afa6b6e8850141a544177b21b",
+      "rl\\test_strategy_reward.py": "052542c0a7045ed82439134e15cb998db11dfde995c4aff03472846ef10ff582",
+      "rl\\test_web_training.py": "705d4e88083f01ab4d9ea4a614c05a436858304c3bb70ba24ef6051f5be4d85a",
+      "rl\\web_server.py": "447b1dd6e29bf6a6ac894cc858094522de88bf09fba0382faaae887799c30bfa",
+      "rl\\__init__.py": "9643f7598c8ae0926fe6690061e5cfbe690211e360218b502f6196a9d6459193",
+      "rl\\dqn\\agent.py": "f22f24fbb5a06685f88e2419d684914e51779dd3377a40ba26975665fcb92341",
+      "rl\\dqn\\evaluate.py": "3e79d79f4794945d7971121f72b8bae0f7cb26ab7ed3c6e14a98eca52597da95",
+      "rl\\dqn\\evaluation.py": "cc2d3509d04c366253bfbc92ea80c6c4779721470d5a3bf0520febc4203714d3",
+      "rl\\dqn\\model.py": "57876a44f36e7a50e9832034feddd2cd393f4a3889ebe7ecd88d6a8b72f7f0d9",
+      "rl\\dqn\\replay_buffer.py": "d190601dcadfb1d15f172fde55effac6cdd19bc5448aa1f405eda4608f5c5979",
+      "rl\\dqn\\test_dqn.py": "efe0f3affbe4ada13ec9227e4321dd753c38cf9049b016f6c81cfcd0faac7c0b",
+      "rl\\dqn\\train.py": "6e6cd68199b567ecb552ad6d1e3c6c3fd913992ff8a2f27839d08d41ddc0ad8b",
+      "rl\\dqn\\train_session.py": "9e9c555ec080c2b8d3a510d2546a83465092c825eeb64b1ded4cd43cbe0b77d7",
+      "rl\\dqn\\__init__.py": "69051973cdf34c66fb71e84e50e7f011a244b238fa540768818938953ad6a26f",
+      "tests\\agents.test.cjs": "ded11a350a8a3bc32d9ab6ae79eefdbb0b192aafccd9a560978e1c7ff3d33f84",
+      "tests\\appearance-baseline.json": "4f6db9c6b728fd8574ba579810ae7480957d7fea9b5f2f1021dfef78e3af39a8",
+      "tests\\dqn-agent.test.cjs": "3b6a4cf424b8cf8414377fe6756813a67a9bedfdb9ac35ac468b3f8d00745b1a",
+      "tests\\fill-rule.test.cjs": "83ec81239af956db8dfdd245a527d21edf41e7bc457253a29381c0d273eb9c82",
+      "tests\\game.test.cjs": "fd684ff238e83fcef0f7fec4e4dabfeb7c379664911ef3263263132b1ea32b1b",
+      "tests\\local-ai.test.cjs": "66c7ca1c676cb94d3eae2190168e8c98b328cf60a3f04e042be704ab2a604151",
+      "tests\\snake.test.cjs": "4aabddcf800f823076912779366c8758e1646b618ee327f45570d9a04b7bdd64",
+      "tests\\fixtures\\fill-stall-19.json": "0529e5404b3bb16e3e1e133668222ea468c7e2fa8e7b0c7965fda2e35427d5e5",
+      "tests\\fixtures\\fill-stall-7.json": "6b3d7a7556e95caacfc333f2145b4d3fad5a13c4297826497943bd81ea32bbb3",
+      "scripts\\evaluate-safety.cjs": "14b2f5db43f03b68b95054487fe5820aee3475272d9899444725d28f1291872f",
+      "scripts\\headless.cjs": "2a85d81bcbc3604d21a7eaa3d91befe212a5198f6df152c66d88918b86e00578",
+      "css\\layout.css": "aee0085ebf3b25d92f87f45b2a9dc86b02a6ad2f6055f603f3b302275fd05dfa",
+      "css\\style.css": "429d4729b3ae55c676ca38921de03d2f0dc72f36b4db9542dd78cf7b987da960",
+      "README.md": "77111fe2503e0af0fb2e2ba5da23f0d327969ef0726a936180ff1fbd8c8dd7dc",
+      "index.html": "086e5ac730acbf7aadd1170ff8fe50bb3a0d91743d6db220c312ca0f8de17a17",
+      "PixelSnake.html": "086e5ac730acbf7aadd1170ff8fe50bb3a0d91743d6db220c312ca0f8de17a17"
+    },
+    "models": {
+      "classic": {
+        "file": "models/classic/2026-09-10_21-39-17-351796_ep2000.pt",
+        "sha256": "14defd74f5b5907cfd6317989754526f735a743211d3944082f6df6eba69a95b"
+      },
+      "strategy": {
+        "file": "models/strategy/2026-09-11_00-27-06-910520_ep2300.pt",
+        "sha256": "42a4c255456ffd5285b04fd2c7dacd582e9e4cd50d9022e347e8043ea16f3141"
+      },
+      "ultimate": {
+        "file": "models/ultimate/2026-09-12_01-30-56-963414_ep2300.pt",
+        "sha256": "a407513272f41a31566ca0acb4ff64aca17bdf016d7132c2a95e44de4cd2f524"
+      }
+    },
+    "git_implementation": "0f443f177ee00b666b17906aca6a9b41b69f1672",
+    "git_branch": "main",
+    "git_remote": "https://github.com/GamERs-007/PixelSnakeAIAgent-Training.git",
+    "git_provenance": "Source at experiment start included existing unpushed profile/UI changes relative to git_before; exact source_before hashes distinguish this working baseline from that commit.",
+    "date_note": "Experiment folder follows local start date 2026-09-15. The ISO start timestamp is recorded separately; file timestamps and Git commits record subsequent creation times.",
+    "source_after": {
+      "js/agents.js": "68bdafdc1c05d6938cb90efe14f00a26aca0b0fc589d96980a911dbb0d3a3bd4",
+      "js/dqn-agent.js": "09127c1a318bb4eab1e452696b3b9dc643b95245d052933a2792b98745238d8c",
+      "js/episode.js": "fe1be875c1b248b32cf2a5b221f02ddd20f61d36e724bf61f3da14e290a1ec4a",
+      "js/game.js": "1b1549ced45c1318935677117f01cba23192a39f232c403e9214472edf46ab02",
+      "js/input.js": "4f101fd248ee3a66235838ea57e4b0a69f3c8ef9fb5fca59c5ad59242f97eae3",
+      "js/local-ai.js": "27ac044b89e3378e2956ba75edbbc36e1973bc7630df18b6b5e87f80babede61",
+      "js/main.js": "2218d3f2593e036eb995c190e9de1a3ddbb4fcf55d6f176c2a7178ed71626319",
+      "js/renderer.js": "51091dbfd374aeebcc515b23a8c229ba27f2dc569924f1a657d55175220d13a3",
+      "js/safety.js": "94869d217ffbc1189581b447016c10acbbacf0ef9a740041d7f36b0e2c76bdcf",
+      "rl/__init__.py": "9643f7598c8ae0926fe6690061e5cfbe690211e360218b502f6196a9d6459193",
+      "rl/compare_strategy.py": "dcd4ced5d638336d1e82f2c83b90715faf454af3be2ee0b5e6562be4227c31da",
+      "rl/dqn/__init__.py": "69051973cdf34c66fb71e84e50e7f011a244b238fa540768818938953ad6a26f",
+      "rl/dqn/agent.py": "f22f24fbb5a06685f88e2419d684914e51779dd3377a40ba26975665fcb92341",
+      "rl/dqn/evaluate.py": "3e79d79f4794945d7971121f72b8bae0f7cb26ab7ed3c6e14a98eca52597da95",
+      "rl/dqn/evaluation.py": "cc2d3509d04c366253bfbc92ea80c6c4779721470d5a3bf0520febc4203714d3",
+      "rl/dqn/model.py": "57876a44f36e7a50e9832034feddd2cd393f4a3889ebe7ecd88d6a8b72f7f0d9",
+      "rl/dqn/replay_buffer.py": "d190601dcadfb1d15f172fde55effac6cdd19bc5448aa1f405eda4608f5c5979",
+      "rl/dqn/test_dqn.py": "efe0f3affbe4ada13ec9227e4321dd753c38cf9049b016f6c81cfcd0faac7c0b",
+      "rl/dqn/train.py": "6e6cd68199b567ecb552ad6d1e3c6c3fd913992ff8a2f27839d08d41ddc0ad8b",
+      "rl/dqn/train_session.py": "9e9c555ec080c2b8d3a510d2546a83465092c825eeb64b1ded4cd43cbe0b77d7",
+      "rl/evaluate_llm.py": "c797c10456d20fc09aef8358b2fe92ec30d14ceea697ab666584a3fff3f3410c",
+      "rl/llm_agent.py": "92de87875c3bbf671ba3274158b5d0ad637657d22fcece5bc8ebca437854b0ee",
+      "rl/model_profiles.py": "003b67b5fee110daaf6597da1d021a5cf50dbc9576bccbb24783fdc133a1608f",
+      "rl/random_agent.py": "22b8fe0cd9df1f659580543e05ef162cbfbf9db884eb45e7d3c5f56df328540f",
+      "rl/snake_env.py": "70963096588583a9a5b6d8d126b243434c9220223a0549f5b8cab7dd90463177",
+      "rl/strategy_reward.py": "70a6f29f719084afa05a28e36a9f432ece35d88118d6a9a1cbe11415110d7dfc",
+      "rl/test_browser_dqn.py": "81ef084267ac99be8e6ea503cedfc355a8df91e5c1b2464fac3f67641e5257e5",
+      "rl/test_env.py": "9961bac9a18f9fa49e07ecaaf9b4e5acb468db39cc1f9200a4ee3146bd9a2c5b",
+      "rl/test_llm_agent.py": "476dd04bfa1cb2147548aa0512712aaec9454f2be8f4cafb9cbf5939f4845e1c",
+      "rl/test_model_profiles.py": "793a76a4abda7503d1a22dbbb62939dd6b00d42afa6b6e8850141a544177b21b",
+      "rl/test_strategy_reward.py": "052542c0a7045ed82439134e15cb998db11dfde995c4aff03472846ef10ff582",
+      "rl/test_web_training.py": "705d4e88083f01ab4d9ea4a614c05a436858304c3bb70ba24ef6051f5be4d85a",
+      "rl/web_server.py": "447b1dd6e29bf6a6ac894cc858094522de88bf09fba0382faaae887799c30bfa",
+      "tests/agents.test.cjs": "ded11a350a8a3bc32d9ab6ae79eefdbb0b192aafccd9a560978e1c7ff3d33f84",
+      "tests/dqn-agent.test.cjs": "3b6a4cf424b8cf8414377fe6756813a67a9bedfdb9ac35ac468b3f8d00745b1a",
+      "tests/fill-rule.test.cjs": "b74359d642c6a20e48f361a3649fdfde5fde2f921ce6ea0164b3b25e455416f4",
+      "tests/game.test.cjs": "fd684ff238e83fcef0f7fec4e4dabfeb7c379664911ef3263263132b1ea32b1b",
+      "tests/local-ai.test.cjs": "66c7ca1c676cb94d3eae2190168e8c98b328cf60a3f04e042be704ab2a604151",
+      "tests/snake.test.cjs": "4aabddcf800f823076912779366c8758e1646b618ee327f45570d9a04b7bdd64",
+      "tests/ultimate-regression.test.cjs": "8499f4c2192824360ed154922c76d681bacad94990767761c9a10e2587ca4adc",
+      "scripts/audit_recheck.py": "8fb41e54839dd334b2b3e7288c6ac18828a664b3aa0aad12a1ec3cfd4ccf322d",
+      "scripts/build_recheck_documents.py": "b019ffc258383e24d2a6b2c46fbf00e69a60c95f4ce0f762df1312453dac71f8",
+      "scripts/evaluate-browser.cjs": "aebe7ceb672f2bfacb26c13973ed86419488536fae76242c174958122d463768",
+      "scripts/evaluate-safety.cjs": "14b2f5db43f03b68b95054487fe5820aee3475272d9899444725d28f1291872f",
+      "scripts/generate_report_figures.py": "a3b5d08133cae393a0b228b75e825da60d3947f35a7175b4c083b60c738b6e3f",
+      "scripts/headless.cjs": "2a85d81bcbc3604d21a7eaa3d91befe212a5198f6df152c66d88918b86e00578",
+      "scripts/probe-fixtures.cjs": "992d0ddcdf68f9249e8389f1a91f47290ceecf64891c2c11dace6b914f455144",
+      "scripts/recheck_raw.py": "f5d3ecef99eec8c3958b6fddf7534cfccc97317d2e3383207fd9b4a29db372bd",
+      "scripts/recheck_tests.py": "09280dd59cdb655f38783472698f1ca7c856dd5abfed2bd41376a5cfce934d16",
+      "scripts/record_recheck_metadata.py": "911ca41209bf0e5de6c32609bedaa474a9ba5fc036093eb9c244347e6edbf25a",
+      "scripts/render_recheck_report.py": "958c7349f8c398ff87f7934fbdab654035892d37f9cfd09f8890cbb36c04b0cb",
+      "scripts/verify_report_pdf.py": "b780cdfeea4001a91168669cf2e9326d0c29093124300a0a5ca906eb60c61802"
+    },
+    "hardware": "{\"Name\":\"AMD Ryzen 7 9800X3D 8-Core Processor           \",\"NumberOfCores\":8,\"NumberOfLogicalProcessors\":16}"
+  },
+  "protocol": {
+    "raw": {
+      "blocks": [
+        500000,
+        501000,
+        502000
+      ],
+      "episodes_per_policy_per_block": 100,
+      "policies": [
+        "Random",
+        "Heuristic",
+        "Classic",
+        "Strategy"
+      ],
+      "board_size": 20,
+      "no_food_limit": 400,
+      "max_steps": 10000,
+      "reward": "classic",
+      "exploration": false
+    },
+    "safety": {
+      "episodes": 20,
+      "seeds": [
+        "safety-0",
+        "safety-1",
+        "safety-2",
+        "safety-3",
+        "safety-4",
+        "safety-5",
+        "safety-6",
+        "safety-7",
+        "safety-8",
+        "safety-9",
+        "safety-10",
+        "safety-11",
+        "safety-12",
+        "safety-13",
+        "safety-14",
+        "safety-15",
+        "safety-16",
+        "safety-17",
+        "safety-18",
+        "safety-19"
+      ],
+      "action_seeds": [
+        "agent-0",
+        "agent-1",
+        "agent-2",
+        "agent-3",
+        "agent-4",
+        "agent-5",
+        "agent-6",
+        "agent-7",
+        "agent-8",
+        "agent-9",
+        "agent-10",
+        "agent-11",
+        "agent-12",
+        "agent-13",
+        "agent-14",
+        "agent-15",
+        "agent-16",
+        "agent-17",
+        "agent-18",
+        "agent-19"
+      ],
+      "max_steps": 3000,
+      "policies": [
+        "Random",
+        "Heuristic",
+        "Classic",
+        "Strategy"
+      ],
+      "assistance": [
+        false,
+        true
+      ],
+      "no_food_limit": null
+    },
+    "ultimate": {
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "max_steps": 100000,
+      "no_food_limit": 10000,
+      "locked_no_food_bug_threshold": 400,
+      "checkpoint": "ultimate",
+      "assistance": true
+    },
+    "constructed": {
+      "lengths": [
+        201,
+        250,
+        300,
+        350,
+        399
+      ],
+      "head_indices": [
+        0,
+        19,
+        190,
+        250,
+        397
+      ],
+      "food_placements": "every unoccupied cell; follow until first food (<=400 moves), then separate full completion tests"
+    },
+    "statistics": {
+      "score_ci": "paired-seed bootstrap where compared; percentile bootstrap for each mean, 2000 resamples seed 9152026",
+      "std": "sample standard deviation (ddof=1)",
+      "blocks": "independent evaluation seed blocks, NOT independent model-training seeds"
+    },
+    "training": "No retraining; frozen original checkpoints. Original training plots regenerated from historical CSV, labeled historical."
+  },
+  "raw": {
+    "Random": {
+      "episodes": 300,
+      "mean_score": 1.2333333333333334,
+      "median_score": 0.0,
+      "std_score": 3.6774949061607614,
+      "min_score": 0,
+      "max_score": 20,
+      "score_ci95": [
+        0.8333333333333334,
+        1.6666666666666667
+      ],
+      "mean_food_collected": 0.12333333333333334,
+      "mean_survival_steps": 68.48,
+      "mean_attempted_steps": 69.48,
+      "mean_turn_ratio": 0.6516741862875005,
+      "terminated": 300,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 297,
+        "self": 3,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0,
+      "blocks": {
+        "500000": {
+          "episodes": 100,
+          "mean_score": 1.1,
+          "median_score": 0.0,
+          "std_score": 3.450955072018601,
+          "min_score": 0,
+          "max_score": 20,
+          "score_ci95": [
+            0.5,
+            1.9
+          ],
+          "mean_food_collected": 0.11,
+          "mean_survival_steps": 65.84,
+          "mean_attempted_steps": 66.84,
+          "mean_turn_ratio": 0.6389781366571948,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 100,
+            "self": 0,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "501000": {
+          "episodes": 100,
+          "mean_score": 1.9,
+          "median_score": 0.0,
+          "std_score": 4.4255913261233895,
+          "min_score": 0,
+          "max_score": 20,
+          "score_ci95": [
+            1.1,
+            2.8
+          ],
+          "mean_food_collected": 0.19,
+          "mean_survival_steps": 75.97,
+          "mean_attempted_steps": 76.97,
+          "mean_turn_ratio": 0.6636195531753779,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 98,
+            "self": 2,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "502000": {
+          "episodes": 100,
+          "mean_score": 0.7,
+          "median_score": 0.0,
+          "std_score": 2.931886695621029,
+          "min_score": 0,
+          "max_score": 20,
+          "score_ci95": [
+            0.2,
+            1.3
+          ],
+          "mean_food_collected": 0.07,
+          "mean_survival_steps": 63.63,
+          "mean_attempted_steps": 64.63,
+          "mean_turn_ratio": 0.6524248690299288,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 99,
+            "self": 1,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        }
+      },
+      "block_mean_score_std": 0.6110100926607787
+    },
+    "Heuristic": {
+      "episodes": 300,
+      "mean_score": 279.96666666666664,
+      "median_score": 280.0,
+      "std_score": 106.2920137931801,
+      "min_score": 60,
+      "max_score": 610,
+      "score_ci95": [
+        268.7658333333333,
+        292.43416666666667
+      ],
+      "mean_food_collected": 27.996666666666666,
+      "mean_survival_steps": 422.74,
+      "mean_attempted_steps": 423.74,
+      "mean_turn_ratio": 0.13520428970812945,
+      "terminated": 300,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 3,
+        "self": 297,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0,
+      "blocks": {
+        "500000": {
+          "episodes": 100,
+          "mean_score": 276.5,
+          "median_score": 275.0,
+          "std_score": 111.09532716172953,
+          "min_score": 70,
+          "max_score": 610,
+          "score_ci95": [
+            254.8,
+            297.9025
+          ],
+          "mean_food_collected": 27.65,
+          "mean_survival_steps": 423.11,
+          "mean_attempted_steps": 424.11,
+          "mean_turn_ratio": 0.1338465167727969,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 3,
+            "self": 97,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "501000": {
+          "episodes": 100,
+          "mean_score": 291.4,
+          "median_score": 280.0,
+          "std_score": 100.12134052380055,
+          "min_score": 100,
+          "max_score": 580,
+          "score_ci95": [
+            271.995,
+            312.0
+          ],
+          "mean_food_collected": 29.14,
+          "mean_survival_steps": 436.02,
+          "mean_attempted_steps": 437.02,
+          "mean_turn_ratio": 0.13476383989863425,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 0,
+            "self": 100,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "502000": {
+          "episodes": 100,
+          "mean_score": 272.0,
+          "median_score": 265.0,
+          "std_score": 107.45917712077804,
+          "min_score": 60,
+          "max_score": 550,
+          "score_ci95": [
+            250.3975,
+            293.6025
+          ],
+          "mean_food_collected": 27.2,
+          "mean_survival_steps": 409.09,
+          "mean_attempted_steps": 410.09,
+          "mean_turn_ratio": 0.13700251245295708,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 0,
+            "self": 100,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        }
+      },
+      "block_mean_score_std": 10.153981156833662
+    },
+    "Classic": {
+      "episodes": 300,
+      "mean_score": 276.06666666666666,
+      "median_score": 270.0,
+      "std_score": 103.47407971467162,
+      "min_score": 20,
+      "max_score": 550,
+      "score_ci95": [
+        264.73333333333335,
+        287.43333333333334
+      ],
+      "mean_food_collected": 27.606666666666666,
+      "mean_survival_steps": 477.3666666666667,
+      "mean_attempted_steps": 478.3666666666667,
+      "mean_turn_ratio": 0.6244901033779058,
+      "terminated": 300,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 29,
+        "self": 271,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0,
+      "blocks": {
+        "500000": {
+          "episodes": 100,
+          "mean_score": 286.7,
+          "median_score": 270.0,
+          "std_score": 102.82921999533248,
+          "min_score": 20,
+          "max_score": 550,
+          "score_ci95": [
+            267.195,
+            306.8
+          ],
+          "mean_food_collected": 28.67,
+          "mean_survival_steps": 490.32,
+          "mean_attempted_steps": 491.32,
+          "mean_turn_ratio": 0.6193049609799671,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 9,
+            "self": 91,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "501000": {
+          "episodes": 100,
+          "mean_score": 282.5,
+          "median_score": 285.0,
+          "std_score": 101.18864271320875,
+          "min_score": 20,
+          "max_score": 530,
+          "score_ci95": [
+            262.7975,
+            302.9
+          ],
+          "mean_food_collected": 28.25,
+          "mean_survival_steps": 495.85,
+          "mean_attempted_steps": 496.85,
+          "mean_turn_ratio": 0.6292845184999832,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 9,
+            "self": 91,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "502000": {
+          "episodes": 100,
+          "mean_score": 259.0,
+          "median_score": 265.0,
+          "std_score": 105.23182680984577,
+          "min_score": 20,
+          "max_score": 490,
+          "score_ci95": [
+            238.5,
+            280.8
+          ],
+          "mean_food_collected": 25.9,
+          "mean_survival_steps": 445.93,
+          "mean_attempted_steps": 446.93,
+          "mean_turn_ratio": 0.6248808306537671,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 11,
+            "self": 89,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        }
+      },
+      "block_mean_score_std": 14.928607883300211
+    },
+    "Strategy": {
+      "episodes": 300,
+      "mean_score": 291.9,
+      "median_score": 290.0,
+      "std_score": 115.48091967664853,
+      "min_score": 20,
+      "max_score": 670,
+      "score_ci95": [
+        278.7991666666667,
+        305.1725
+      ],
+      "mean_food_collected": 29.19,
+      "mean_survival_steps": 455.32,
+      "mean_attempted_steps": 456.32,
+      "mean_turn_ratio": 0.4032844082628497,
+      "terminated": 300,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 20,
+        "self": 280,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0,
+      "blocks": {
+        "500000": {
+          "episodes": 100,
+          "mean_score": 295.6,
+          "median_score": 290.0,
+          "std_score": 118.71636684794461,
+          "min_score": 20,
+          "max_score": 670,
+          "score_ci95": [
+            271.595,
+            319.4025
+          ],
+          "mean_food_collected": 29.56,
+          "mean_survival_steps": 463.04,
+          "mean_attempted_steps": 464.04,
+          "mean_turn_ratio": 0.40784672048343873,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 7,
+            "self": 93,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "501000": {
+          "episodes": 100,
+          "mean_score": 294.0,
+          "median_score": 300.0,
+          "std_score": 118.96014102007089,
+          "min_score": 40,
+          "max_score": 650,
+          "score_ci95": [
+            270.5975,
+            317.6
+          ],
+          "mean_food_collected": 29.4,
+          "mean_survival_steps": 458.57,
+          "mean_attempted_steps": 459.57,
+          "mean_turn_ratio": 0.39755541152392126,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 7,
+            "self": 93,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        },
+        "502000": {
+          "episodes": 100,
+          "mean_score": 286.1,
+          "median_score": 280.0,
+          "std_score": 109.45129445824685,
+          "min_score": 40,
+          "max_score": 570,
+          "score_ci95": [
+            263.795,
+            307.505
+          ],
+          "mean_food_collected": 28.61,
+          "mean_survival_steps": 444.35,
+          "mean_attempted_steps": 445.35,
+          "mean_turn_ratio": 0.4044510927811893,
+          "terminated": 100,
+          "truncated": 0,
+          "end_reasons": {
+            "wall": 6,
+            "self": 94,
+            "no_food_limit": 0,
+            "board_full": 0,
+            "evaluation_step_limit": 0,
+            "ordered_no_progress_bug": 0
+          },
+          "wins": 0,
+          "win_rate": 0.0
+        }
+      },
+      "block_mean_score_std": 5.086255990411803
+    }
+  },
+  "safety": {
+    "Random_False": {
+      "episodes": 20,
+      "mean_score": 1.5,
+      "median_score": 0.0,
+      "std_score": 3.6634754853252325,
+      "min_score": 0,
+      "max_score": 10,
+      "score_ci95": [
+        0.0,
+        3.5
+      ],
+      "mean_food_collected": 0.15,
+      "mean_survival_steps": 82.15,
+      "mean_attempted_steps": 83.15,
+      "mean_turn_ratio": 0.6344351736718112,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 20,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Random_True": {
+      "episodes": 20,
+      "mean_score": 1247.0,
+      "median_score": 1250.0,
+      "std_score": 59.39165278936621,
+      "min_score": 1170,
+      "max_score": 1370,
+      "score_ci95": [
+        1222.0,
+        1272.5
+      ],
+      "mean_food_collected": 124.7,
+      "mean_survival_steps": 3000.0,
+      "mean_attempted_steps": 3000.0,
+      "mean_turn_ratio": 0.24105,
+      "terminated": 0,
+      "truncated": 20,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 20,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Heuristic_False": {
+      "episodes": 20,
+      "mean_score": 282.5,
+      "median_score": 310.0,
+      "std_score": 106.86316878188323,
+      "min_score": 100,
+      "max_score": 480,
+      "score_ci95": [
+        236.0,
+        328.0
+      ],
+      "mean_food_collected": 28.25,
+      "mean_survival_steps": 430.3,
+      "mean_attempted_steps": 431.3,
+      "mean_turn_ratio": 0.13101394166407618,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 1,
+        "self": 19,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Heuristic_True": {
+      "episodes": 20,
+      "mean_score": 1237.0,
+      "median_score": 1235.0,
+      "std_score": 47.361987867242675,
+      "min_score": 1170,
+      "max_score": 1380,
+      "score_ci95": [
+        1217.5,
+        1259.0124999999998
+      ],
+      "mean_food_collected": 123.7,
+      "mean_survival_steps": 3000.0,
+      "mean_attempted_steps": 3000.0,
+      "mean_turn_ratio": 0.14778333333333332,
+      "terminated": 0,
+      "truncated": 20,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 20,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Classic_False": {
+      "episodes": 20,
+      "mean_score": 311.5,
+      "median_score": 310.0,
+      "std_score": 124.36258533650282,
+      "min_score": 130,
+      "max_score": 570,
+      "score_ci95": [
+        259.4875,
+        365.0
+      ],
+      "mean_food_collected": 31.15,
+      "mean_survival_steps": 552.4,
+      "mean_attempted_steps": 553.4,
+      "mean_turn_ratio": 0.6225299314314483,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 4,
+        "self": 16,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Classic_True": {
+      "episodes": 20,
+      "mean_score": 1273.0,
+      "median_score": 1270.0,
+      "std_score": 51.513922492141056,
+      "min_score": 1190,
+      "max_score": 1360,
+      "score_ci95": [
+        1249.5,
+        1294.0124999999998
+      ],
+      "mean_food_collected": 127.3,
+      "mean_survival_steps": 3000.0,
+      "mean_attempted_steps": 3000.0,
+      "mean_turn_ratio": 0.21845000000000003,
+      "terminated": 0,
+      "truncated": 20,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 20,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Strategy_False": {
+      "episodes": 20,
+      "mean_score": 281.0,
+      "median_score": 305.0,
+      "std_score": 91.47332081570359,
+      "min_score": 100,
+      "max_score": 430,
+      "score_ci95": [
+        239.4875,
+        319.0
+      ],
+      "mean_food_collected": 28.1,
+      "mean_survival_steps": 443.7,
+      "mean_attempted_steps": 444.7,
+      "mean_turn_ratio": 0.38897822537804144,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 2,
+        "self": 18,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    },
+    "Strategy_True": {
+      "episodes": 20,
+      "mean_score": 1288.0,
+      "median_score": 1290.0,
+      "std_score": 63.128940731606896,
+      "min_score": 1130,
+      "max_score": 1450,
+      "score_ci95": [
+        1261.0,
+        1315.5
+      ],
+      "mean_food_collected": 128.8,
+      "mean_survival_steps": 3000.0,
+      "mean_attempted_steps": 3000.0,
+      "mean_turn_ratio": 0.18286666666666668,
+      "terminated": 0,
+      "truncated": 20,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 0,
+        "evaluation_step_limit": 20,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 0,
+      "win_rate": 0.0
+    }
+  },
+  "ultimate": {
+    "before": {
+      "episodes": 20,
+      "mean_score": 3847.0,
+      "median_score": 3840.0,
+      "std_score": 131.7533580916291,
+      "min_score": 3530,
+      "max_score": 3970,
+      "score_ci95": [
+        3786.0,
+        3898.0249999999996
+      ],
+      "mean_food_collected": 384.7,
+      "mean_survival_steps": 25956.45,
+      "mean_attempted_steps": 25956.45,
+      "mean_turn_ratio": 0.18155162492746055,
+      "terminated": 9,
+      "truncated": 11,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 11,
+        "board_full": 9,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 9,
+      "win_rate": 0.45,
+      "reached_half": 20,
+      "ordered_steps": 54234,
+      "recovery_steps": 333626,
+      "repeated_states": 102144,
+      "repeated_ordered_states": 0,
+      "unexpected_ordered_fallbacks": 0,
+      "ordered_progress_errors": 0,
+      "collision_after_requested": 0,
+      "collision_after_locked": 0,
+      "no_food_after_requested": 11,
+      "locked_episodes": 9,
+      "mean_max_occupancy_percent": 96.925,
+      "max_repeated_cycle_length": 388,
+      "mean_steps_half_to_win": 9695.666666666666,
+      "max_decision_ms": 2.198499999998603,
+      "total_seconds": 44.6527839
+    },
+    "after": {
+      "episodes": 20,
+      "mean_score": 3970.0,
+      "median_score": 3970.0,
+      "std_score": 0.0,
+      "min_score": 3970,
+      "max_score": 3970,
+      "score_ci95": [
+        3970.0,
+        3970.0
+      ],
+      "mean_food_collected": 397.0,
+      "mean_survival_steps": 16838.15,
+      "mean_attempted_steps": 16838.15,
+      "mean_turn_ratio": 0.16318465482805483,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 20,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 20,
+      "win_rate": 1.0,
+      "reached_half": 20,
+      "ordered_steps": 198316,
+      "recovery_steps": 7178,
+      "repeated_states": 0,
+      "repeated_ordered_states": 0,
+      "unexpected_ordered_fallbacks": 0,
+      "ordered_progress_errors": 0,
+      "collision_after_requested": 0,
+      "collision_after_locked": 0,
+      "no_food_after_requested": 0,
+      "locked_episodes": 20,
+      "mean_max_occupancy_percent": 100.0,
+      "max_repeated_cycle_length": 0,
+      "mean_steps_half_to_win": 10274.7,
+      "max_decision_ms": 1671.2168999999994,
+      "total_seconds": 61.576070800000004
+    }
+  },
+  "paired_comparison": {
+    "strategy_minus_classic_mean_score": 15.833333333333334,
+    "paired_score_ci95": [
+      -1.8008333333333333,
+      33.83416666666666
+    ],
+    "interpretation": "Evaluation-seed uncertainty for these frozen checkpoints; not uncertainty across independently trained models."
+  },
+  "tests": {
+    "complete": true,
+    "runs": [
+      {
+        "suite": "python",
+        "iteration": 1,
+        "exit_code": 0,
+        "tests": 64,
+        "seconds": 7.257691500000874,
+        "command": [
+          "D:\\isaac-lab\\PixelSnake\\.venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "rl",
+          "-p",
+          "test_*.py"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-1-python.log"
+      },
+      {
+        "suite": "javascript",
+        "iteration": 1,
+        "exit_code": 0,
+        "tests": 97,
+        "seconds": 13.78812359999938,
+        "command": [
+          "node",
+          "--test",
+          "tests\\agents.test.cjs",
+          "tests\\dqn-agent.test.cjs",
+          "tests\\fill-rule.test.cjs",
+          "tests\\game.test.cjs",
+          "tests\\local-ai.test.cjs",
+          "tests\\snake.test.cjs",
+          "tests\\ultimate-regression.test.cjs"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-1-javascript.log"
+      },
+      {
+        "suite": "python",
+        "iteration": 2,
+        "exit_code": 0,
+        "tests": 64,
+        "seconds": 6.96312030000081,
+        "command": [
+          "D:\\isaac-lab\\PixelSnake\\.venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "rl",
+          "-p",
+          "test_*.py"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-2-python.log"
+      },
+      {
+        "suite": "javascript",
+        "iteration": 2,
+        "exit_code": 0,
+        "tests": 97,
+        "seconds": 13.61789680000038,
+        "command": [
+          "node",
+          "--test",
+          "tests\\agents.test.cjs",
+          "tests\\dqn-agent.test.cjs",
+          "tests\\fill-rule.test.cjs",
+          "tests\\game.test.cjs",
+          "tests\\local-ai.test.cjs",
+          "tests\\snake.test.cjs",
+          "tests\\ultimate-regression.test.cjs"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-2-javascript.log"
+      },
+      {
+        "suite": "python",
+        "iteration": 3,
+        "exit_code": 0,
+        "tests": 64,
+        "seconds": 6.963971699999092,
+        "command": [
+          "D:\\isaac-lab\\PixelSnake\\.venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "rl",
+          "-p",
+          "test_*.py"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-3-python.log"
+      },
+      {
+        "suite": "javascript",
+        "iteration": 3,
+        "exit_code": 0,
+        "tests": 97,
+        "seconds": 13.368974299999536,
+        "command": [
+          "node",
+          "--test",
+          "tests\\agents.test.cjs",
+          "tests\\dqn-agent.test.cjs",
+          "tests\\fill-rule.test.cjs",
+          "tests\\game.test.cjs",
+          "tests\\local-ai.test.cjs",
+          "tests\\snake.test.cjs",
+          "tests\\ultimate-regression.test.cjs"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-main-3-javascript.log"
+      }
+    ]
+  },
+  "trained_parity": {
+    "Classic": {
+      "states": 1000,
+      "identical_observations": true,
+      "identical_greedy_actions": true,
+      "max_absolute_q_error": 1.9073486328125e-06,
+      "rtol": 1e-05,
+      "atol": 1e-05
+    },
+    "Strategy": {
+      "states": 1000,
+      "identical_observations": true,
+      "identical_greedy_actions": true,
+      "max_absolute_q_error": 5.7220458984375e-06,
+      "rtol": 1e-05,
+      "atol": 1e-05
+    },
+    "Ultimate": {
+      "states": 1000,
+      "identical_observations": true,
+      "identical_greedy_actions": true,
+      "max_absolute_q_error": 5.7220458984375e-06,
+      "rtol": 1e-05,
+      "atol": 1e-05
+    }
+  },
+  "figures": [
+    {
+      "file": "figures/01_training_score.png",
+      "vector": "figures/01_training_score.pdf",
+      "source": "results/training.csv",
+      "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+    },
+    {
+      "file": "figures/02_training_moving_average.png",
+      "vector": "figures/02_training_moving_average.pdf",
+      "source": "results/training.csv",
+      "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+    },
+    {
+      "file": "figures/03_training_reward.png",
+      "vector": "figures/03_training_reward.pdf",
+      "source": "results/training.csv",
+      "caption": "HISTORICAL / ORIGINAL EXPERIMENT. Regenerated from the original 2,000-episode CSV; no retraining."
+    },
+    {
+      "file": "figures/04_raw_scores.png",
+      "vector": "figures/04_raw_scores.pdf",
+      "source": "raw_episodes.csv",
+      "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+    },
+    {
+      "file": "figures/05_raw_survival.png",
+      "vector": "figures/05_raw_survival.pdf",
+      "source": "raw_episodes.csv",
+      "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+    },
+    {
+      "file": "figures/06_raw_turn_rate.png",
+      "vector": "figures/06_raw_turn_rate.pdf",
+      "source": "raw_episodes.csv",
+      "caption": "CURRENT FRESH RE-EVALUATION. 300 episodes per policy across three matched 100-seed blocks. Boxes show median and quartiles; triangles show means."
+    },
+    {
+      "file": "figures/07_safety_scores.png",
+      "vector": "figures/07_safety_scores.pdf",
+      "source": "safety_episodes.csv",
+      "caption": "CURRENT FRESH RE-EVALUATION. 20 matched browser seeds per condition; 3,000 attempted-step cap. These are separate from the Gymnasium raw-policy protocol. Surviving to the cap is not a win."
+    },
+    {
+      "file": "figures/08_safety_survival.png",
+      "vector": "figures/08_safety_survival.pdf",
+      "source": "safety_episodes.csv",
+      "caption": "CURRENT FRESH RE-EVALUATION. 20 matched browser seeds per condition; 3,000 attempted-step cap. These are separate from the Gymnasium raw-policy protocol. Surviving to the cap is not a win."
+    },
+    {
+      "file": "figures/09_ultimate_occupancy.png",
+      "vector": "figures/09_ultimate_occupancy.pdf",
+      "source": "ultimate_before_episodes.csv; ultimate_after_episodes.csv",
+      "caption": "Maximum occupancy for each of 20 matched seeds, with deterministic horizontal jitter for overlapping points."
+    },
+    {
+      "file": "figures/10_ultimate_outcomes.png",
+      "vector": "figures/10_ultimate_outcomes.pdf",
+      "source": "ultimate_before_episodes.csv; ultimate_after_episodes.csv",
+      "caption": "All episodes reached >50%. Each ending is classified from the actual engine/evaluator result; step-limit survival is never a win."
+    },
+    {
+      "file": "figures/11_ultimate_progression.png",
+      "vector": "figures/11_ultimate_progression.pdf",
+      "source": "ultimate_before_verified.json; ultimate_final.json",
+      "caption": "Seed 10 was selected as the first investigated failing seed, not as a representative success. Traces are sampled every 100 moves and at food/mode transitions."
+    },
+    {
+      "file": "figures/12_raw_end_reasons.png",
+      "vector": "figures/12_raw_end_reasons.pdf",
+      "source": "raw_episodes.csv",
+      "caption": "Raw policy termination categories, 300 episodes per policy; successful survival and attempted steps differ by one on collisions."
+    },
+    {
+      "file": "figures/13_raw_confidence_intervals.png",
+      "vector": "figures/13_raw_confidence_intervals.pdf",
+      "source": "raw_episodes.csv",
+      "caption": "Percentile bootstrap confidence intervals: 2,000 resamples, seed 9152026. Intervals describe held-out episode sampling for the fixed models, not training-seed variation."
+    }
+  ],
+  "report": "reports/Pixel_Snake_RL_Reevaluation_and_Ultimate_Control_Report.pdf",
+  "definitive_inputs": [
+    "raw_episodes.csv",
+    "safety_final.json",
+    "ultimate_before_verified.json",
+    "ultimate_final.json"
+  ],
+  "historical_training": {
+    "completed_episodes": 2000,
+    "requested_episodes": 2000,
+    "environment_steps": 170682,
+    "optimizer_updates": 42421,
+    "elapsed_seconds": 39.86303980000048
+  },
+  "final_tests": {
+    "complete": true,
+    "runs": [
+      {
+        "suite": "python",
+        "iteration": 1,
+        "exit_code": 0,
+        "tests": 64,
+        "seconds": 7.323203199999625,
+        "command": [
+          "D:\\isaac-lab\\PixelSnake\\.venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "rl",
+          "-p",
+          "test_*.py"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-final-1-python.log"
+      },
+      {
+        "suite": "javascript",
+        "iteration": 1,
+        "exit_code": 0,
+        "tests": 97,
+        "seconds": 13.994411300000138,
+        "command": [
+          "node",
+          "--test",
+          "tests\\agents.test.cjs",
+          "tests\\dqn-agent.test.cjs",
+          "tests\\fill-rule.test.cjs",
+          "tests\\game.test.cjs",
+          "tests\\local-ai.test.cjs",
+          "tests\\snake.test.cjs",
+          "tests\\ultimate-regression.test.cjs"
+        ],
+        "log": "results/full_recheck_2026_09_15/logs/tests-final-1-javascript.log"
+      }
+    ]
+  }
+}

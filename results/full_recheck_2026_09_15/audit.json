@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "checks": {
+    "historical_files_unchanged": 85,
+    "active_model_hashes_verified": 3,
+    "strategy_ultimate_online_tensors_identical": true,
+    "raw_episodes_verified": 1200,
+    "browser_episodes_verified": 200,
+    "full_test_passes": 4,
+    "old_fails_new_passes": true,
+    "local_document_links": 37,
+    "byte_reproducible_figures": 26,
+    "documents_match_summary": true,
+    "report_sha256": "46fed693ca49dd0ad4c2ed15809f190ad687e5ac0c17eafd6964577bd0b1f2fb",
+    "browser_smoke": {
+      "url": "http://127.0.0.1:8765",
+      "browser": "Codex in-app browser",
+      "controller": "DQN",
+      "checkpoint": "ultimate/2026-09-12_01-30-56-963414_ep2300.pt",
+      "assistance": true,
+      "headless": true,
+      "target_steps_per_second": 6000,
+      "observed_model_count": 3,
+      "observed_win": true,
+      "visible_result": "YOU WIN, 100%",
+      "score": 3970,
+      "length": 400,
+      "food_collected": 397,
+      "steps_survived": 17175,
+      "console_errors_warnings": [],
+      "rendering_restored": true,
+      "seed": "unseeded UI smoke; not included in fixed-seed statistics"
+    },
+    "artifacts_hashed": 132
+  }
+}

@@ -1,0 +1,852 @@
+[
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\index.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\index.html",
+    "sha256": "086e5ac730acbf7aadd1170ff8fe50bb3a0d91743d6db220c312ca0f8de17a17"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\PixelSnake.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\PixelSnake.html",
+    "sha256": "086e5ac730acbf7aadd1170ff8fe50bb3a0d91743d6db220c312ca0f8de17a17"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\css\\layout.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\css\\layout.css",
+    "sha256": "aee0085ebf3b25d92f87f45b2a9dc86b02a6ad2f6055f603f3b302275fd05dfa"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\css\\style.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\css\\style.css",
+    "sha256": "429d4729b3ae55c676ca38921de03d2f0dc72f36b4db9542dd78cf7b987da960"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\agents.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\agents.js",
+    "sha256": "68bdafdc1c05d6938cb90efe14f00a26aca0b0fc589d96980a911dbb0d3a3bd4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\dqn-agent.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\dqn-agent.js",
+    "sha256": "09127c1a318bb4eab1e452696b3b9dc643b95245d052933a2792b98745238d8c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\episode.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\episode.js",
+    "sha256": "fe1be875c1b248b32cf2a5b221f02ddd20f61d36e724bf61f3da14e290a1ec4a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\game.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\game.js",
+    "sha256": "1b1549ced45c1318935677117f01cba23192a39f232c403e9214472edf46ab02"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\input.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\input.js",
+    "sha256": "4f101fd248ee3a66235838ea57e4b0a69f3c8ef9fb5fca59c5ad59242f97eae3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\local-ai.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\local-ai.js",
+    "sha256": "27ac044b89e3378e2956ba75edbbc36e1973bc7630df18b6b5e87f80babede61"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\main.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\main.js",
+    "sha256": "2218d3f2593e036eb995c190e9de1a3ddbb4fcf55d6f176c2a7178ed71626319"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\renderer.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\renderer.js",
+    "sha256": "51091dbfd374aeebcc515b23a8c229ba27f2dc569924f1a657d55175220d13a3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\js\\safety.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\js\\safety.js",
+    "sha256": "9f2fc44efb8b3adb7efe0b55a0dd3cccf3995a8d57a13bb27a7f0e329362c4ba"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\agents.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\agents.test.cjs",
+    "sha256": "ded11a350a8a3bc32d9ab6ae79eefdbb0b192aafccd9a560978e1c7ff3d33f84"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\appearance-baseline.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\appearance-baseline.json",
+    "sha256": "4f6db9c6b728fd8574ba579810ae7480957d7fea9b5f2f1021dfef78e3af39a8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\dqn-agent.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\dqn-agent.test.cjs",
+    "sha256": "3b6a4cf424b8cf8414377fe6756813a67a9bedfdb9ac35ac468b3f8d00745b1a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\fill-rule.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\fill-rule.test.cjs",
+    "sha256": "83ec81239af956db8dfdd245a527d21edf41e7bc457253a29381c0d273eb9c82"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\game.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\game.test.cjs",
+    "sha256": "fd684ff238e83fcef0f7fec4e4dabfeb7c379664911ef3263263132b1ea32b1b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\local-ai.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\local-ai.test.cjs",
+    "sha256": "66c7ca1c676cb94d3eae2190168e8c98b328cf60a3f04e042be704ab2a604151"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\snake.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\snake.test.cjs",
+    "sha256": "4aabddcf800f823076912779366c8758e1646b618ee327f45570d9a04b7bdd64"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\fixtures\\fill-stall-19.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\fixtures\\fill-stall-19.json",
+    "sha256": "0529e5404b3bb16e3e1e133668222ea468c7e2fa8e7b0c7965fda2e35427d5e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-layout-update\\tests\\fixtures\\fill-stall-7.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-layout-update\\tests\\fixtures\\fill-stall-7.json",
+    "sha256": "6b3d7a7556e95caacfc333f2145b4d3fad5a13c4297826497943bd81ea32bbb3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\index.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\index.html",
+    "sha256": "71c522f144a91f0dfbd83bd19f69d421c28fb8194d42702541e0d8dc6bba0258"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\model-renames.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\model-renames.json",
+    "sha256": "316306e4582331a4f6c4cf0f7cae057ceee8ba43354e4dccf1712eedc4b75366"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\organize_models.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\organize_models.py",
+    "sha256": "9b533397316c31974ed184f4efa800cdfd5e1ace2575181b89d4490fb6099583"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\PixelSnake.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\PixelSnake.html",
+    "sha256": "71c522f144a91f0dfbd83bd19f69d421c28fb8194d42702541e0d8dc6bba0258"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\README.md",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\README.md",
+    "sha256": "8836559c6befa6769653f072516da4f733a07e82dd2c689435c0575ab4c8bf12"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\css\\layout.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\css\\layout.css",
+    "sha256": "207b7577388fdea19e2e7a58088e7d9883c620a900216166852065d1561c5052"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\css\\style.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\css\\style.css",
+    "sha256": "429d4729b3ae55c676ca38921de03d2f0dc72f36b4db9542dd78cf7b987da960"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\agents.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\agents.js",
+    "sha256": "68bdafdc1c05d6938cb90efe14f00a26aca0b0fc589d96980a911dbb0d3a3bd4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\dqn-agent.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\dqn-agent.js",
+    "sha256": "09127c1a318bb4eab1e452696b3b9dc643b95245d052933a2792b98745238d8c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\episode.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\episode.js",
+    "sha256": "fe1be875c1b248b32cf2a5b221f02ddd20f61d36e724bf61f3da14e290a1ec4a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\game.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\game.js",
+    "sha256": "1b1549ced45c1318935677117f01cba23192a39f232c403e9214472edf46ab02"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\input.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\input.js",
+    "sha256": "4f101fd248ee3a66235838ea57e4b0a69f3c8ef9fb5fca59c5ad59242f97eae3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\local-ai.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\local-ai.js",
+    "sha256": "27ac044b89e3378e2956ba75edbbc36e1973bc7630df18b6b5e87f80babede61"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\main.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\main.js",
+    "sha256": "1b937bc178bfeafe1b48e157a913a724fd4da51db90f6873709f9644f7d8e0b1"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\renderer.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\renderer.js",
+    "sha256": "51091dbfd374aeebcc515b23a8c229ba27f2dc569924f1a657d55175220d13a3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\js\\safety.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\js\\safety.js",
+    "sha256": "9f2fc44efb8b3adb7efe0b55a0dd3cccf3995a8d57a13bb27a7f0e329362c4ba"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__init__.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__init__.py",
+    "sha256": "9643f7598c8ae0926fe6690061e5cfbe690211e360218b502f6196a9d6459193"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\compare_strategy.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\compare_strategy.py",
+    "sha256": "dcd4ced5d638336d1e82f2c83b90715faf454af3be2ee0b5e6562be4227c31da"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\evaluate_llm.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\evaluate_llm.py",
+    "sha256": "c797c10456d20fc09aef8358b2fe92ec30d14ceea697ab666584a3fff3f3410c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\llm_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\llm_agent.py",
+    "sha256": "92de87875c3bbf671ba3274158b5d0ad637657d22fcece5bc8ebca437854b0ee"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\model_profiles.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\model_profiles.py",
+    "sha256": "003b67b5fee110daaf6597da1d021a5cf50dbc9576bccbb24783fdc133a1608f"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\random_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\random_agent.py",
+    "sha256": "22b8fe0cd9df1f659580543e05ef162cbfbf9db884eb45e7d3c5f56df328540f"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\requirements.txt",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\requirements.txt",
+    "sha256": "86747d958a93d8c3037a49f2183fd1c104d9c35e7aa889ef11a2e0834a54f103"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\snake_env.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\snake_env.py",
+    "sha256": "70963096588583a9a5b6d8d126b243434c9220223a0549f5b8cab7dd90463177"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\strategy_reward.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\strategy_reward.py",
+    "sha256": "70a6f29f719084afa05a28e36a9f432ece35d88118d6a9a1cbe11415110d7dfc"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_browser_dqn.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_browser_dqn.py",
+    "sha256": "81ef084267ac99be8e6ea503cedfc355a8df91e5c1b2464fac3f67641e5257e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_env.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_env.py",
+    "sha256": "9961bac9a18f9fa49e07ecaaf9b4e5acb468db39cc1f9200a4ee3146bd9a2c5b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_llm_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_llm_agent.py",
+    "sha256": "476dd04bfa1cb2147548aa0512712aaec9454f2be8f4cafb9cbf5939f4845e1c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_model_profiles.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_model_profiles.py",
+    "sha256": "793a76a4abda7503d1a22dbbb62939dd6b00d42afa6b6e8850141a544177b21b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_strategy_reward.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_strategy_reward.py",
+    "sha256": "052542c0a7045ed82439134e15cb998db11dfde995c4aff03472846ef10ff582"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\test_web_training.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\test_web_training.py",
+    "sha256": "705d4e88083f01ab4d9ea4a614c05a436858304c3bb70ba24ef6051f5be4d85a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\web_server.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\web_server.py",
+    "sha256": "447b1dd6e29bf6a6ac894cc858094522de88bf09fba0382faaae887799c30bfa"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__init__.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__init__.py",
+    "sha256": "69051973cdf34c66fb71e84e50e7f011a244b238fa540768818938953ad6a26f"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\agent.py",
+    "sha256": "f22f24fbb5a06685f88e2419d684914e51779dd3377a40ba26975665fcb92341"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\evaluate.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\evaluate.py",
+    "sha256": "3e79d79f4794945d7971121f72b8bae0f7cb26ab7ed3c6e14a98eca52597da95"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\evaluation.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\evaluation.py",
+    "sha256": "cc2d3509d04c366253bfbc92ea80c6c4779721470d5a3bf0520febc4203714d3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\model.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\model.py",
+    "sha256": "57876a44f36e7a50e9832034feddd2cd393f4a3889ebe7ecd88d6a8b72f7f0d9"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\replay_buffer.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\replay_buffer.py",
+    "sha256": "d190601dcadfb1d15f172fde55effac6cdd19bc5448aa1f405eda4608f5c5979"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\test_dqn.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\test_dqn.py",
+    "sha256": "efe0f3affbe4ada13ec9227e4321dd753c38cf9049b016f6c81cfcd0faac7c0b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\train_session.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\train_session.py",
+    "sha256": "9e9c555ec080c2b8d3a510d2546a83465092c825eeb64b1ded4cd43cbe0b77d7"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\train.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\train.py",
+    "sha256": "6e6cd68199b567ecb552ad6d1e3c6c3fd913992ff8a2f27839d08d41ddc0ad8b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\__init__.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\__init__.cpython-312.pyc",
+    "sha256": "8e292f3281c38558f2295dfa1faff2672069ce27e0b4944cb5784985581d1776"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\agent.cpython-312.pyc",
+    "sha256": "846e490bb1692b9888b0c8083fc845ec1f56f7e5767de3ffd563b3a08e50cac8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\evaluate.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\evaluate.cpython-312.pyc",
+    "sha256": "d0cf9698c7ca62f32d022567bee35df6e1f24a80a40ab0f2663ee1b75384a0a4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\evaluation.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\evaluation.cpython-312.pyc",
+    "sha256": "1699c5acc0c0edd839470728eda75d4cac1f4a7db68dae9e99ced501033dc84d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\model.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\model.cpython-312.pyc",
+    "sha256": "963614c9d3597ac4024a9b08bbca04281c7f2eec9ec65e8df5cd6ec271a326f2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\replay_buffer.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\replay_buffer.cpython-312.pyc",
+    "sha256": "6c407087a61674b094c59e9ae7609db57390c202520774bb04ec897e4290cd6d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\test_dqn.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\test_dqn.cpython-312.pyc",
+    "sha256": "905d7139c357bd9ed5c15250478b86720d82eca666a7bee56783d07369e169ae"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\train_session.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\train_session.cpython-312.pyc",
+    "sha256": "36bf143c8879a68d9a9b00746e2046a6d442bac68f64e3b20cdf61d5963d93a3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\dqn\\__pycache__\\train.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\dqn\\__pycache__\\train.cpython-312.pyc",
+    "sha256": "52d44a89cef688afb1b1c7a78c0a8053683a93f06f7ddcf99879442b6b59eca2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\__init__.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\__init__.cpython-312.pyc",
+    "sha256": "e25832b92c8a990a8d8436d5fc5ecf1beffcd7452a7c01da659d0bad7175e272"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\compare_strategy.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\compare_strategy.cpython-312.pyc",
+    "sha256": "ed2615ed6000adfdeebf9b77b1c1ba9ff225a239dc548e94676ccb3cfff947e8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\evaluate_llm.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\evaluate_llm.cpython-312.pyc",
+    "sha256": "3c82a5b24d04b563ac9c792176310df553caa97baada3d16ba84a697763e50b0"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\llm_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\llm_agent.cpython-312.pyc",
+    "sha256": "4a166890f6465091c56e3a41f4becaba4c525676e02fef3063bcd9ecd790e3fa"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\model_profiles.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\model_profiles.cpython-312.pyc",
+    "sha256": "e8af4f5ab938b5943d123069f545120fdcaf785e38b97c08fbca1b60c32d1248"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\random_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\random_agent.cpython-312.pyc",
+    "sha256": "8623707a0ca8425dea272d897da643b13d22510939df524d32b7d41f3e781ed2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\snake_env.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\snake_env.cpython-312.pyc",
+    "sha256": "7aa3d6783c1bed5baec00edd97048eb5e784b1eee052f0e271545886da3fee7d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\strategy_reward.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\strategy_reward.cpython-312.pyc",
+    "sha256": "81d2e0a7d1829a3ba8842cc991b83cd47e503b7dc02bf0e00e268155720ffaf4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\test_env.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\test_env.cpython-312.pyc",
+    "sha256": "50bbbff88c54e94cdebf5c2d68987e03173407a70adbd5ff2cbb6bef32194300"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\test_llm_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\test_llm_agent.cpython-312.pyc",
+    "sha256": "62786bf19e87b7b62b6589763f7383a4acfb34cc9403a381f8793c7ddfdefd5d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\test_strategy_reward.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\test_strategy_reward.cpython-312.pyc",
+    "sha256": "9a868fa7a70d04138d9fef362c3005f0f24f02bc86f26245b5ee4347eedacbf9"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\test_web_training.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\test_web_training.cpython-312.pyc",
+    "sha256": "0796ca50cf30df21560f409cb3a2c7f36fc3b4d0c1bde85c2b6dbc8c6a50f306"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\rl\\__pycache__\\web_server.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\rl\\__pycache__\\web_server.cpython-312.pyc",
+    "sha256": "318cbb3f54ae4dd7f769d94e0f0dd45c9482f039d395ddcc7dfe25043e7b4514"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\agents.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\agents.test.cjs",
+    "sha256": "ded11a350a8a3bc32d9ab6ae79eefdbb0b192aafccd9a560978e1c7ff3d33f84"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\appearance-baseline.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\appearance-baseline.json",
+    "sha256": "4f6db9c6b728fd8574ba579810ae7480957d7fea9b5f2f1021dfef78e3af39a8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\dqn-agent.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\dqn-agent.test.cjs",
+    "sha256": "3b6a4cf424b8cf8414377fe6756813a67a9bedfdb9ac35ac468b3f8d00745b1a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\fill-rule.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\fill-rule.test.cjs",
+    "sha256": "83ec81239af956db8dfdd245a527d21edf41e7bc457253a29381c0d273eb9c82"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\game.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\game.test.cjs",
+    "sha256": "fd684ff238e83fcef0f7fec4e4dabfeb7c379664911ef3263263132b1ea32b1b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\local-ai.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\local-ai.test.cjs",
+    "sha256": "66c7ca1c676cb94d3eae2190168e8c98b328cf60a3f04e042be704ab2a604151"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\snake.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\snake.test.cjs",
+    "sha256": "4aabddcf800f823076912779366c8758e1646b618ee327f45570d9a04b7bdd64"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\fixtures\\fill-stall-19.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\fixtures\\fill-stall-19.json",
+    "sha256": "0529e5404b3bb16e3e1e133668222ea468c7e2fa8e7b0c7965fda2e35427d5e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-profiles-update\\tests\\fixtures\\fill-stall-7.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-profiles-update\\tests\\fixtures\\fill-stall-7.json",
+    "sha256": "6b3d7a7556e95caacfc333f2145b4d3fad5a13c4297826497943bd81ea32bbb3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\check-fill-progress.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\check-fill-progress.cjs",
+    "sha256": "e6635fe8b311f2308825072f77166a8e3933677f2c2b525c2aaf31d5fbd0bf90"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\create_fill_variant.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\create_fill_variant.py",
+    "sha256": "3a058cfe80594f92234cfead7bf3e19613e71dba744e2abb4584e3ed831af94a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\index.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\index.html",
+    "sha256": "c9d8c58c8b24de0d947f87e2a856d799ced6a97056c831139c77933c12ffd944"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\PixelSnake.html",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\PixelSnake.html",
+    "sha256": "c9d8c58c8b24de0d947f87e2a856d799ced6a97056c831139c77933c12ffd944"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\README.md",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\README.md",
+    "sha256": "2097c5f4120165796b02261d9dcdf2f752cc3cd2e4497730709a14f65b996fb1"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\stalled-seed-0.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\stalled-seed-0.json",
+    "sha256": "b4cebbe6db64acc6b9b70bd96bfbfad7e345c39b835b386ab8c5c805ed5320e8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\stalled-seed-19.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\stalled-seed-19.json",
+    "sha256": "0529e5404b3bb16e3e1e133668222ea468c7e2fa8e7b0c7965fda2e35427d5e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\stalled-seed-42.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\stalled-seed-42.json",
+    "sha256": "964b7af6e9d4fa6495cf5fabcb06ae0e0b0fe0392776e780472c54844df7b0a2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\stalled-seed-7.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\stalled-seed-7.json",
+    "sha256": "be4e11e6b401712bfb2d35b3d671b51854f9451f04a9245748f87f6c96477abc"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\css\\layout.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\css\\layout.css",
+    "sha256": "207b7577388fdea19e2e7a58088e7d9883c620a900216166852065d1561c5052"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\css\\style.css",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\css\\style.css",
+    "sha256": "429d4729b3ae55c676ca38921de03d2f0dc72f36b4db9542dd78cf7b987da960"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\agents.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\agents.js",
+    "sha256": "68bdafdc1c05d6938cb90efe14f00a26aca0b0fc589d96980a911dbb0d3a3bd4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\dqn-agent.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\dqn-agent.js",
+    "sha256": "09127c1a318bb4eab1e452696b3b9dc643b95245d052933a2792b98745238d8c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\episode.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\episode.js",
+    "sha256": "fe1be875c1b248b32cf2a5b221f02ddd20f61d36e724bf61f3da14e290a1ec4a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\game.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\game.js",
+    "sha256": "1b1549ced45c1318935677117f01cba23192a39f232c403e9214472edf46ab02"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\input.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\input.js",
+    "sha256": "4f101fd248ee3a66235838ea57e4b0a69f3c8ef9fb5fca59c5ad59242f97eae3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\local-ai.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\local-ai.js",
+    "sha256": "27ac044b89e3378e2956ba75edbbc36e1973bc7630df18b6b5e87f80babede61"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\main.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\main.js",
+    "sha256": "aa5e5ddf0bec1e5aec438f4d623d265aebea681f70f415c04c0bce7d6239ff93"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\renderer.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\renderer.js",
+    "sha256": "51091dbfd374aeebcc515b23a8c229ba27f2dc569924f1a657d55175220d13a3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\safety-before-fill-fix.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\safety-before-fill-fix.cjs",
+    "sha256": "04d8a0c305c7ce9cda474de22be600f6f53029e4f37cfd1c749899371a913873"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\safety-before70.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\safety-before70.cjs",
+    "sha256": "c3918e71693ae3996625bf3337921047d2b4f7db9a93c2da147e0d9b89fd2d77"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\js\\safety.js",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\js\\safety.js",
+    "sha256": "181091ed5e4a7cd85293f6f477aa4cdf922174bd4bedbe958c6d43e9b91fb864"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\models\\strategy_v1\\2300_fill50_model.pt",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\models\\strategy_v1\\2300_fill50_model.pt",
+    "sha256": "a407513272f41a31566ca0acb4ff64aca17bdf016d7132c2a95e44de4cd2f524"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__init__.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__init__.py",
+    "sha256": "9643f7598c8ae0926fe6690061e5cfbe690211e360218b502f6196a9d6459193"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\compare_strategy.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\compare_strategy.py",
+    "sha256": "dcd4ced5d638336d1e82f2c83b90715faf454af3be2ee0b5e6562be4227c31da"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\evaluate_llm.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\evaluate_llm.py",
+    "sha256": "c797c10456d20fc09aef8358b2fe92ec30d14ceea697ab666584a3fff3f3410c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\llm_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\llm_agent.py",
+    "sha256": "92de87875c3bbf671ba3274158b5d0ad637657d22fcece5bc8ebca437854b0ee"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\random_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\random_agent.py",
+    "sha256": "22b8fe0cd9df1f659580543e05ef162cbfbf9db884eb45e7d3c5f56df328540f"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\requirements.txt",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\requirements.txt",
+    "sha256": "86747d958a93d8c3037a49f2183fd1c104d9c35e7aa889ef11a2e0834a54f103"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\snake_env.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\snake_env.py",
+    "sha256": "70963096588583a9a5b6d8d126b243434c9220223a0549f5b8cab7dd90463177"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\strategy_reward.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\strategy_reward.py",
+    "sha256": "70a6f29f719084afa05a28e36a9f432ece35d88118d6a9a1cbe11415110d7dfc"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\test_browser_dqn.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\test_browser_dqn.py",
+    "sha256": "81ef084267ac99be8e6ea503cedfc355a8df91e5c1b2464fac3f67641e5257e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\test_env.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\test_env.py",
+    "sha256": "9961bac9a18f9fa49e07ecaaf9b4e5acb468db39cc1f9200a4ee3146bd9a2c5b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\test_llm_agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\test_llm_agent.py",
+    "sha256": "476dd04bfa1cb2147548aa0512712aaec9454f2be8f4cafb9cbf5939f4845e1c"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\test_strategy_reward.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\test_strategy_reward.py",
+    "sha256": "d50a0df2bdcfc251a29fc87f9bc9e2dd370e914681b3288716a8897f8173ce70"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\test_web_training.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\test_web_training.py",
+    "sha256": "27a28fc5e7952767fb8ff4e9203d2deff878ab8f230de0e21f151be113fa4cc7"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\web_server.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\web_server.py",
+    "sha256": "e70792882151111a55f4f5d8956b9d5935f2376e9bbdb6b656b126665f3b4d5b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__init__.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__init__.py",
+    "sha256": "69051973cdf34c66fb71e84e50e7f011a244b238fa540768818938953ad6a26f"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\agent.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\agent.py",
+    "sha256": "f22f24fbb5a06685f88e2419d684914e51779dd3377a40ba26975665fcb92341"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\evaluate.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\evaluate.py",
+    "sha256": "3e79d79f4794945d7971121f72b8bae0f7cb26ab7ed3c6e14a98eca52597da95"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\evaluation.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\evaluation.py",
+    "sha256": "cc2d3509d04c366253bfbc92ea80c6c4779721470d5a3bf0520febc4203714d3"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\model.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\model.py",
+    "sha256": "57876a44f36e7a50e9832034feddd2cd393f4a3889ebe7ecd88d6a8b72f7f0d9"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\replay_buffer.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\replay_buffer.py",
+    "sha256": "d190601dcadfb1d15f172fde55effac6cdd19bc5448aa1f405eda4608f5c5979"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\test_dqn.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\test_dqn.py",
+    "sha256": "efe0f3affbe4ada13ec9227e4321dd753c38cf9049b016f6c81cfcd0faac7c0b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\train_session.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\train_session.py",
+    "sha256": "916490dbef04cbaa8b981b68bd60419d4be809c67f10619dca3ac283b3cfde18"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\train.py",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\train.py",
+    "sha256": "6e6cd68199b567ecb552ad6d1e3c6c3fd913992ff8a2f27839d08d41ddc0ad8b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\__init__.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\__init__.cpython-312.pyc",
+    "sha256": "8e292f3281c38558f2295dfa1faff2672069ce27e0b4944cb5784985581d1776"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\agent.cpython-312.pyc",
+    "sha256": "846e490bb1692b9888b0c8083fc845ec1f56f7e5767de3ffd563b3a08e50cac8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\evaluate.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\evaluate.cpython-312.pyc",
+    "sha256": "d0cf9698c7ca62f32d022567bee35df6e1f24a80a40ab0f2663ee1b75384a0a4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\evaluation.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\evaluation.cpython-312.pyc",
+    "sha256": "1699c5acc0c0edd839470728eda75d4cac1f4a7db68dae9e99ced501033dc84d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\model.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\model.cpython-312.pyc",
+    "sha256": "963614c9d3597ac4024a9b08bbca04281c7f2eec9ec65e8df5cd6ec271a326f2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\replay_buffer.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\replay_buffer.cpython-312.pyc",
+    "sha256": "6c407087a61674b094c59e9ae7609db57390c202520774bb04ec897e4290cd6d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\test_dqn.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\test_dqn.cpython-312.pyc",
+    "sha256": "905d7139c357bd9ed5c15250478b86720d82eca666a7bee56783d07369e169ae"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\train_session.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\train_session.cpython-312.pyc",
+    "sha256": "ef73f0630facb2f7e2a6c6943670c7cba8add99bcb7e0bf1fa53fec82e159cfa"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\dqn\\__pycache__\\train.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\dqn\\__pycache__\\train.cpython-312.pyc",
+    "sha256": "52d44a89cef688afb1b1c7a78c0a8053683a93f06f7ddcf99879442b6b59eca2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\__init__.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\__init__.cpython-312.pyc",
+    "sha256": "e25832b92c8a990a8d8436d5fc5ecf1beffcd7452a7c01da659d0bad7175e272"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\compare_strategy.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\compare_strategy.cpython-312.pyc",
+    "sha256": "ed2615ed6000adfdeebf9b77b1c1ba9ff225a239dc548e94676ccb3cfff947e8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\evaluate_llm.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\evaluate_llm.cpython-312.pyc",
+    "sha256": "3c82a5b24d04b563ac9c792176310df553caa97baada3d16ba84a697763e50b0"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\llm_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\llm_agent.cpython-312.pyc",
+    "sha256": "4a166890f6465091c56e3a41f4becaba4c525676e02fef3063bcd9ecd790e3fa"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\random_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\random_agent.cpython-312.pyc",
+    "sha256": "8623707a0ca8425dea272d897da643b13d22510939df524d32b7d41f3e781ed2"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\snake_env.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\snake_env.cpython-312.pyc",
+    "sha256": "7aa3d6783c1bed5baec00edd97048eb5e784b1eee052f0e271545886da3fee7d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\strategy_reward.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\strategy_reward.cpython-312.pyc",
+    "sha256": "81d2e0a7d1829a3ba8842cc991b83cd47e503b7dc02bf0e00e268155720ffaf4"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\test_env.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\test_env.cpython-312.pyc",
+    "sha256": "50bbbff88c54e94cdebf5c2d68987e03173407a70adbd5ff2cbb6bef32194300"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\test_llm_agent.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\test_llm_agent.cpython-312.pyc",
+    "sha256": "62786bf19e87b7b62b6589763f7383a4acfb34cc9403a381f8793c7ddfdefd5d"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\test_strategy_reward.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\test_strategy_reward.cpython-312.pyc",
+    "sha256": "9a868fa7a70d04138d9fef362c3005f0f24f02bc86f26245b5ee4347eedacbf9"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\test_web_training.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\test_web_training.cpython-312.pyc",
+    "sha256": "0796ca50cf30df21560f409cb3a2c7f36fc3b4d0c1bde85c2b6dbc8c6a50f306"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\rl\\__pycache__\\web_server.cpython-312.pyc",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\rl\\__pycache__\\web_server.cpython-312.pyc",
+    "sha256": "318cbb3f54ae4dd7f769d94e0f0dd45c9482f039d395ddcc7dfe25043e7b4514"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\agents.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\agents.test.cjs",
+    "sha256": "ded11a350a8a3bc32d9ab6ae79eefdbb0b192aafccd9a560978e1c7ff3d33f84"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\appearance-baseline.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\appearance-baseline.json",
+    "sha256": "4f6db9c6b728fd8574ba579810ae7480957d7fea9b5f2f1021dfef78e3af39a8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\dqn-agent.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\dqn-agent.test.cjs",
+    "sha256": "3b6a4cf424b8cf8414377fe6756813a67a9bedfdb9ac35ac468b3f8d00745b1a"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\fill-rule.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\fill-rule.test.cjs",
+    "sha256": "96b68a2e0bcb0706dcdae0165ee3f64d8bfcfa3eae4cd987b8599fc119f41e99"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\game.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\game.test.cjs",
+    "sha256": "fd684ff238e83fcef0f7fec4e4dabfeb7c379664911ef3263263132b1ea32b1b"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\local-ai.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\local-ai.test.cjs",
+    "sha256": "66c7ca1c676cb94d3eae2190168e8c98b328cf60a3f04e042be704ab2a604151"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\snake.test.cjs",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\snake.test.cjs",
+    "sha256": "1f68c0c4a7666ba7c0682ab566b4b8ef35856c4a02d48efeb0e8b4a2d74717c8"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\fixtures\\fill-stall-19.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\fixtures\\fill-stall-19.json",
+    "sha256": "0529e5404b3bb16e3e1e133668222ea468c7e2fa8e7b0c7965fda2e35427d5e5"
+  },
+  {
+    "source": "D:\\isaac-lab\\贪吃蛇小游戏\\snake-rule-update\\tests\\fixtures\\fill-stall-7.json",
+    "destination": "D:\\isaac-lab\\PixelSnake\\archive\\development-variants\\snake-rule-update\\tests\\fixtures\\fill-stall-7.json",
+    "sha256": "6b3d7a7556e95caacfc333f2145b4d3fad5a13c4297826497943bd81ea32bbb3"
+  }
+]

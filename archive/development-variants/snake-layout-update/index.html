@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>像素贪吃蛇 · PIXEL SNAKE</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="bg-grid"></div><div class="glow g1"></div><div class="glow g2"></div></div>
+<main class="cabinet" id="cabinet">
+  <header class="topbar">
+    <div class="brand"><div class="mark" aria-hidden="true">▦</div><h1 class="logo">PIXEL SNAKE<small data-i18n="subtitle">像素风贪吃蛇</small></h1></div>
+    <div class="top-actions">
+      
+      <button class="btn ghost shop-launch" id="shop-open" data-i18n="shop">皮肤商店</button>
+      <div class="best-chip coin-chip"><span data-i18n="coins">金币</span><b id="coins">0</b></div>
+      
+      <div class="best-chip"><span data-i18n="best">最高纪录</span><b id="best">0</b></div>
+    </div>
+  </header>
+  <section class="stage" data-i18n-aria="gameArea" aria-label="游戏区域">
+    <div class="section-caption"><span class="section-index">01 / PLAY</span><span class="section-caption-line"></span><span>PIXEL SNAKE</span></div>
+    <div class="boards">
+      <section class="player" id="player-1" aria-labelledby="player-title-1">
+        <header class="player-heading"><h2 id="player-title-1">玩家 1</h2><span id="player-keys-1">WASD / ↑ ↓ ← →</span></header>
+        <!-- agent-controls-start -->
+        <label class="agent-select"><span data-i18n="controller">Controller</span>
+          <select id="agent-1" data-player-agent="1">
+            <option value="human" data-i18n="humanAgent">Human</option>
+            <option value="random" data-i18n="randomAgent">Random AI</option>
+            <option value="heuristic" data-i18n="heuristicAgent">Heuristic AI</option>
+            <option value="dqn">DQN</option>
+            <option value="qwen">Qwen (Ollama)</option>
+          </select>
+        </label>
+        <p class="headless-note" id="ai-status-1" role="status" aria-live="polite"></p>
+        <p class="hint throughput" id="ai-rate-1" hidden></p>
+        <p class="headless-note" id="headless-1" data-i18n="headlessNote" hidden>Board rendering is disabled. Statistics remain live.</p>
+        <!-- agent-controls-end -->
+        <div class="screen" id="screen-1">
+          <canvas id="game-1" width="480" height="480" aria-label="玩家 1 的贪吃蛇棋盘" data-i18n="canvasFallback">请使用支持 Canvas 的浏览器。</canvas>
+          <div class="flash" id="flash-1" aria-hidden="true"></div>
+          <div class="overlay" id="overlay-1"><div class="overlay-inner">
+            <div class="ov-kicker" id="kicker-1">准备好了吗？</div>
+            <h2 class="ov-title" id="title-1">像素贪吃蛇</h2>
+            <p class="ov-sub" id="text-1">吃掉食物，不断长大。</p>
+            <button class="btn primary" id="play-1" data-i18n="start">开始游戏</button>
+          </div></div>
+        </div>
+        <div class="score-grid">
+          <div class="stat score"><div class="lab" data-i18n="score">得分</div><div class="val" id="score-1">0</div></div>
+          <div class="stat"><div class="lab" data-i18n="length">长度</div><div class="val" id="length-1">3</div></div>
+        </div>
+        <dl class="episode-stats" aria-label="Episode statistics" data-i18n-aria="episodeStats">
+          <div><dt data-i18n="episodeNumber">Episode</dt><dd id="episode-1">0</dd></div>
+          <div><dt data-i18n="stepsSurvived">Steps survived</dt><dd id="steps-1">0</dd></div>
+          <div><dt data-i18n="foodCollected">Food collected</dt><dd id="food-1">0</dd></div>
+          <div><dt data-i18n="causeOfDeath">Cause of death</dt><dd id="death-1">—</dd></div>
+        </dl>
+        <div class="board-bottom">
+        <div class="speed-meter"><div class="top"><span data-i18n="speed">速度</span><span id="speed-1">4.0 格/秒</span></div><div class="meter"><i id="meter-1"></i></div></div>
+        <div class="direction-controls">
+        <div class="dpad" data-i18n-aria="directions" aria-label="方向控制">
+          <button class="btn ghost up" data-player="1" data-direction="up" data-i18n-aria="up" aria-label="向上">↑</button>
+          <button class="btn ghost left" data-player="1" data-direction="left" data-i18n-aria="left" aria-label="向左">←</button>
+          <button class="btn ghost right" data-player="1" data-direction="right" data-i18n-aria="right" aria-label="向右">→</button>
+          <button class="btn ghost down" data-player="1" data-direction="down" data-i18n-aria="down" aria-label="向下">↓</button>
+        </div>
+        </div>
+        </div>
+      </section>
+      <section class="player second" id="player-2" aria-labelledby="player-title-2" hidden>
+        <header class="player-heading"><h2 id="player-title-2">玩家 2</h2><span id="player-keys-2">↑ ↓ ← →</span></header>
+        <!-- agent-controls-start -->
+        <label class="agent-select"><span data-i18n="controller">Controller</span>
+          <select id="agent-2" data-player-agent="2">
+            <option value="human" data-i18n="humanAgent">Human</option>
+            <option value="random" data-i18n="randomAgent">Random AI</option>
+            <option value="heuristic" data-i18n="heuristicAgent">Heuristic AI</option>
+            <option value="dqn">DQN</option>
+            <option value="qwen">Qwen (Ollama)</option>
+          </select>
+        </label>
+        <p class="headless-note" id="ai-status-2" role="status" aria-live="polite"></p>
+        <p class="hint throughput" id="ai-rate-2" hidden></p>
+        <p class="headless-note" id="headless-2" data-i18n="headlessNote" hidden>Board rendering is disabled. Statistics remain live.</p>
+        <!-- agent-controls-end -->
+        <div class="screen" id="screen-2">
+          <canvas id="game-2" width="480" height="480" aria-label="玩家 2 的贪吃蛇棋盘" data-i18n="canvasFallback">请使用支持 Canvas 的浏览器。</canvas>
+          <div class="flash" id="flash-2" aria-hidden="true"></div>
+          <div class="overlay" id="overlay-2"><div class="overlay-inner">
+            <div class="ov-kicker" id="kicker-2">准备好了吗？</div>
+            <h2 class="ov-title" id="title-2">像素贪吃蛇</h2>
+            <p class="ov-sub" id="text-2">吃掉食物，不断长大。</p>
+            <button class="btn primary" id="play-2" data-i18n="start">开始游戏</button>
+          </div></div>
+        </div>
+        <div class="score-grid">
+          <div class="stat score"><div class="lab" data-i18n="score">得分</div><div class="val" id="score-2">0</div></div>
+          <div class="stat"><div class="lab" data-i18n="length">长度</div><div class="val" id="length-2">3</div></div>
+        </div>
+        <dl class="episode-stats" aria-label="Episode statistics" data-i18n-aria="episodeStats">
+          <div><dt data-i18n="episodeNumber">Episode</dt><dd id="episode-2">0</dd></div>
+          <div><dt data-i18n="stepsSurvived">Steps survived</dt><dd id="steps-2">0</dd></div>
+          <div><dt data-i18n="foodCollected">Food collected</dt><dd id="food-2">0</dd></div>
+          <div><dt data-i18n="causeOfDeath">Cause of death</dt><dd id="death-2">—</dd></div>
+        </dl>
+        <div class="board-bottom">
+        <div class="speed-meter"><div class="top"><span data-i18n="speed">速度</span><span id="speed-2">4.0 格/秒</span></div><div class="meter"><i id="meter-2"></i></div></div>
+        <div class="direction-controls">
+        <div class="dpad" data-i18n-aria="directions" aria-label="方向控制">
+          <button class="btn ghost up" data-player="2" data-direction="up" data-i18n-aria="up" aria-label="向上">↑</button>
+          <button class="btn ghost left" data-player="2" data-direction="left" data-i18n-aria="left" aria-label="向左">←</button>
+          <button class="btn ghost right" data-player="2" data-direction="right" data-i18n-aria="right" aria-label="向右">→</button>
+          <button class="btn ghost down" data-player="2" data-direction="down" data-i18n-aria="down" aria-label="向下">↓</button>
+        </div>
+        </div>
+        </div>
+      </section>
+    </div>
+    
+  </section>
+  <aside class="panel">
+    <section class="card game-mode-card">
+      <h3 data-i18n="mode">游戏模式</h3>
+      <div class="seg" role="group" data-i18n-aria="mode" aria-label="游戏模式">
+        <button data-mode="single" data-i18n="single" class="active" aria-pressed="true">单人模式</button>
+        <button data-mode="dual" data-i18n="dual" aria-pressed="false">双人模式</button>
+      </div>
+      <p class="hint secondary-hint" data-i18n="modeHint">切换模式会重置本局，点击开始后同时出发。</p>
+      <button class="btn primary round-action" id="start" data-i18n="start">开始游戏</button>
+      <div class="ctl-row"><button class="btn ghost" id="pause" disabled>暂停</button><button class="btn ghost" id="restart" data-i18n="restart">重新开始</button></div>
+    </section>
+    <!-- agent-controls-start -->
+    <details class="card agent-settings" open>
+      <summary data-i18n="agentSettings">AI execution</summary>
+      <label class="agent-select"><span data-i18n="aiSpeed">AI speed</span>
+        <select id="ai-speed">
+          <option value="normal" data-i18n="normalSpeed">Normal</option>
+          <option value="60">60 steps/s</option>
+          <option value="600">600 steps/s</option>
+          <option value="6000">6,000 steps/s</option>
+        </select>
+      </label>
+      <label class="agent-check"><input id="ai-safety" type="checkbox" checked><span data-i18n="safetyAssist">防困辅助（所有 AI）</span></label>
+      <label class="agent-select"><span data-i18n="dqnModel">DQN 模型</span><select id="dqn-model"><option value="">连接后选择模型</option></select></label>
+      <p class="hint" id="local-status" role="status"></p>
+      <button class="btn ghost" id="refresh-models" data-i18n="refreshModels">连接 / 刷新模型</button>
+      <label class="agent-check"><input id="headless" type="checkbox"><span data-i18n="headless">Disable board rendering (headless)</span></label>
+      <label class="agent-check"><input id="auto-restart" type="checkbox"><span data-i18n="autoRestart">Auto-restart AI episodes</span></label>
+      <p class="hint secondary-hint" data-i18n="agentHint">Changing controller resets the round. AI speed affects AI boards only. Auto-restart requires every active board to use AI.</p>
+    </details>
+    <!-- agent-controls-end -->
+    <details class="card rules-card">
+      <summary data-i18n="rules">玩法说明</summary>
+      <p class="hint" id="instructions">方向键 / WASD 移动 · 空格暂停</p>
+      <p class="hint" data-i18n="boostHint">沿当前方向长按 0.5 秒加速到 10 格/秒，松开恢复。</p>
+      <p class="hint" data-i18n="speedHint">初始每秒 4 格，每吃一个果子增加 0.1 格/秒，最高 10 格/秒。</p>
+      <p class="hint" id="mode-rules">吃掉食物，不断长大。小心墙壁和自己的身体！</p>
+      <div class="legend-row"><span data-i18n="startPause">开始 / 暂停</span><div class="keys"><span class="key" data-i18n="space">空格</span></div></div>
+    </details>
+  </aside>
+    <details class="card training-panel" id="training-panel">
+      <summary><span><span class="section-index">02 / </span><span data-i18n="trainingTitle">训练工作台</span> <span class="section-tag">DQN</span></span><span class="disclosure-mark" aria-hidden="true">+</span></summary>
+      <p class="hint" data-i18n="trainingHint">选择已有模型继续训练，或从零开始。episode 数表示本次追加数量。Qwen 不参与训练。</p>
+      <section class="scheme-guide" aria-labelledby="scheme-guide-title">
+        <h3 class="training-section-title" id="scheme-guide-title" data-i18n="schemeGuide">选择适合的方案</h3>
+        <div class="scheme-grid">
+          <article class="scheme-card scheme-classic">
+            <header><h4>classic</h4><span class="scheme-number">01</span></header>
+            <p data-i18n="classicDesc">基础奖励，专注吃食物与避开碰撞。</p>
+            <dl class="reward-values">
+              <div><dt data-i18n="foodReward">吃到食物</dt><dd class="positive">+10</dd></div>
+              <div><dt data-i18n="collisionReward">发生碰撞</dt><dd>−10</dd></div>
+              <div><dt data-i18n="stepReward">每走一步</dt><dd>−0.01</dd></div>
+            </dl>
+          </article>
+          <article class="scheme-card scheme-strategy">
+            <header><h4>strategy</h4><span class="scheme-number">02</span></header>
+            <p data-i18n="strategyDesc">在 classic 基础上，兼顾路线效率和生存空间。</p>
+            <ul><li data-i18n="strategyFood">鼓励接近食物、保留可通行的退路</li><li data-i18n="strategyLoop">惩罚重复绕圈和多余转弯</li></ul>
+          </article>
+          <article class="scheme-card scheme-ultimate">
+            <header><h4>ultimate</h4><span class="scheme-number">03</span></header>
+            <p data-i18n="ultimateDesc">使用 strategy 训练奖励，附加逐行铺满规则。</p>
+            <ul><li data-i18n="ultimateThreshold">蛇身超过 50% 时接入铺满路线</li><li data-i18n="ultimateAssist">需要开启「防困辅助」</li></ul>
+          </article>
+        </div>
+        <p class="replay-note" data-i18n="replayNote">更换数值奖励会清空旧经验回放，保留权重与累计回合数。</p>
+      </section>
+      <div class="training-layout">
+        <div class="training-fields">
+          <h3 class="training-section-title field-wide" data-i18n="trainingConfig">训练配置</h3>
+          <label class="agent-select field-wide"><span data-i18n="trainingSource">起始模型</span><select id="training-model"><option value="" data-i18n="newModel">从零开始</option></select></label>
+          <label class="agent-select field-wide"><span data-i18n="rewardProfile">奖励 / 行走方案</span><select id="training-reward"><option value="classic" data-i18n="rewardClassic">classic · 基础型</option><option value="strategy" data-i18n="rewardStrategy">strategy · 策略型</option><option value="ultimate" data-i18n="rewardUltimate">ultimate · 铺满型</option></select></label>
+          <label class="agent-select"><span data-i18n="trainingEpisodes">追加 episodes</span><input id="training-episodes" type="number" min="1" max="10000" value="100"></label>
+          <label class="agent-select"><span data-i18n="saveEvery">保存间隔</span><input id="training-save-every" type="number" min="1" max="10000" value="100"></label>
+          <label class="agent-select field-wide"><span data-i18n="trainingSeed">随机种子 Seed（默认 42）</span><input id="training-seed" aria-describedby="seed-hint" type="number" min="0" max="99999" value="42"></label>
+          <aside class="seed-note field-wide"><h4 data-i18n="seedTitle">Seed 是什么？</h4><p id="seed-hint" data-i18n="seedHint">控制食物分布和训练随机性，方便复现实验，不是难度。保留 42 即可；续训沿用原模型种子。</p></aside>
+        </div>
+        <div class="training-monitor">
+          <h3 class="training-section-title" data-i18n="trainingMonitor">进度与保存</h3>
+          <div class="training-actions"><button id="training-start" class="btn primary" data-i18n="trainingStart">开始训练</button><button id="training-stop" class="btn ghost" disabled data-i18n="trainingStop">停止并保存</button></div>
+          <progress id="training-progress" max="100" value="0"></progress>
+          <p id="training-status" role="status" aria-live="polite"></p>
+          <section class="save-note">
+            <h4 data-i18n="saveTitle">自动分类保存</h4>
+            <p data-i18n="saveFolders">按所选方案保存到对应目录</p>
+            <div class="folder-tags"><code>models/classic</code><code>models/strategy</code><code>models/ultimate</code></div>
+            <p data-i18n="saveNaming">文件名包含本机日期、时间和累计回合数。</p>
+            <code class="filename-example">2026-09-12_14-30-00-123456_ep2400.pt</code>
+          </section>
+        </div>
+      </div>
+    </details>
+  <footer class="cabinet-footer">
+    <label class="language-control"><span data-i18n="languageLabel">语言 / Language</span><select id="language"><option value="zh-CN">中文</option><option value="en">English</option><option value="fr">Français</option></select></label>
+  </footer>
+  <dialog class="skin-shop" id="skin-shop" aria-labelledby="shop-title">
+    <header class="shop-header"><h2 id="shop-title" data-i18n="shop">皮肤商店</h2><button class="btn ghost" id="shop-close" data-i18n="close" autofocus>关闭</button></header>
+    <p class="shop-caption" data-i18n="shopIntro">每吃一个果子获得 5 金币，两位玩家共享钱包。解锁你喜欢的霓虹皮肤。</p>
+    <div class="shop-toolbar">
+      <div class="shop-target"><span data-i18n="equipFor">装备给</span><div class="seg" role="group" data-i18n-aria="equipFor" aria-label="装备给">
+        <button data-shop-player="1" data-i18n="player1" aria-pressed="true" class="active">玩家 1</button>
+        <button data-shop-player="2" data-i18n="player2" aria-pressed="false">玩家 2</button>
+      </div></div>
+      <div class="best-chip coin-chip"><span data-i18n="coins">金币</span><b id="shop-coins">0</b></div>
+    </div>
+    <div class="shop-grid">
+      <article class="skin-card" id="skin-card-lime" style="--skin-color:#b5ff70;--skin-alt:#63c244">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_lime">lime</h3><p class="skin-price" id="skin-price-lime"></p>
+        <button class="btn ghost" id="skin-buy-lime" data-skin="lime">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-cyan" style="--skin-color:#75f8ff;--skin-alt:#31bbd2">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_cyan">cyan</h3><p class="skin-price" id="skin-price-cyan"></p>
+        <button class="btn ghost" id="skin-buy-cyan" data-skin="cyan">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-pink" style="--skin-color:#ff88d8;--skin-alt:#c43b9c">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_pink">pink</h3><p class="skin-price" id="skin-price-pink"></p>
+        <button class="btn ghost" id="skin-buy-pink" data-skin="pink">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-violet" style="--skin-color:#c3a0ff;--skin-alt:#7952d0">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_violet">violet</h3><p class="skin-price" id="skin-price-violet"></p>
+        <button class="btn ghost" id="skin-buy-violet" data-skin="violet">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-solar" style="--skin-color:#ffdb79;--skin-alt:#eb9c2b">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_solar">solar</h3><p class="skin-price" id="skin-price-solar"></p>
+        <button class="btn ghost" id="skin-buy-solar" data-skin="solar">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-prism" style="--skin-color:#69f8ed;--skin-alt:#f56fce">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_prism">prism</h3><p class="skin-price" id="skin-price-prism"></p>
+        <button class="btn ghost" id="skin-buy-prism" data-skin="prism">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-solid_cyan" style="--skin-color:#55eaff;--skin-alt:#55eaff">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_solid_cyan">纯色冰蓝</h3><p class="skin-price" id="skin-price-solid_cyan"></p>
+        <button class="btn ghost" id="skin-buy-solid_cyan" data-skin="solid_cyan">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-solid_pink" style="--skin-color:#ff73ce;--skin-alt:#ff73ce">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_solid_pink">纯色樱粉</h3><p class="skin-price" id="skin-price-solid_pink"></p>
+        <button class="btn ghost" id="skin-buy-solid_pink" data-skin="solid_pink">装备</button>
+      </article>
+      <article class="skin-card" id="skin-card-solid_white" style="--skin-color:#edf4ff;--skin-alt:#edf4ff">
+        <div class="skin-preview" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 data-i18n="skin_solid_white">纯色月白</h3><p class="skin-price" id="skin-price-solid_white"></p>
+        <button class="btn ghost" id="skin-buy-solid_white" data-skin="solid_white">装备</button>
+      </article>
+    </div>
+    <p class="shop-message" id="shop-message" role="status" aria-live="polite"></p>
+    <p class="shop-footer" id="shop-storage" data-i18n="storageNotice" hidden>浏览器未允许本地保存，本次获得的金币和皮肤仍可使用。</p>
+    <p class="shop-footer" data-i18n="shopFooter">皮肤仅改变外观。打开商店会暂停游戏，关闭后点击继续。</p>
+  </dialog>
+  <noscript>请启用浏览器 JavaScript 后开始游戏。 / Enable JavaScript to play. / Activez JavaScript pour jouer.</noscript>
+</main>
+<script src="js/game.js"></script>
+<script src="js/agents.js"></script>
+<script src="js/episode.js"></script>
+<script src="js/safety.js"></script>
+<script src="js/local-ai.js"></script>
+<script src="js/dqn-agent.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/input.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

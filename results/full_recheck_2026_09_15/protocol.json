@@ -1,0 +1,132 @@
+{
+  "raw": {
+    "blocks": [
+      500000,
+      501000,
+      502000
+    ],
+    "episodes_per_policy_per_block": 100,
+    "policies": [
+      "Random",
+      "Heuristic",
+      "Classic",
+      "Strategy"
+    ],
+    "board_size": 20,
+    "no_food_limit": 400,
+    "max_steps": 10000,
+    "reward": "classic",
+    "exploration": false
+  },
+  "safety": {
+    "episodes": 20,
+    "seeds": [
+      "safety-0",
+      "safety-1",
+      "safety-2",
+      "safety-3",
+      "safety-4",
+      "safety-5",
+      "safety-6",
+      "safety-7",
+      "safety-8",
+      "safety-9",
+      "safety-10",
+      "safety-11",
+      "safety-12",
+      "safety-13",
+      "safety-14",
+      "safety-15",
+      "safety-16",
+      "safety-17",
+      "safety-18",
+      "safety-19"
+    ],
+    "action_seeds": [
+      "agent-0",
+      "agent-1",
+      "agent-2",
+      "agent-3",
+      "agent-4",
+      "agent-5",
+      "agent-6",
+      "agent-7",
+      "agent-8",
+      "agent-9",
+      "agent-10",
+      "agent-11",
+      "agent-12",
+      "agent-13",
+      "agent-14",
+      "agent-15",
+      "agent-16",
+      "agent-17",
+      "agent-18",
+      "agent-19"
+    ],
+    "max_steps": 3000,
+    "policies": [
+      "Random",
+      "Heuristic",
+      "Classic",
+      "Strategy"
+    ],
+    "assistance": [
+      false,
+      true
+    ],
+    "no_food_limit": null
+  },
+  "ultimate": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "max_steps": 100000,
+    "no_food_limit": 10000,
+    "locked_no_food_bug_threshold": 400,
+    "checkpoint": "ultimate",
+    "assistance": true
+  },
+  "constructed": {
+    "lengths": [
+      201,
+      250,
+      300,
+      350,
+      399
+    ],
+    "head_indices": [
+      0,
+      19,
+      190,
+      250,
+      397
+    ],
+    "food_placements": "every unoccupied cell; follow until first food (<=400 moves), then separate full completion tests"
+  },
+  "statistics": {
+    "score_ci": "paired-seed bootstrap where compared; percentile bootstrap for each mean, 2000 resamples seed 9152026",
+    "std": "sample standard deviation (ddof=1)",
+    "blocks": "independent evaluation seed blocks, NOT independent model-training seeds"
+  },
+  "training": "No retraining; frozen original checkpoints. Original training plots regenerated from historical CSV, labeled historical."
+}

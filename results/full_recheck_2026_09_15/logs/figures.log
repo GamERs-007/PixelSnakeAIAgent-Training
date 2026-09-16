@@ -1,0 +1,142 @@
+{
+  "raw": {
+    "Random": {
+      "mean_score": 1.2333333333333334,
+      "std_score": 3.6774949061607614,
+      "score_ci95": [
+        0.8333333333333334,
+        1.6666666666666667
+      ],
+      "mean_survival_steps": 68.48,
+      "mean_turn_ratio": 0.6516741862875005
+    },
+    "Heuristic": {
+      "mean_score": 279.96666666666664,
+      "std_score": 106.2920137931801,
+      "score_ci95": [
+        268.7658333333333,
+        292.43416666666667
+      ],
+      "mean_survival_steps": 422.74,
+      "mean_turn_ratio": 0.13520428970812945
+    },
+    "Classic": {
+      "mean_score": 276.06666666666666,
+      "std_score": 103.47407971467162,
+      "score_ci95": [
+        264.73333333333335,
+        287.43333333333334
+      ],
+      "mean_survival_steps": 477.3666666666667,
+      "mean_turn_ratio": 0.6244901033779058
+    },
+    "Strategy": {
+      "mean_score": 291.9,
+      "std_score": 115.48091967664853,
+      "score_ci95": [
+        278.7991666666667,
+        305.1725
+      ],
+      "mean_survival_steps": 455.32,
+      "mean_turn_ratio": 0.4032844082628497
+    }
+  },
+  "paired": {
+    "strategy_minus_classic_mean_score": 15.833333333333334,
+    "paired_score_ci95": [
+      -1.8008333333333333,
+      33.83416666666666
+    ],
+    "interpretation": "Evaluation-seed uncertainty for these frozen checkpoints; not uncertainty across independently trained models."
+  },
+  "ultimate": {
+    "before": {
+      "episodes": 20,
+      "mean_score": 3847.0,
+      "median_score": 3840.0,
+      "std_score": 131.7533580916291,
+      "min_score": 3530,
+      "max_score": 3970,
+      "score_ci95": [
+        3786.0,
+        3898.0249999999996
+      ],
+      "mean_food_collected": 384.7,
+      "mean_survival_steps": 25956.45,
+      "mean_attempted_steps": 25956.45,
+      "mean_turn_ratio": 0.18155162492746055,
+      "terminated": 9,
+      "truncated": 11,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 11,
+        "board_full": 9,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 9,
+      "win_rate": 0.45,
+      "reached_half": 20,
+      "ordered_steps": 54234,
+      "recovery_steps": 333626,
+      "repeated_states": 102144,
+      "repeated_ordered_states": 0,
+      "unexpected_ordered_fallbacks": 0,
+      "ordered_progress_errors": 0,
+      "collision_after_requested": 0,
+      "collision_after_locked": 0,
+      "no_food_after_requested": 11,
+      "locked_episodes": 9,
+      "mean_max_occupancy_percent": 96.925,
+      "max_repeated_cycle_length": 388,
+      "mean_steps_half_to_win": 9695.666666666666,
+      "max_decision_ms": 2.198499999998603,
+      "total_seconds": 44.6527839
+    },
+    "after": {
+      "episodes": 20,
+      "mean_score": 3970.0,
+      "median_score": 3970.0,
+      "std_score": 0.0,
+      "min_score": 3970,
+      "max_score": 3970,
+      "score_ci95": [
+        3970.0,
+        3970.0
+      ],
+      "mean_food_collected": 397.0,
+      "mean_survival_steps": 16838.15,
+      "mean_attempted_steps": 16838.15,
+      "mean_turn_ratio": 0.16318465482805483,
+      "terminated": 20,
+      "truncated": 0,
+      "end_reasons": {
+        "wall": 0,
+        "self": 0,
+        "no_food_limit": 0,
+        "board_full": 20,
+        "evaluation_step_limit": 0,
+        "ordered_no_progress_bug": 0
+      },
+      "wins": 20,
+      "win_rate": 1.0,
+      "reached_half": 20,
+      "ordered_steps": 198316,
+      "recovery_steps": 7178,
+      "repeated_states": 0,
+      "repeated_ordered_states": 0,
+      "unexpected_ordered_fallbacks": 0,
+      "ordered_progress_errors": 0,
+      "collision_after_requested": 0,
+      "collision_after_locked": 0,
+      "no_food_after_requested": 0,
+      "locked_episodes": 20,
+      "mean_max_occupancy_percent": 100.0,
+      "max_repeated_cycle_length": 0,
+      "mean_steps_half_to_win": 10274.7,
+      "max_decision_ms": 1671.2168999999994,
+      "total_seconds": 61.576070800000004
+    }
+  }
+}

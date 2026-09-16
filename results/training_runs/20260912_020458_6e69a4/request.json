@@ -1,0 +1,7 @@
+{
+  "model": "ultimate/2300_fill50_model.pt",
+  "reward_profile": "strategy_v1",
+  "episodes": 100,
+  "save_every": 100,
+  "seed": 1
+}
