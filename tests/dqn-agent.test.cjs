@@ -9,6 +9,22 @@ function payload() {
     layers:[{weights:[Array(10).fill(0)],bias:[0]}, {weights:[[0]],bias:[0]},
       {weights:[[0],[0],[0]],bias:[0,0,1]}]};
 }
+
+test('checkpoint rule follows the selected model and is cleared on switching', async () => {
+  const {AssistedAgent}=require('../js/safety.js');
+  let selected='fill.pt';
+  const raw=new BrowserDQNAgent({model:()=>selected,requestFn:async()=>selected==='fill.pt'
+    ? {...payload(),inference_rules:{dense_board_sweep_above_half:true}} : payload()});
+  const assisted=new AssistedAgent(raw),state=new SnakeGame().getState();
+  assisted.chooseAction(state);await flush();assisted.chooseAction(state);
+  assert.equal(raw.denseBoardSweepEnabled,true);
+  assert.equal(assisted.guard.denseBoardSweep,true);
+  selected='original.pt';assisted.chooseAction(state);
+  assert.equal(raw.denseBoardSweepEnabled,false);
+  assert.equal(assisted.guard.denseBoardSweep,false);
+  await flush();assisted.chooseAction(state);
+  assert.equal(raw.denseBoardSweepEnabled,false);
+});
 test('loaded DQN executes many steps synchronously without per-step requests', async () => {
   let calls = 0;
   const agent = new BrowserDQNAgent({model:()=> 'one.pt',requestFn:async path=> {

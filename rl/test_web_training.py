@@ -30,7 +30,7 @@ class WebTrainingTests(unittest.TestCase):
             source=root/'models'/first['saved_model']
             resumed=train_session(2,root/'resume',root/'models',checkpoint=source)
             self.assertEqual(resumed['episode'],4)
-            self.assertEqual(resumed['saved_model'],'4_model.pt')
+            self.assertRegex(resumed['saved_model'], r'^classic/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}-\d{6}_ep4\.pt$')
             self.assertTrue(resumed['exact_resume'])
             a,_=DQNAgent.load(root/'full_models'/full['saved_model'])
             b,_=DQNAgent.load(root/'models'/resumed['saved_model'])
@@ -63,10 +63,10 @@ class WebTrainingTests(unittest.TestCase):
             root=Path(temp);models=root/'models';models.mkdir()
             legacy=models/'best_model.pt';DQNAgent(self.config()).save(legacy,{'episode':20,'training_seed':13})
             first=train_session(1,root/'a',models,legacy)
-            original=(models/'21_model.pt').read_bytes()
+            original=(models/first['saved_model']).read_bytes()
             second=train_session(1,root/'b',models,legacy)
-            self.assertFalse(first['exact_resume']);self.assertEqual(second['saved_model'],'b/21_model.pt')
-            self.assertEqual((models/'21_model.pt').read_bytes(),original)
+            self.assertFalse(first['exact_resume']);self.assertNotEqual(second['saved_model'],first['saved_model'])
+            self.assertEqual((models/first['saved_model']).read_bytes(),original)
             self.assertEqual(json.loads((root/'b/status.json').read_text())['episode'],21)
 
     def test_stop_before_first_episode_and_bad_parameters(self):

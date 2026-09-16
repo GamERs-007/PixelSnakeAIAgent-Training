@@ -4,6 +4,42 @@
   const engine = typeof module === 'object' && module.exports ? require('./game.js') : root.SnakeEngine;
   const {directions, getLegalActions, getCollisionCause} = engine;
   const key = p => p.y * 20 + p.x;
+  // Row-by-row cycle, reserving the left column for the return to the top.
+  function fillAction(state) {
+    if (state.size < 2 || state.size % 2) return null;
+    const {x,y}=state.snake[0], edge=state.size-1;
+    if (x===0) return y===0 ? 'RIGHT' : 'UP';
+    if (y===edge) return 'LEFT';
+    if (y%2===0) return x===edge ? 'DOWN' : 'RIGHT';
+    return x===1 ? 'DOWN' : 'LEFT';
+  }
+  function cycleIndex(point, size) {
+    if (point.x===0) return point.y===0 ? 0 : size*size-point.y;
+    return 1+point.y*(size-1)+(point.y%2 ? size-1-point.x : point.x-1);
+  }
+  // Tail -> head must advance less than one lap in total. Checking only the
+  // head's next cell cannot detect a body that already winds across the cycle.
+  function cycleSpan(state) {
+    const cells=state.size*state.size;
+    let span=0;
+    for(let i=state.snake.length-1;i>0;i--)
+      span+=(cycleIndex(state.snake[i-1],state.size)-cycleIndex(state.snake[i],state.size)+cells)%cells;
+    return span;
+  }
+  function orderedCycleAction(state, preferred, filling) {
+    const cells=state.size*state.size, head=cycleIndex(state.snake[0],state.size);
+    const tailGap=(cycleIndex(state.snake.at(-1),state.size)-head+cells)%cells;
+    const foodGap=state.food ? (cycleIndex(state.food,state.size)-head+cells)%cells : cells;
+    const options=getLegalActions(state).filter(action=>!getCollisionCause(state,action)).map(action=>{
+      const d=directions[action],next={x:state.snake[0].x+d.x,y:state.snake[0].y+d.y};
+      return {action,advance:(cycleIndex(next,state.size)-head+cells)%cells,
+        eating:state.food && key(next)===key(state.food)};
+    }).filter(o=>o.advance>0 && (o.eating ? o.advance<tailGap : o.advance<=tailGap)
+      && (filling ? o.action===fillAction(state) : o.advance<=foodGap));
+    // The sweep starts only above 50%; shorter snakes use safeFoodPath.
+    // Never overtake the tail; the active sweep does not take shortcuts.
+    return (options.find(o=>o.action===preferred) || options.sort((a,b)=>b.advance-a.advance)[0])?.action;
+  }
   function assess(state, action) {
     if (getCollisionCause(state, action)) return {action, safe:false, area:0, tail:false, foodDistance:Infinity};
     const d = directions[action], head = {x:state.snake[0].x+d.x, y:state.snake[0].y+d.y};
@@ -65,19 +101,96 @@
     }
     return seen.has(key(virtual.snake.at(-1))) ? plan : null;
   }
+  // Bounded lookahead across complete moving-body configurations. Static
+  // flood-fill cannot see paths that become available as the tail advances.
+  function joinPlan(state) {
+    const cells=state.size*state.size, startSpan=cycleSpan(state);
+    let beam=[{state,plan:[],span:startSpan}];
+    const seen=new Set([JSON.stringify(state.snake)]);
+    for(let depth=0;depth<cells;depth++){
+      const next=[];
+      for(const node of beam)for(const action of getLegalActions(node.state)){
+        if(getCollisionCause(node.state,action))continue;
+        const d=directions[action],head={x:node.state.snake[0].x+d.x,y:node.state.snake[0].y+d.y};
+        const eating=node.state.food && key(head)===key(node.state.food);
+        // Search beyond known food with no assumed new spawn, but execute only
+        // the prefix through that food. Replan against the real next spawn.
+        const snake=[head,...node.state.snake];if(!eating)snake.pop();
+        const signature=JSON.stringify(snake);if(seen.has(signature))continue;seen.add(signature);
+        const virtual={...node.state,snake,direction:d,food:eating?null:node.state.food};
+        const span=cycleSpan(virtual),plan=[...node.plan,{signature:JSON.stringify(node.state.snake),action}];
+        const cut=node.cut || (eating?plan.length:0);
+        if(span<cells)return plan.slice(0,cut||plan.length);
+        next.push({state:virtual,plan,span,cut});
+      }
+      if(!next.length)return null;
+      next.sort((a,b)=>a.span-b.span);
+      beam=next.slice(0,128);
+    }
+    return null;
+  }
   class SafetyGuard {
-    constructor() { this.reset(); }
-    reset() { this.history=[]; this.foodCount=-1; this.overrides=0; this.lastReason=''; this.plan=[]; this.planFood=null; }
+    constructor({denseBoardSweep=false}={}) { this.denseBoardSweep=denseBoardSweep; this.reset(); }
+    reset() {
+      this.history=[]; this.foodCount=-1; this.overrides=0; this.lastReason=''; this.plan=[]; this.planFood=null;
+      this.filling=false;
+      this.recoverySeen=new Map(); this.recoveryQueue=[];
+      this.telemetry={mode:'food',traversal_index:null,forward_progress:null,repeated_ordered_state:false,unexpected_fallback:false};
+      this.orderedSeen=new Set();
+      this.recoverySearchAt=0;
+    }
     choose(state, preferred) {
+      if(!state.alive){
+        this.filling=false;
+        this.telemetry={mode:'terminal',traversal_index:cycleIndex(state.snake[0],state.size),forward_progress:null,
+          repeated_ordered_state:false,unexpected_fallback:false,food_collected:state.foodCollected,board_full:Boolean(state.won),collision:state.causeOfDeath||null};
+        return preferred;
+      }
       if (preferred === null || preferred === undefined) return preferred;
-      if (this.foodCount !== state.foodCollected) { this.history=[]; this.foodCount=state.foodCollected; }
+      if (this.foodCount !== state.foodCollected) {
+        this.history=[]; this.foodCount=state.foodCollected;
+        this.recoverySeen.clear(); this.recoveryQueue=[]; this.orderedSeen.clear();
+        this.recoverySearchAt=0;
+      }
+      this.filling=this.denseBoardSweep && state.snake.length*10>state.size*state.size*5 && fillAction(state)!==null;
+      const ordered=this.filling && cycleSpan(state)<state.size*state.size;
+      const signature=JSON.stringify(state.snake);
+      this.telemetry={mode:this.filling?'recovery':'food',traversal_index:cycleIndex(state.snake[0],state.size),forward_progress:null,
+        repeated_ordered_state:false,unexpected_fallback:false,food_collected:state.foodCollected,board_full:Boolean(state.won),collision:state.causeOfDeath||null};
+      if (ordered) {
+        const action=orderedCycleAction(state,preferred,this.filling);
+        if(action) {
+          this.telemetry.mode='ordered'; this.telemetry.forward_progress=1;
+          this.telemetry.repeated_ordered_state=this.orderedSeen.has(signature);
+          this.orderedSeen.add(signature);
+          this.plan=[];
+          this.lastReason=this.filling ? 'fill' : action===preferred ? '' : 'cycle_space';
+          if(action!==preferred)this.overrides++;
+          return action;
+        }
+        this.telemetry.unexpected_fallback=true;
+      }
+      if(this.filling){
+        // Keep complete configurations for several board laps. A head-only
+        // window shorter than the body misses long tail-following limit cycles.
+        this.recoverySeen.set(signature,(this.recoverySeen.get(signature)||0)+1);
+        this.recoveryQueue.push(signature);
+        if(this.recoveryQueue.length>4*state.size*state.size){
+          const expired=this.recoveryQueue.shift(),count=this.recoverySeen.get(expired)-1;
+          if(count)this.recoverySeen.set(expired,count);else this.recoverySeen.delete(expired);
+        }
+      }
       const foodKey=state.food ? key(state.food) : null;
       if(this.planFood!==foodKey || this.plan[0]?.signature!==JSON.stringify(state.snake))this.plan=[];
+      if(!this.plan.length && this.filling && state.steps>=this.recoverySearchAt){
+        this.plan=joinPlan(state)||[]; this.planFood=foodKey;
+        this.recoverySearchAt=state.steps+state.size*state.size;
+      }
       if(!this.plan.length){this.plan=safeFoodPath(state)||[];this.planFood=foodKey;}
       if(this.plan.length){
         const action=this.plan.shift().action;
-        this.lastReason=action===preferred ? '' : 'food_path';
-        if(this.lastReason)this.overrides++;
+        this.lastReason=this.filling ? 'fill_join' : action===preferred ? '' : 'food_path';
+        if(action!==preferred)this.overrides++;
         return action;
       }
       this.history.push(key(state.snake[0]));
@@ -89,6 +202,25 @@
       const eligible = options.filter(o=>quality(o)===best);
       const visits = o => this.history.filter(k=>k===key(o.head)).length;
       const proposed = eligible.find(o=>o.action===preferred);
+      if (this.filling) {
+        // Search failure is recovery, never a claimed lock. Avoid previously
+        // visited body configurations before preferring lower cycle winding.
+        const winding=o=>{
+          const snake=[o.head,...state.snake];
+          if(!state.food || key(o.head)!==key(state.food))snake.pop();
+          return cycleSpan({...state,snake});
+        };
+        const repeats=o=>{
+          const snake=[o.head,...state.snake];
+          if(!state.food || key(o.head)!==key(state.food))snake.pop();
+          return this.recoverySeen.get(JSON.stringify(snake))||0;
+        };
+        const chosen=eligible.sort((a,b)=>repeats(a)-repeats(b) || winding(a)-winding(b) || visits(a)-visits(b) ||
+          b.area-a.area || Number(b.action===preferred)-Number(a.action===preferred))[0];
+        this.lastReason='fill_join';
+        if (chosen.action!==preferred) this.overrides++;
+        return chosen.action;
+      }
       let chosen = proposed;
       if (!chosen || visits(chosen)>=2) {
         chosen = eligible.sort((a,b)=>visits(a)-visits(b) ||
@@ -106,10 +238,11 @@
     queueAction(...args) { this.agent.queueAction?.(...args); }
     chooseAction(state) {
       const action=this.agent.chooseAction(state);
+      this.guard.denseBoardSweep=this.agent.denseBoardSweepEnabled===true;
       return this.enabled() ? this.guard.choose(state,action) : action;
     }
   }
-  const api={SafetyGuard,AssistedAgent,assess,safeFoodPath};
+  const api={SafetyGuard,AssistedAgent,assess,safeFoodPath,fillAction,cycleSpan,cycleIndex};
   if (typeof module==='object' && module.exports) module.exports=api;
   else root.SnakeSafety=api;
 })(globalThis);

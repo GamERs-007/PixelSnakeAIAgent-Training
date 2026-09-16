@@ -10,6 +10,8 @@ import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, unquote
 import uuid
+from datetime import datetime
+from rl.model_profiles import model_profile, normalize_profile, inference_rules
 
 import torch
 
@@ -83,7 +85,8 @@ class LocalApp:
                 result.append({"name": path.relative_to(self.models).as_posix(),
                                "episodes": payload.get("metadata", {}).get("episode", 0),
                                "resumable": "training_state" in payload,
-                               "reward_profile": payload.get("metadata",{}).get("env_config",{}).get("reward_profile","classic")})
+                               "reward_profile": model_profile(payload.get('metadata', {}), path.relative_to(self.models).as_posix()),
+                               "saved_at": payload.get('metadata', {}).get('saved_at') or datetime.fromtimestamp(path.stat().st_mtime).astimezone().isoformat()})
             except Exception:
                 continue
         return sorted(result, key=lambda row: (-row["episodes"], row["name"]))
@@ -110,8 +113,12 @@ class LocalApp:
                 raise ValueError("Invalid network weights")
             layers.append({"weights": weight.tolist(), "bias": bias.tolist()})
         # Match the existing /api/action observation contract (default SnakeEnv).
-        return {"format": "snake-dqn-dense-v1", "board_size": 20,
-                "max_steps_without_food": 400, "layers": layers}
+        exported = {"format": "snake-dqn-dense-v1", "board_size": 20,
+                    "max_steps_without_food": 400, "layers": layers}
+        rules = inference_rules(model_profile(payload.get('metadata', {}), path.relative_to(self.models).as_posix()))
+        if rules.get("dense_board_sweep_above_half") is True:
+            exported["inference_rules"] = {"dense_board_sweep_above_half": True}
+        return exported
 
     def action(self, data):
         observation, direction = observation_from_snapshot(data.get("state"))
@@ -158,7 +165,7 @@ class LocalApp:
                 or not 1 <= save_every <= 10000 or type(seed) is not int or not 0 <= seed < 100000):
             raise ValueError("Episodes/save interval: 1..10000; seed: 0..99999")
         profile = data.get("reward_profile", "inherit")
-        if profile not in ("inherit", "classic", "strategy_v1"): raise ValueError("Unknown reward profile")
+        if profile != 'inherit': profile = normalize_profile(profile)
         source = model_path(self.models, data["model"]) if data.get("model") else None
         with self.training_lock:
             if self.process and self.process.poll() is None:

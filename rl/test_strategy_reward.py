@@ -91,15 +91,15 @@ class StrategyTests(unittest.TestCase):
     def test_reward_change_clears_replay_and_inherit_preserves_profile(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);config=DQNConfig(hidden_size=16,batch_size=4,replay_capacity=100,learning_starts=4,train_every=1)
-            train_session(2,root/'old',root/'models',config=config)
-            changed=train_session(1,root/'changed',root/'models',root/'models/2_model.pt',reward_profile='strategy_v1')
+            original=train_session(2,root/'old',root/'models',config=config)
+            changed=train_session(1,root/'changed',root/'models',root/'models'/original['saved_model'],reward_profile='strategy_v1')
             self.assertTrue(changed['replay_reset_for_reward_change'])
             self.assertFalse(changed['exact_resume'])
-            agent,meta=DQNAgent.load(root/'models/3_model.pt')
+            agent,meta=DQNAgent.load(root/'models'/changed['saved_model'])
             self.assertEqual(meta['env_config']['reward_profile'],'strategy_v1')
             self.assertLessEqual(len(agent.replay),changed['steps'])
-            inherited=train_session(1,root/'inherited',root/'models',root/'models/3_model.pt')
-            self.assertEqual(inherited['reward_profile'],'strategy_v1')
+            inherited=train_session(1,root/'inherited',root/'models',root/'models'/changed['saved_model'])
+            self.assertEqual(inherited['reward_profile'],'strategy')
             self.assertTrue(inherited['exact_resume'])
 
 if __name__=='__main__':unittest.main()

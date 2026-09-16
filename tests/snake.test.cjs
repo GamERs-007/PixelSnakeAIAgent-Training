@@ -382,11 +382,34 @@ test('filling a board wins safely and equal scores remain on each player’s own
   }
   player.food = {x:19,y:19}; api.step(player);
   assert.equal(player.snake.length, 400); assert.equal(player.food, null); assert.equal(player.won, true);
+  assert.equal(ids['title-1'].textContent, 'YOU WIN, 100%');
+  assert.equal(ids['overlay-1'].hidden, false);
   assert.equal(api.get().state, 'running');
   api.players[1].score = player.score; api.finish(api.players[1]);
   assert.equal(ids['kicker-1'].textContent, 'Player 1'); assert.equal(api.get().state, 'over');
   assert.equal(ids['text-1'].textContent, 'Score: 10');
   assert.equal(ids['text-2'].textContent, 'Score: 10');
+});
+
+test('full-board victory stays visible above a new record and AI auto-restart', () => {
+  const app=boot(), {api,ids}=app;
+  ids['agent-1'].handlers.change({target:{value:'heuristic'}});
+  ids['auto-restart'].handlers.change({target:{checked:true}});
+  api.start();
+  const player=api.players[0];
+  player.score=3970;
+  api.finish(player,true);
+  for(const language of ['zh-CN','en','fr']) {
+    api.setLanguage(language);
+    assert.equal(ids['title-1'].textContent,'YOU WIN, 100%');
+    assert.equal(ids['kicker-1'].textContent,api.translations[language].newRecord);
+    assert.equal(ids['overlay-1'].hidden,false);
+  }
+  const episode=player.runner.episodeNumber;
+  app.frame(0); app.frame(250);
+  assert.equal(api.get().state,'over');
+  assert.equal(player.runner.episodeNumber,episode);
+  assert.equal(ids['title-1'].textContent,'YOU WIN, 100%');
 });
 
 test('language, Consolas, saved preference and disabled storage survive the mode changes', () => {
@@ -410,6 +433,23 @@ test('language, Consolas, saved preference and disabled storage survive the mode
     api.setLanguage('zh-CN'); assert.equal(ids['play-2'].textContent, '继续游戏');
     if (!blockedStorage) assert.equal(app.storage.get('pixel-snake-language'), 'zh-CN');
   }
+});
+
+test('training offers three named schemes and explains seed and folder naming',()=>{
+  const {api,ids}=boot();
+  const options=html.match(/<select id="training-reward">([\s\S]*?)<\/select>/)[1];
+  assert.deepEqual([...options.matchAll(/value="([^"]+)"/g)].map(m=>m[1]),['classic','strategy','ultimate']);
+  for(const lang of ['zh-CN','en','fr']) {
+    api.setLanguage(lang);
+    assert.ok(api.translations[lang].rewardUltimate.includes('ultimate'));
+    assert.ok(ids['seed-hint'].textContent.includes('42'));
+    assert.ok(api.translations[lang].trainingSaveHint.includes('models/ultimate'));
+  }
+  ids['training-model'].value='ultimate/source.pt';
+  ids['training-model'].handlers.change();
+  assert.equal(ids['training-seed'].disabled,true);
+  ids['training-model'].value='';ids['training-model'].handlers.change();
+  assert.equal(ids['training-seed'].disabled,false);
 });
 
 test('missing Canvas reports a translated error and prevents starting the affected mode', () => {

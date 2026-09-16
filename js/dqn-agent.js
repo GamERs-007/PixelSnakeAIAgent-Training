@@ -26,6 +26,7 @@
         throw Error('Unsupported browser DQN model');
       }
       let inputs = 10, hidden;
+      this.denseBoardSweepEnabled=payload.inference_rules?.dense_board_sweep_above_half===true;
       this.layers = payload.layers.map((layer, index) => {
         const outputs = layer?.bias?.length;
         if (!Number.isInteger(outputs) || outputs < 1 || outputs > 1024 ||
@@ -61,6 +62,9 @@
     }
   }
   class BrowserDQNAgent {
+    get denseBoardSweepEnabled() {
+      return this.loadedModel===this.model() && this.network?.denseBoardSweepEnabled===true;
+    }
     constructor({model=()=>'', onStatus=()=>{}, requestFn=request}={}) {
       this.model = model; this.onStatus = onStatus; this.request = requestFn;
       this.network = null; this.loadedModel = null; this.generation = 0;

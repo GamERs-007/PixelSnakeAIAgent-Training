@@ -16,6 +16,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BrowserDQNTests(unittest.TestCase):
+    def test_variant_exports_only_supported_inference_rule(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'models').mkdir()
+            agent = DQNAgent(DQNConfig(hidden_size=8))
+            agent.save(root / 'models/variant.pt', {'episode':2300, 'inference_rules':{
+                'dense_board_sweep_above_half':True, 'unknown_private_field':'not exported'}})
+            exported = LocalApp(root).browser_model({'model':'variant.pt'})
+            self.assertEqual(exported['inference_rules'], {'dense_board_sweep_above_half':True})
+
     def test_javascript_observations_q_values_and_actions_match_pytorch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

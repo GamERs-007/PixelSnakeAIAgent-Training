@@ -5,9 +5,12 @@ import json
 from pathlib import Path
 from statistics import mean
 import time
+from datetime import datetime
+import uuid
 
 from rl.snake_env import SnakeEnv
 from .agent import DQNAgent, DQNConfig
+from rl.model_profiles import model_profile, normalize_profile, training_reward, inference_rules
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -43,12 +46,12 @@ def train_session(episodes, job_dir, models_dir, checkpoint=None, seed=42, save_
     start_episode = int(metadata.get("episode", 0))
     env_config = metadata.get("env_config", {"board_size": 20, "max_steps_without_food": 400})
     env_config = dict(env_config)
-    if reward_profile not in ("inherit", "classic", "strategy_v1"):
-        raise ValueError("Unknown reward profile")
-    old_profile = env_config.get("reward_profile", "classic")
+    old_profile = model_profile(metadata, Path(checkpoint).parent.name if checkpoint else '')
+    if reward_profile != 'inherit':
+        reward_profile = normalize_profile(reward_profile)
     selected_profile = old_profile if reward_profile == "inherit" else reward_profile
-    reward_changed = selected_profile != old_profile
-    env_config.update(reward_profile=selected_profile, shaping_gamma=agent.config.gamma)
+    reward_changed = training_reward(selected_profile) != env_config.get('reward_profile', 'classic')
+    env_config.update(reward_profile=training_reward(selected_profile), shaping_gamma=agent.config.gamma)
     if reward_changed:
         # Old transitions contain old rewards: never silently mix the two objectives.
         from .replay_buffer import ReplayBuffer
@@ -59,7 +62,7 @@ def train_session(episodes, job_dir, models_dir, checkpoint=None, seed=42, save_
               "target_episode": start_episode + episodes, "requested_episodes": episodes,
               "source_model": str(checkpoint) if checkpoint else None,
               "exact_resume": bool(checkpoint and not reward_changed and getattr(agent, "exact_resume_available", False)),
-              "reward_profile": selected_profile, "replay_reset_for_reward_change":reward_changed,
+              "reward_profile": selected_profile, "training_seed": seed, "replay_reset_for_reward_change":reward_changed,
               "saved_model": None, "job": job_dir.name}
     write_json(job_dir / "status.json", status)
     started = time.perf_counter()
@@ -67,13 +70,14 @@ def train_session(episodes, job_dir, models_dir, checkpoint=None, seed=42, save_
 
     def save():
         nonlocal saved
-        destination = models_dir / f"{completed}_model.pt"
+        saved_at = datetime.now().astimezone()
+        filename = f"{saved_at:%Y-%m-%d_%H-%M-%S-%f}_ep{completed}.pt"
+        destination = models_dir / selected_profile / filename
         if destination.exists():
-            # Preserve another run with the same episode count, keeping the requested basename.
-            destination = models_dir / job_dir.name / destination.name
-            if destination.exists():
-                raise FileExistsError("Checkpoint already exists")
+            destination = destination.with_name(f"{destination.stem}_{uuid.uuid4().hex[:8]}.pt")
         agent.save(destination, {"episode": completed, "env_config": env_config,
+                                "model_profile": selected_profile, "saved_at": saved_at.isoformat(),
+                                "inference_rules": inference_rules(selected_profile),
                                 "training_seed": seed, "recent_scores": scores[-100:],
                                 "parent_model": str(checkpoint) if checkpoint else None,
                                 "job": job_dir.name}, include_training_state=True)
@@ -137,7 +141,7 @@ def main():
     parser.add_argument("--job-dir", type=Path, required=True)
     parser.add_argument("--models-dir", type=Path, default=ROOT / "models")
     parser.add_argument("--checkpoint", type=Path)
-    parser.add_argument("--reward-profile", choices=["inherit","classic","strategy_v1"], default="inherit")
+    parser.add_argument("--reward-profile", choices=["inherit","classic","strategy","ultimate","strategy_v1"], default="inherit")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--save-every", type=int, default=100)
     args = parser.parse_args()

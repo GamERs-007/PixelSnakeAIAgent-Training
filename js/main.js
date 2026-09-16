@@ -47,7 +47,7 @@
       pause: '暂停', resume: '继续', restart: '重新开始', directions: '方向控制',
       up: '向上', down: '向下', left: '向左', right: '向右', startPause: '开始 / 暂停', space: '空格',
       paused: '已暂停', pauseHint: '休息一下，准备好后继续。', resumeGame: '继续游戏',
-      won: '恭喜通关！', over: '游戏结束', newRecord: '新纪录！', again: '再玩一次',
+      won: 'YOU WIN, 100%', over: '游戏结束', newRecord: '新纪录！', again: '再玩一次',
       player1: '玩家 1', player2: '玩家 2', playing: '游戏中', waiting: '另一位玩家仍在游戏中',
       roundScore: '得分：{score}',
       canvasError: '无法创建游戏画布，请使用支持 Canvas 的浏览器。'
@@ -95,7 +95,7 @@
       pause: 'Pause', resume: 'Resume', restart: 'Restart', directions: 'Direction controls',
       up: 'Move up', down: 'Move down', left: 'Move left', right: 'Move right', startPause: 'Start / Pause', space: 'Space',
       paused: 'Paused', pauseHint: 'Take a break. Resume when you are ready.', resumeGame: 'Resume game',
-      won: 'You win!', over: 'Game over', newRecord: 'New record!', again: 'Play again',
+      won: 'YOU WIN, 100%', over: 'Game over', newRecord: 'New record!', again: 'Play again',
       player1: 'Player 1', player2: 'Player 2', playing: 'Playing', waiting: 'The other player is still playing',
       roundScore: 'Score: {score}',
       canvasError: 'Unable to create the game canvas. Please use a browser that supports Canvas.'
@@ -143,7 +143,7 @@
       pause: 'Pause', resume: 'Reprendre', restart: 'Recommencer', directions: 'Commandes de direction',
       up: 'Aller en haut', down: 'Aller en bas', left: 'Aller à gauche', right: 'Aller à droite', startPause: 'Jouer / Pause', space: 'Espace',
       paused: 'En pause', pauseHint: 'Faites une pause. Reprenez quand vous voulez.', resumeGame: 'Reprendre',
-      won: 'Victoire !', over: 'Partie terminée', newRecord: 'Nouveau record !', again: 'Rejouer',
+      won: 'YOU WIN, 100%', over: 'Partie terminée', newRecord: 'Nouveau record !', again: 'Rejouer',
       player1: 'Joueur 1', player2: 'Joueur 2', playing: 'En jeu', waiting: 'L’autre joueur joue encore',
       roundScore: 'Score : {score}',
       canvasError: 'Impossible de créer le plateau de jeu. Utilisez un navigateur compatible avec Canvas.'
@@ -152,11 +152,17 @@
   const localTranslations = {"zh-CN": {"dqnAgent": "DQN", "qwenAgent": "Qwen（本机）", "safetyAssist": "防困辅助（所有 AI）", "dqnModel": "DQN 模型", "refreshModels": "连接 / 刷新模型", "trainingHint": "选择已有模型继续训练，或从零开始。episode 数是本次追加数量。Qwen 不参与训练。", "trainingSource": "起始模型", "newModel": "从零开始", "trainingEpisodes": "追加 episodes", "saveEvery": "保存间隔", "trainingSeed": "种子（新模型）", "trainingStart": "开始训练", "trainingStop": "停止并保存", "trainingSaveHint": "模型保存在 models/。2000_model.pt 追加 500 回合后生成 2500_model.pt。同名文件保留在独立目录。", "localOffline": "DQN / Qwen / Training 需要本机服务。运行 start-local.ps1，打开 http://127.0.0.1:8765", "localOnline": "本机服务已连接 · {count} 个模型", "thinking": "正在等待 {type} 决策…", "decisionReady": "决策 {ms} ms{fallback} · 防困调整 {count} 次", "fallbackNote": "（回退动作）", "aiError": "AI 暂停等待：{error}", "trainingIdle": "尚未训练。停止将在当前 episode 完成后保存。", "trainingRunning": "状态 {state} · episode {episode} / {target}\n分数 {score} · 均分 {average} · epsilon {epsilon}\n已保存：{saved}", "trainingFailed": "训练失败：{error}", "notSaved": "尚未保存", "resumedLegacy": "旧模型：重新积累经验回放", "resumeFull": "完整续训状态"}, "en": {"dqnAgent": "DQN", "qwenAgent": "Qwen (local)", "safetyAssist": "Trap avoidance assistance (all AI)", "dqnModel": "DQN model", "refreshModels": "Connect / refresh models", "trainingHint": "Continue an existing model or start fresh. Episodes are additional training episodes. Qwen is inference only.", "trainingSource": "Starting model", "newModel": "New model", "trainingEpisodes": "Add episodes", "saveEvery": "Save every", "trainingSeed": "Seed (new model)", "trainingStart": "Start training", "trainingStop": "Stop and save", "trainingSaveHint": "Saved in models/: 2000_model.pt + 500 episodes becomes 2500_model.pt. Name collisions use separate run folders.", "localOffline": "DQN / Qwen / Training need the local service. Run start-local.ps1 and open http://127.0.0.1:8765", "localOnline": "Local service connected · {count} models", "thinking": "Waiting for {type} decision…", "decisionReady": "Decision {ms} ms{fallback} · safety overrides {count}", "fallbackNote": " (fallback)", "aiError": "AI waiting: {error}", "trainingIdle": "No training yet. Stop saves after the current episode.", "trainingRunning": "State {state} · episode {episode} / {target}\nScore {score} · moving mean {average} · epsilon {epsilon}\nSaved: {saved}", "trainingFailed": "Training failed: {error}", "notSaved": "Not saved yet", "resumedLegacy": "Legacy model: replay starts empty", "resumeFull": "Full resume state"}, "fr": {"dqnAgent": "DQN", "qwenAgent": "Qwen (local)", "safetyAssist": "Assistance anti-piège (toutes les IA)", "dqnModel": "Modèle DQN", "refreshModels": "Connecter / actualiser", "trainingHint": "Reprendre un modèle ou repartir de zéro. Le nombre indique les épisodes supplémentaires. Qwen ne fait que des inférences.", "trainingSource": "Modèle initial", "newModel": "Nouveau modèle", "trainingEpisodes": "Ajouter épisodes", "saveEvery": "Sauver tous les", "trainingSeed": "Graine (nouveau)", "trainingStart": "Entraîner", "trainingStop": "Arrêter et sauver", "trainingSaveHint": "Sauvé dans models/ : 2000_model.pt + 500 épisodes donne 2500_model.pt. Les doublons utilisent un dossier distinct.", "localOffline": "DQN / Qwen / Training nécessitent le service local. Lancez start-local.ps1 et ouvrez http://127.0.0.1:8765", "localOnline": "Service local connecté · {count} modèles", "thinking": "Décision {type} en attente…", "decisionReady": "Décision {ms} ms{fallback} · corrections {count}", "fallbackNote": " (repli)", "aiError": "IA en attente : {error}", "trainingIdle": "Aucun entraînement. Arrêt sauvegardé après cet épisode.", "trainingRunning": "État {state} · épisode {episode} / {target}\nScore {score} · moyenne {average} · epsilon {epsilon}\nSauvé : {saved}", "trainingFailed": "Échec : {error}", "notSaved": "Pas encore sauvé", "resumedLegacy": "Ancien modèle : mémoire vide", "resumeFull": "Reprise complète"}};
   for (const lang of Object.keys(translations)) Object.assign(translations[lang], localTranslations[lang]);
   const rewardTranslations={
-    'zh-CN':{rewardProfile:'训练奖励',rewardInherit:'沿用模型（新模型用经典奖励）',rewardClassic:'经典奖励',rewardStrategy:'策略奖励 v1（实验）',rewardHint:'切换奖励会清空旧经验回放；保留网络和累计 episode。策略奖励需训练后才影响模型。',rewardReset:'奖励已切换：旧经验回放已清空'},
-    en:{rewardProfile:'Reward profile',rewardInherit:'Inherit (classic for new models)',rewardClassic:'Classic',rewardStrategy:'Strategy v1 (experimental)',rewardHint:'Changing rewards clears old replay; weights and episode count remain. New rewards require training.',rewardReset:'Reward changed: old replay cleared'},
-    fr:{rewardProfile:'Récompenses',rewardInherit:'Hériter (classique si nouveau)',rewardClassic:'Classique',rewardStrategy:'Stratégie v1 (expérimental)',rewardHint:'Changer les récompenses vide la mémoire, mais conserve les poids et épisodes. Un entraînement est nécessaire.',rewardReset:'Récompenses modifiées : mémoire vidée'}
+    'zh-CN':{rewardProfile:'奖励 / 行走方案',rewardClassic:'classic · 基础型',rewardStrategy:'strategy · 策略型',rewardUltimate:'ultimate · 铺满型',rewardHint:'classic：吃食物 +10，撞击 −10，每步 −0.01。strategy：再鼓励接近食物、保留退路，惩罚重复绕圈和多余转弯。ultimate：使用 strategy 训练奖励，加上超过 50% 后逐行铺满的浏览器规则（需开启防困辅助）。改变训练奖励会清空旧经验回放。',rewardReset:'奖励已切换：旧经验回放已清空',trainingSeed:'随机种子 Seed（默认 42）',seedHint:'Seed 控制食物分布、初始权重和训练探索的随机性。同样设置和种子便于复现实验；不是难度，不懂就用 42。续训沿用原模型种子，此项不可修改。',trainingSaveHint:'自动保存到 models/classic、models/strategy 或 models/ultimate。文件名带本机日期、时间和累计回合数，例如 2026-09-12_14-30-00-123456_ep2400.pt。'},
+    en:{rewardProfile:'Reward / movement scheme',rewardClassic:'classic · Basic',rewardStrategy:'strategy · Strategic',rewardUltimate:'ultimate · Board filling',rewardHint:'classic: food +10, collision −10, step −0.01. strategy: also rewards food progress and escape space, penalizes loops and extra turns. ultimate: strategy training rewards plus a browser sweep above 50% (assistance required). Changing numeric rewards clears replay.',rewardReset:'Reward changed: old replay cleared',trainingSeed:'Random seed (default 42)',seedHint:'Controls food, initial weights and exploration randomness. Matching settings and seeds help reproduce a run. It is not difficulty; keep 42 if unsure. Resuming keeps the source seed and disables this field.',trainingSaveHint:'Saved under models/classic, models/strategy or models/ultimate. Names include local date, time and cumulative episodes, e.g. 2026-09-12_14-30-00-123456_ep2400.pt.'},
+    fr:{rewardProfile:'Récompenses / déplacement',rewardClassic:'classic · Base',rewardStrategy:'strategy · Stratégie',rewardUltimate:'ultimate · Remplissage',rewardHint:'classic : fruit +10, collision −10, pas −0,01. strategy : progression vers le fruit et espace de sortie, pénalités de boucles et virages. ultimate : récompenses strategy avec parcours au-delà de 50 % dans le navigateur (assistance requise). Changer les récompenses numériques vide la mémoire.',rewardReset:'Récompenses modifiées : mémoire vidée',trainingSeed:'Graine aléatoire (défaut 42)',seedHint:'Contrôle les fruits, les poids initiaux et l’exploration. Les mêmes paramètres et graines facilitent la reproduction. Ce n’est pas la difficulté ; gardez 42. Une reprise conserve la graine du modèle et désactive ce champ.',trainingSaveHint:'Sauvé dans models/classic, models/strategy ou models/ultimate, avec date et heure locales et épisodes cumulés, ex. 2026-09-12_14-30-00-123456_ep2400.pt.'}
   };
   for(const lang of Object.keys(translations))Object.assign(translations[lang],rewardTranslations[lang]);
+  const layoutTranslations={
+    'zh-CN':{trainingTitle:'训练工作台',schemeGuide:'选择适合的方案',classicDesc:'基础奖励，专注吃食物与避开碰撞。',foodReward:'吃到食物',collisionReward:'发生碰撞',stepReward:'每走一步',strategyDesc:'在 classic 基础上，兼顾路线效率和生存空间。',strategyFood:'鼓励接近食物、保留可通行的退路',strategyLoop:'惩罚重复绕圈和多余转弯',ultimateDesc:'使用 strategy 训练奖励，附加逐行铺满规则。',ultimateThreshold:'蛇身超过 50% 时接入铺满路线',ultimateAssist:'需要开启「防困辅助」',replayNote:'更换数值奖励会清空旧经验回放，保留权重与累计回合数。',trainingConfig:'训练配置',trainingMonitor:'进度与保存',seedTitle:'Seed 是什么？',saveTitle:'自动分类保存',saveFolders:'按所选方案保存到对应目录',saveNaming:'文件名包含本机日期、时间和累计回合数。',seedHint:'控制食物分布和训练随机性，方便复现实验，不是难度。保留 42 即可；续训沿用原模型种子。'},
+    en:{trainingTitle:'Training workspace',schemeGuide:'Choose your scheme',classicDesc:'Basic rewards for collecting food and avoiding collisions.',foodReward:'Food collected',collisionReward:'Collision',stepReward:'Each step',strategyDesc:'Builds on classic with route efficiency and room to survive.',strategyFood:'Rewards food progress and escape space',strategyLoop:'Penalizes repeated loops and extra turns',ultimateDesc:'Strategy training rewards with a row-by-row sweep rule.',ultimateThreshold:'Joins the sweep above 50% board occupancy',ultimateAssist:'Requires safety assistance to be enabled',replayNote:'Changing numeric rewards clears old replay; weights and cumulative episodes are kept.',trainingConfig:'Training setup',trainingMonitor:'Progress & saving',seedTitle:'What is Seed?',saveTitle:'Organized automatically',saveFolders:'Saved in the folder for the selected scheme',saveNaming:'Names include local date, time and cumulative episodes.',seedHint:'Controls food and training randomness to help reproduce a run. It is not difficulty. Keep 42 if unsure; resumed models keep their original seed.'},
+    fr:{trainingTitle:'Atelier d’entraînement',schemeGuide:'Choisir une approche',classicDesc:'Récompenses de base pour les fruits et éviter les collisions.',foodReward:'Fruit mangé',collisionReward:'Collision',stepReward:'Chaque pas',strategyDesc:'Ajoute à classic l’efficacité du trajet et un espace de sortie.',strategyFood:'Favorise les fruits accessibles et les issues',strategyLoop:'Pénalise les boucles et les virages superflus',ultimateDesc:'Récompenses strategy avec parcours ligne par ligne.',ultimateThreshold:'Rejoint le parcours au-delà de 50 % du plateau',ultimateAssist:'Nécessite l’assistance de sécurité',replayNote:'Changer les récompenses numériques vide la mémoire ; les poids et épisodes sont conservés.',trainingConfig:'Configuration',trainingMonitor:'Progression et sauvegarde',seedTitle:'Qu’est-ce que Seed ?',saveTitle:'Classement automatique',saveFolders:'Sauvé dans le dossier de l’approche sélectionnée',saveNaming:'Noms avec date, heure locales et épisodes cumulés.',seedHint:'Contrôle les fruits et l’aléatoire pour reproduire un essai. Ce n’est pas la difficulté. Gardez 42 ; une reprise conserve sa graine.'}
+  };
+  for(const lang of Object.keys(translations))Object.assign(translations[lang],layoutTranslations[lang]);
   const inferenceTranslations = {"zh-CN": {"aiSpeed": "\u76ee\u6807 AI \u901f\u5ea6", "actualRate": "\u5b9e\u9645 {actual} steps/s \u00b7 \u76ee\u6807 {target}", "dqnLoading": "\u6b63\u5728\u52a0\u8f7d DQN \u6743\u91cd\u2026", "dqnLocal": "DQN \u6d4f\u89c8\u5668\u63a8\u7406 \u00b7 \u9632\u56f0\u8c03\u6574 {count} \u6b21"}, "en": {"aiSpeed": "Target AI speed", "actualRate": "Actual {actual} steps/s \u00b7 target {target}", "dqnLoading": "Loading DQN weights\u2026", "dqnLocal": "DQN browser inference \u00b7 safety overrides {count}"}, "fr": {"aiSpeed": "Vitesse IA cible", "actualRate": "R\u00e9el {actual} steps/s \u00b7 cible {target}", "dqnLoading": "Chargement des poids DQN\u2026", "dqnLocal": "DQN dans le navigateur \u00b7 corrections {count}"}};
   for(const lang of Object.keys(translations))Object.assign(translations[lang],inferenceTranslations[lang]);
   const skins = {
@@ -339,6 +345,13 @@
     if (player.agentType === 'dqn' && player.agent.agent.network && player.agent.agent.loadedModel === $('dqn-model').value) {
       $('ai-status-' + player.id).textContent = t('dqnLocal', {count:player.agent.guard?.overrides || 0});
     }
+    if (safetyEnabled && player.agent.guard?.filling) {
+      const joining=player.agent.guard.lastReason==='fill_join';
+      $('ai-status-' + player.id).textContent = language==='zh-CN'
+        ? (joining ? '蛇身超过 50% · 正在安全接入铺满路线' : '蛇身超过 50% · 逐行铺满模式')
+        : language==='fr' ? (joining ? 'Occupation > 50 % · Rejoint le parcours' : 'Occupation > 50 % · Parcours ligne par ligne')
+        : (joining ? 'Board > 50% · Joining sweep safely' : 'Board > 50% · Row-by-row sweep');
+    }
     $('meter-' + player.id).style.width = (Math.min(1, currentSpeed(player) / maxSpeed) * 100) + '%';
     $('player-' + player.id).classList.toggle('boosting', player.boosting);
   }
@@ -374,10 +387,14 @@
         title = t(player.model.won ? 'won' : 'over');
         text = t('roundScore', {score: player.model.score});
         kicker = mode === 'dual' && !over ? t('waiting') : mode === 'single' ? t('single') : label;
-        if (newRecord) { kicker = title; title = t('newRecord'); }
+        if (newRecord) {
+          if (player.model.won) kicker = t('newRecord');
+          else { kicker = title; title = t('newRecord'); }
+        }
       } else if (paused) { title = t('paused'); text = t('pauseHint'); kicker = label; }
       $('title-' + id).textContent = title; $('text-' + id).textContent = text; $('kicker-' + id).textContent = kicker;
       $('overlay-' + id).classList.toggle('result', !player.model.alive);
+      $('overlay-' + id).classList.toggle('full-board-win', player.model.won);
       $('overlay-' + id).classList.toggle('new-record', newRecord);
       $('overlay-' + id).hidden = state === 'running' && player.model.alive;
       $('play-' + id).textContent = action;
@@ -477,7 +494,7 @@
   function frame(time) {
     const rateDelta = rateLastTime === null ? 0 : Math.max(0, time - rateLastTime);
     rateLastTime = time;
-    if (state === 'over' && !document.hidden && autoRestart && activePlayers().every(player => player.agentType !== 'human')) start();
+    if (state === 'over' && !document.hidden && autoRestart && activePlayers().every(player => player.agentType !== 'human' && !player.model.won)) start();
     if (lastTime === null) lastTime = time;
     const wallDelta = Math.max(0, time - lastTime), delta = Math.min(wallDelta, 250);
     if (state === 'running') activePlayers().forEach(player => updateBoost(player, wallDelta));
@@ -592,11 +609,18 @@
 
   const localHTTP = () => globalThis.location?.protocol === 'http:' && ['127.0.0.1','localhost'].includes(globalThis.location.hostname);
   let trainingPoll = null, trainingBusy = false;
+  let availableModels=[];
+  function updateTrainingSource(selectScheme=false) {
+    const source=availableModels.find(model=>model.name===$('training-model').value);
+    $('training-seed').disabled=trainingBusy || Boolean($('training-model').value);
+    if(selectScheme)$('training-reward').value=source?.reward_profile || 'classic';
+  }
   function renderTraining(data) {
     trainingBusy = ['starting','running','stopping'].includes(data.state);
     $('training-start').disabled = trainingBusy || !localHTTP();
     $('training-stop').disabled = !trainingBusy;
     for (const id of ['training-model','training-reward','training-episodes','training-save-every','training-seed']) $(id).disabled = trainingBusy;
+    updateTrainingSource();
     $('training-progress').max = Math.max(1,(data.target_episode || 0)-(data.start_episode || 0));
     $('training-progress').value = Math.max(0,(data.episode || 0)-(data.start_episode || 0));
     $('training-status').textContent = data.state === 'idle' ? t('trainingIdle') : data.state === 'failed' ? t('trainingFailed',{error:data.error}) :
@@ -608,14 +632,20 @@
     if (!localHTTP()) { $('local-status').textContent=t('localOffline'); return; }
     try {
       const data=await globalThis.SnakeLocalAI.request('/api/models');
+      availableModels=data.models;
       for (const id of ['dqn-model','training-model']) {
         const select=$(id), selected=select.value;
         select.replaceChildren();
-        if (id==='training-model') select.add(new Option(t('newModel'),''));
+        if (id==='training-model') {
+          const option=new Option(t('newModel'),'');
+          option.dataset.i18n='newModel';
+          select.add(option);
+        }
         for (const model of data.models) select.add(new Option(model.name+' · '+model.episodes+' episodes · '+model.reward_profile,model.name));
         if ([...select.options].some(o=>o.value===selected)) select.value=selected;
       }
       players.forEach(player => player.agent.agent?.invalidate?.());
+      updateTrainingSource();
       $('local-status').textContent=t('localOnline',{count:data.models.length});
     } catch(error) { $('local-status').textContent=t('localOffline')+'\n'+error.message; }
   }
@@ -629,6 +659,7 @@
     trainingPoll=setTimeout(pollTraining,1500);
   }
   $('refresh-models').addEventListener('click',refreshModels);
+  $('training-model').addEventListener('change',()=>updateTrainingSource(true));
   $('ai-safety').addEventListener('change',event=>{safetyEnabled=event.target.checked; players.forEach(p=>p.agent.guard?.reset());});
   $('dqn-model').addEventListener('change',()=>{state='ready';resetPlayers();renderStatus();players.forEach(draw);});
   $('training-start').addEventListener('click',async()=>{

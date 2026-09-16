@@ -1,0 +1,17 @@
+[
+  {
+    "from": "D:\\isaac-lab\\PixelSnake\\models\\classic\\2000_model.pt",
+    "to": "D:\\isaac-lab\\PixelSnake\\models\\classic\\2026-09-10_21-39-17-351796_ep2000.pt",
+    "sha256": "14defd74f5b5907cfd6317989754526f735a743211d3944082f6df6eba69a95b"
+  },
+  {
+    "from": "D:\\isaac-lab\\PixelSnake\\models\\strategy\\2300_model.pt",
+    "to": "D:\\isaac-lab\\PixelSnake\\models\\strategy\\2026-09-11_00-27-06-910520_ep2300.pt",
+    "sha256": "42a4c255456ffd5285b04fd2c7dacd582e9e4cd50d9022e347e8043ea16f3141"
+  },
+  {
+    "from": "D:\\isaac-lab\\PixelSnake\\models\\ultimate\\2300_fill50_model.pt",
+    "to": "D:\\isaac-lab\\PixelSnake\\models\\ultimate\\2026-09-12_01-30-56-963414_ep2300.pt",
+    "sha256": "a407513272f41a31566ca0acb4ff64aca17bdf016d7132c2a95e44de4cd2f524"
+  }
+]

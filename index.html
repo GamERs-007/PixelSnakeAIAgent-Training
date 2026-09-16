@@ -145,7 +145,7 @@
         </select>
       </label>
       <label class="agent-check"><input id="ai-safety" type="checkbox" checked><span data-i18n="safetyAssist">防困辅助（所有 AI）</span></label>
-      <label class="agent-select"><span data-i18n="dqnModel">DQN 模型</span><select id="dqn-model"><option value="best_model.pt">best_model.pt</option></select></label>
+      <label class="agent-select"><span data-i18n="dqnModel">DQN 模型</span><select id="dqn-model"><option value="">连接后选择模型</option></select></label>
       <p class="hint" id="local-status" role="status"></p>
       <button class="btn ghost" id="refresh-models" data-i18n="refreshModels">连接 / 刷新模型</button>
       <label class="agent-check"><input id="headless" type="checkbox"><span data-i18n="headless">Disable board rendering (headless)</span></label>
@@ -163,21 +163,57 @@
     </details>
   </aside>
     <details class="card training-panel" id="training-panel">
-      <summary><span><span class="section-index">02 / </span>Training <span class="section-tag">DQN</span></span><span class="disclosure-mark" aria-hidden="true">+</span></summary>
+      <summary><span><span class="section-index">02 / </span><span data-i18n="trainingTitle">训练工作台</span> <span class="section-tag">DQN</span></span><span class="disclosure-mark" aria-hidden="true">+</span></summary>
       <p class="hint" data-i18n="trainingHint">选择已有模型继续训练，或从零开始。episode 数表示本次追加数量。Qwen 不参与训练。</p>
-      <div class="training-layout"><div class="training-fields">
-      <label class="agent-select"><span data-i18n="trainingSource">起始模型</span><select id="training-model"><option value="" data-i18n="newModel">从零开始</option></select></label>
-      <label class="agent-select"><span data-i18n="rewardProfile">训练奖励</span><select id="training-reward"><option value="inherit" data-i18n="rewardInherit">沿用模型（新模型用经典奖励）</option><option value="classic" data-i18n="rewardClassic">经典奖励</option><option value="strategy_v1" data-i18n="rewardStrategy">策略奖励 v1（实验）</option></select></label>
-      <p class="hint" data-i18n="rewardHint">切换奖励会清空旧经验回放；保留网络和累计 episode。策略奖励需训练后才影响模型。</p>
-      <label class="agent-select"><span data-i18n="trainingEpisodes">追加 episodes</span><input id="training-episodes" type="number" min="1" max="10000" value="100"></label>
-      <label class="agent-select"><span data-i18n="saveEvery">保存间隔</span><input id="training-save-every" type="number" min="1" max="10000" value="100"></label>
-      <label class="agent-select"><span data-i18n="trainingSeed">随机种子（新模型）</span><input id="training-seed" type="number" min="0" max="99999" value="42"></label>
-      </div><div class="training-monitor">
-      <div class="ctl-row"><button id="training-start" class="btn primary" data-i18n="trainingStart">开始训练</button><button id="training-stop" class="btn ghost" disabled data-i18n="trainingStop">停止并保存</button></div>
-      <progress id="training-progress" max="100" value="0"></progress>
-      <p class="hint" id="training-status" role="status" aria-live="polite"></p>
-      <p class="hint" data-i18n="trainingSaveHint">保存在 models/，例如 2000_model.pt 追加 500 回合后生成 2500_model.pt。同名模型保留在独立目录。</p>
-      </div></div>
+      <section class="scheme-guide" aria-labelledby="scheme-guide-title">
+        <h3 class="training-section-title" id="scheme-guide-title" data-i18n="schemeGuide">选择适合的方案</h3>
+        <div class="scheme-grid">
+          <article class="scheme-card scheme-classic">
+            <header><h4>classic</h4><span class="scheme-number">01</span></header>
+            <p data-i18n="classicDesc">基础奖励，专注吃食物与避开碰撞。</p>
+            <dl class="reward-values">
+              <div><dt data-i18n="foodReward">吃到食物</dt><dd class="positive">+10</dd></div>
+              <div><dt data-i18n="collisionReward">发生碰撞</dt><dd>−10</dd></div>
+              <div><dt data-i18n="stepReward">每走一步</dt><dd>−0.01</dd></div>
+            </dl>
+          </article>
+          <article class="scheme-card scheme-strategy">
+            <header><h4>strategy</h4><span class="scheme-number">02</span></header>
+            <p data-i18n="strategyDesc">在 classic 基础上，兼顾路线效率和生存空间。</p>
+            <ul><li data-i18n="strategyFood">鼓励接近食物、保留可通行的退路</li><li data-i18n="strategyLoop">惩罚重复绕圈和多余转弯</li></ul>
+          </article>
+          <article class="scheme-card scheme-ultimate">
+            <header><h4>ultimate</h4><span class="scheme-number">03</span></header>
+            <p data-i18n="ultimateDesc">使用 strategy 训练奖励，附加逐行铺满规则。</p>
+            <ul><li data-i18n="ultimateThreshold">蛇身超过 50% 时接入铺满路线</li><li data-i18n="ultimateAssist">需要开启「防困辅助」</li></ul>
+          </article>
+        </div>
+        <p class="replay-note" data-i18n="replayNote">更换数值奖励会清空旧经验回放，保留权重与累计回合数。</p>
+      </section>
+      <div class="training-layout">
+        <div class="training-fields">
+          <h3 class="training-section-title field-wide" data-i18n="trainingConfig">训练配置</h3>
+          <label class="agent-select field-wide"><span data-i18n="trainingSource">起始模型</span><select id="training-model"><option value="" data-i18n="newModel">从零开始</option></select></label>
+          <label class="agent-select field-wide"><span data-i18n="rewardProfile">奖励 / 行走方案</span><select id="training-reward"><option value="classic" data-i18n="rewardClassic">classic · 基础型</option><option value="strategy" data-i18n="rewardStrategy">strategy · 策略型</option><option value="ultimate" data-i18n="rewardUltimate">ultimate · 铺满型</option></select></label>
+          <label class="agent-select"><span data-i18n="trainingEpisodes">追加 episodes</span><input id="training-episodes" type="number" min="1" max="10000" value="100"></label>
+          <label class="agent-select"><span data-i18n="saveEvery">保存间隔</span><input id="training-save-every" type="number" min="1" max="10000" value="100"></label>
+          <label class="agent-select field-wide"><span data-i18n="trainingSeed">随机种子 Seed（默认 42）</span><input id="training-seed" aria-describedby="seed-hint" type="number" min="0" max="99999" value="42"></label>
+          <aside class="seed-note field-wide"><h4 data-i18n="seedTitle">Seed 是什么？</h4><p id="seed-hint" data-i18n="seedHint">控制食物分布和训练随机性，方便复现实验，不是难度。保留 42 即可；续训沿用原模型种子。</p></aside>
+        </div>
+        <div class="training-monitor">
+          <h3 class="training-section-title" data-i18n="trainingMonitor">进度与保存</h3>
+          <div class="training-actions"><button id="training-start" class="btn primary" data-i18n="trainingStart">开始训练</button><button id="training-stop" class="btn ghost" disabled data-i18n="trainingStop">停止并保存</button></div>
+          <progress id="training-progress" max="100" value="0"></progress>
+          <p id="training-status" role="status" aria-live="polite"></p>
+          <section class="save-note">
+            <h4 data-i18n="saveTitle">自动分类保存</h4>
+            <p data-i18n="saveFolders">按所选方案保存到对应目录</p>
+            <div class="folder-tags"><code>models/classic</code><code>models/strategy</code><code>models/ultimate</code></div>
+            <p data-i18n="saveNaming">文件名包含本机日期、时间和累计回合数。</p>
+            <code class="filename-example">2026-09-12_14-30-00-123456_ep2400.pt</code>
+          </section>
+        </div>
+      </div>
     </details>
   <footer class="cabinet-footer">
     <label class="language-control"><span data-i18n="languageLabel">语言 / Language</span><select id="language"><option value="zh-CN">中文</option><option value="en">English</option><option value="fr">Français</option></select></label>
