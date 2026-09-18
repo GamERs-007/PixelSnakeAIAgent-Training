@@ -5,6 +5,10 @@
     const response = await fetch(path, {method:data===undefined?'GET':'POST', signal,
       headers:{'Content-Type':'application/json','X-Snake-Client':'1'},
       ...(data===undefined?{}:{body:JSON.stringify(data)})});
+    const contentType = response.headers?.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw Error('This page is not served by PixelSnake. Open Start-PixelSnake.cmd and use the page it opens.');
+    }
     const value = await response.json();
     if (!response.ok) throw Error(value.error || 'Local service unavailable');
     return value;

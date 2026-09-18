@@ -171,6 +171,17 @@ Raw Gymnasium seeds are 500000-500099, 501000-501099 and 502000-502099, 100 per 
 
 Full technical report: [PDF](reports/{REPORT}.pdf) / [editable Markdown](reports/{REPORT}.md). [Experiment amendments and negative results]({EXP}/experiment_notes.json). [Pre-recheck README, preserved verbatim]({EXP}/baseline/README.md).
 
+## Portable startup / 移动文件夹与换电脑
+
+Windows: double-click **[Start-PixelSnake.cmd](Start-PixelSnake.cmd)** in the extracted project folder. It checks Python, prepares `.venv` if needed, and opens the local game page. Keep the startup terminal open while playing. If already running from the same folder, it opens that server instead. [Source: `start-local.ps1`; `run_local.py`, `prepare_environment`, `existing_server`, `main`; `rl/web_server.py`, `main`.]
+
+Windows 用户请双击项目目录内的 **Start-PixelSnake.cmd**，在自动打开的页面中选择模型；游玩期间保持启动窗口打开。直接双击 HTML 或使用普通静态网页服务器，无法读取 Python 模型接口。
+
+- Install Python **3.12 or newer** with PATH enabled on a new computer; 3.12 is the tested version. First dependency installation needs internet. The launcher installs `rl/requirements.txt` when required modules are missing. Qwen additionally needs its separately installed local Ollama model. [Source: `start-local.ps1`; `run_local.py`, `python_works`, `prepare_environment`; `rl/llm_agent.py`, `OllamaClient`.]
+- Copy the complete project, including `models/` and its `.pt` files. Omit `.venv` when making a ZIP: virtual environments contain machine-specific Python paths. A broken copied environment is preserved as `.venv-backup-*` and rebuilt using an available Python installation. No model files are moved or replaced by setup. [Source: `run_local.py`, `prepare_environment`.]
+- Startup, model discovery, static files and training outputs resolve from the project location, independent of folder name, drive letter or launch working directory. Model selections use paths relative to `models/`. [Source: `start-local.ps1`, `$PSScriptRoot`; `run_local.py`, `ROOT`, `main`; `rl/web_server.py`, `ROOT`, `LocalApp`, `model_path`, `start_training`, `Handler.do_GET`.]
+- If port 8765 is occupied by another service or another project copy, run `powershell -ExecutionPolicy Bypass -File .\\start-local.ps1 -Port 8766`. To skip opening a browser, add `-NoBrowser`. A Python entry point is also available: `python run_local.py --port 8766 --no-browser`. [Source: `start-local.ps1`; `run_local.py`, `main`.]
+
 ## Architecture and language boundaries
 
 {architecture}

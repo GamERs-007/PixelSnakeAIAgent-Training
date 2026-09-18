@@ -7,6 +7,25 @@ const {SafetyGuard,AssistedAgent,assess}=require('../js/safety.js');
 const {HeuristicAgent}=require('../js/agents.js');
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 
+test('static HTML server gives an actionable model connection error',async()=>{
+ const previous=global.fetch;
+ global.fetch=async()=>({headers:{get:()=> 'text/html'},json:()=>{throw Error('must not parse HTML');}});
+ try {await assert.rejects(require('../js/local-ai.js').request('/api/models'),/Start-PixelSnake.cmd/);}
+ finally {global.fetch=previous;}
+});
+
+test('local bridge keeps model paths relative and preserves API errors',async()=>{
+ const previous=global.fetch;const calls=[];
+ global.fetch=async(path,options)=>{calls.push([path,options]);return {
+  ok:true,headers:{get:()=> 'application/json; charset=utf-8'},json:async()=>({models:[{name:'classic/test.pt'}]})};};
+ try {
+  assert.equal((await require('../js/local-ai.js').request('/api/models')).models[0].name,'classic/test.pt');
+  assert.equal(calls[0][0],'/api/models');
+  global.fetch=async()=>({ok:false,headers:{get:()=> 'application/json'},json:async()=>({error:'Select a model'})});
+  await assert.rejects(require('../js/local-ai.js').request('/api/dqn/model',{}),/Select a model/);
+ } finally {global.fetch=previous;}
+});
+
 test('inference waits without stepping, then executes exactly one returned action',async()=>{
  let resolve,calls=0;
  const agent=new RemoteAgent({type:'dqn',requestFn:()=>{calls++;return new Promise(r=>resolve=r);}});

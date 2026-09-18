@@ -10,6 +10,7 @@ import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, unquote
 import uuid
+import webbrowser
 from datetime import datetime
 from rl.model_profiles import model_profile, normalize_profile, inference_rules
 
@@ -68,7 +69,7 @@ def observation_from_snapshot(state):
 
 class LocalApp:
     def __init__(self, root=ROOT):
-        self.root = Path(root)
+        self.root = Path(root).resolve()
         self.models = self.root / "models"
         self.lock, self.qwen_lock, self.training_lock = threading.Lock(), threading.Lock(), threading.Lock()
         self.cache = {}
@@ -213,7 +214,8 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if path == "/api/models": return self.reply(200, {"models": self.server.app.list_models()})
             if path == "/api/training": return self.reply(200, self.server.app.training_status())
-            if path == "/api/health": return self.reply(200, {"local": True})
+            if path == "/api/health":
+                return self.reply(200, {"local": True, "project": "PixelSnake", "root": str(self.server.app.root)})
             relative = path.lstrip("/") or "index.html"
             if relative not in ("index.html", "PixelSnake.html") and not relative.startswith(("css/", "js/")):
                 return self.reply(404, {"error": "Not found"})
@@ -257,11 +259,18 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--open-browser", action="store_true")
     args = parser.parse_args()
     torch.set_num_threads(1)
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    try:
+        server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    except OSError as error:
+        parser.exit(1, f"Cannot start PixelSnake on port {args.port}: {error}\n"
+                       "Close the other service or run start-local.ps1 -Port 8766.\n")
     server.app = LocalApp()
     print(f"Pixel Snake: http://127.0.0.1:{args.port}", flush=True)
+    if args.open_browser:
+        webbrowser.open(f"http://127.0.0.1:{server.server_address[1]}")
     try: server.serve_forever()
     except KeyboardInterrupt: pass
     finally:
